@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "mobile": "cd FE/mobile && yarn start",
+    "web": "cd FE/web && yarn dev",
+    "backend": "cd BE && yarn start"
   },
   "author": "",
   "license": "ISC",
