@@ -1,7 +1,9 @@
 import '@mantine/core/styles.css';
+import '../styles/global.css';
 
 import React from 'react';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
+import NavBar from '@/components/NavBar/NavBar';
 import UserProvider from '@/Providers/UserProvider';
 import { theme } from '../theme';
 
@@ -23,7 +25,10 @@ export default function RootLayout({ children }: { children: any }) {
       </head>
       <body>
         <MantineProvider theme={theme}>
-          <UserProvider>{children}</UserProvider>
+          <UserProvider>
+            <NavBar />
+            {children}
+          </UserProvider>
         </MantineProvider>
       </body>
     </html>

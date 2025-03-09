@@ -1,0 +1,154 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-md) 0;
+  z-index: 10;
+
+  background-color: transparent;
+
+  transition: all 0.2s ease-in-out;
+
+  /* make animation to appear after 1 second */
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.glass_background {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  cursor: pointer;
+}
+
+.site_name {
+  font-size: larger;
+}
+
+.links_wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.link {
+  color: var(--color-black);
+  font-size: 18px;
+}
+
+.link:hover {
+  color: var(--color-primary);
+}
+
+.link_alt {
+  color: var(--color-white);
+}
+
+.link_alt:hover {
+  color: var(--color-yellow);
+}
+
+.logo_alt {
+  filter: invert(1);
+}
+
+.burger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+.close_menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  cursor: pointer;
+}
+
+.mobile_links_wrapper {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 11;
+  width: 100vw;
+  opacity: 0;
+  transform: translateX(100%);
+  pointer-events: none;
+  height: 100vh;
+}
+
+.mobile_links_wrapper.visible {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.mobile_link {
+  color: var(--color-white);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: var(--spacing-md) 0;
+  text-align: center;
+  text-decoration: none;
+}
+
+.active_link {
+  color: var(--color-primary);
+  cursor: default;
+}
+
+.navbar_scrolled {
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-white);
+}
