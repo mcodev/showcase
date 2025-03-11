@@ -5,7 +5,7 @@ import React from 'react';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 import NavBar from '@/components/NavBar/NavBar';
 import UserProvider from '@/Providers/UserProvider';
-import { theme } from '../theme';
+import { theme } from '../styles/theme';
 
 export const metadata = {
   title: 'Riderz',
@@ -15,8 +15,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: any }) {
   return (
     <html lang="en" {...mantineHtmlProps}>
-      <head>
-        <ColorSchemeScript />
+      <head data-mantine-color-scheme="dark">
+        <ColorSchemeScript defaultColorScheme="dark" />
         <link rel="shortcut icon" href="/favicon.svg" />
         <meta
           name="viewport"
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>
+        <MantineProvider theme={theme} defaultColorScheme="dark">
           <UserProvider>
             <NavBar />
             {children}
