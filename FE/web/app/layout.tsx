@@ -36,3 +36,5 @@ export default function RootLayout({ children }: { children: any }) {
     </html>
   );
 }
+
+// https://www.youtube.com/watch?v=J8tnD2BWY28
