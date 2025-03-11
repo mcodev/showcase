@@ -1,3 +1,5 @@
+export const DEFAULT_THEME = 'dark';
+
 export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',

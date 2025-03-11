@@ -3,6 +3,7 @@ import '../styles/global.css';
 
 import React from 'react';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
+import { DEFAULT_THEME } from '@/common/consts';
 import NavBar from '@/components/NavBar/NavBar';
 import UserProvider from '@/Providers/UserProvider';
 import { theme } from '../styles/theme';
@@ -15,8 +16,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: any }) {
   return (
     <html lang="en" {...mantineHtmlProps}>
-      <head data-mantine-color-scheme="dark">
-        <ColorSchemeScript defaultColorScheme="dark" />
+      <head data-mantine-color-scheme={DEFAULT_THEME}>
+        <ColorSchemeScript defaultColorScheme={DEFAULT_THEME} />
         <link rel="shortcut icon" href="/favicon.svg" />
         <meta
           name="viewport"
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme} defaultColorScheme="dark">
+        <MantineProvider theme={theme} defaultColorScheme={DEFAULT_THEME}>
           <UserProvider>
             <NavBar />
             {children}
