@@ -12,7 +12,7 @@ export const theme = createTheme({
       },
     }),
   },
-  other: {
-    // ...baseTheme,
-  },
+  // other: {
+  // ...baseTheme,
+  // },
 });
