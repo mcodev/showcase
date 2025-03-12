@@ -7,7 +7,7 @@
     "web": "cd FE/web && yarn dev",
     "backend": "cd BE && yarn start",
     "prepare": "husky",
-    "test-web": "cd FE/web && yarn test"
+    "test-web": "cd FE/web && yarn pre-commit-test"
   },
   "author": "",
   "license": "ISC",
