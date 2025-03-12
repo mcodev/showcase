@@ -6,4 +6,16 @@ export const ROUTES = {
   REGISTER: '/register',
   FORGOT_PASSWORD: '/forgot-password',
   DASHBOARD: '/dashboard',
+  NEWS: '/news',
 };
+
+export const NAVBAR_ROUTES = [
+  {
+    transKey: 'home',
+    href: ROUTES.HOME,
+  },
+  {
+    transKey: 'news',
+    href: ROUTES.NEWS,
+  },
+];

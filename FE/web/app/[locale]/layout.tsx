@@ -55,7 +55,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
               namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
               resources={resources}
             >
-              <NavBar t={t} />
+              <NavBar t={t} locale={locale} />
               {children}
             </TranslationsProvider>
           </UserProvider>

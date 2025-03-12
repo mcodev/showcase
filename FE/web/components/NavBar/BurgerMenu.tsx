@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 // import { TOPICS } from '../../common/consts';
 import styles from './NavBar.module.css';
 
-export default function NavbarActions() {
+export default function BurgerMenu() {
   const [opened, setOpened] = useState(false);
   const [isTopPosition, setIsTopPosition] = useState(true);
   const pathname = usePathname();
