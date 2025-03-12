@@ -1,5 +1,4 @@
 import React from 'react';
-// import Image from 'next/image';
 import Link from 'next/link';
 import { NAVBAR_ROUTES } from '@/common/consts';
 import { LanguageType, TranslationFunctionType } from '@/types/common';
@@ -16,8 +15,6 @@ const NavBar = ({ t, locale }: NavBarProps) => {
     <nav className={styles.wrapper} id="navbar">
       <div className="content_restriction">
         <Link href="/" className={styles.logo}>
-          {/* <Image src="/logo.webp" alt="logo" width={32} height={37} id="navLogo" priority /> */}
-
           <p className={styles.site_name}>Riderz</p>
         </Link>
 
