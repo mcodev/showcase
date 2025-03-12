@@ -8,6 +8,7 @@ import {
 } from 'next/navigation';
 import { IconMenu, IconX } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
+import { NAVBAR_ROUTES } from '@/common/consts';
 // import { TOPICS } from '../../common/consts';
 import styles from './NavBar.module.css';
 
@@ -16,6 +17,8 @@ export default function BurgerMenu() {
   const [isTopPosition, setIsTopPosition] = useState(true);
   const pathname = usePathname();
   const { t } = useTranslation();
+
+  const { i18n } = useTranslation();
 
   // const { postId } = useParams();
 
@@ -110,23 +113,16 @@ export default function BurgerMenu() {
           <IconX size={30} color="var(--color-white)" />
         </button>
 
-        <Link href="/" className={styles.mobile_link} onClick={() => setOpened(!opened)}>
-          Αρχική
-        </Link>
-
-        <p>{t('back')}</p>
-
-        {/* {TOPICS.map(({ label, value }) => (
+        {NAVBAR_ROUTES.map((route) => (
           <Link
-            href={`/${value}`}
-            key={label}
+            href={`/${i18n.language}${route.href}`}
+            key={route.transKey}
             className={styles.mobile_link}
             onClick={() => setOpened(!opened)}
-            id={value}
           >
-            {label}
+            {t(route.transKey)}
           </Link>
-        ))} */}
+        ))}
       </div>
 
       <button

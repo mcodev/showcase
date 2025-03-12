@@ -21,12 +21,9 @@ const NavBar = ({ t, locale }: NavBarProps) => {
           <p className={styles.site_name}>Riderz</p>
         </Link>
 
-        <p>{t('layout:layout')}</p>
-
         <div>
           <nav className={styles.links_wrapper}>
             {NAVBAR_ROUTES.map((route) => (
-              // TODO add locale before each href in whole app
               <Link href={`/${locale}${route.href}`} key={route.transKey} className={styles.link}>
                 {t(`layout:${route.transKey}`)}
               </Link>
