@@ -40,7 +40,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
     <html lang={locale} {...mantineHtmlProps} dir={dir(locale)}>
       <head data-mantine-color-scheme={DEFAULT_THEME}>
         <ColorSchemeScript defaultColorScheme={DEFAULT_THEME} />
-        <link rel="shortcut icon" href="/favicon.svg" />
+        <link rel="logo icon" href="/favicon.png" />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
