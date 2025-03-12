@@ -8,7 +8,7 @@
   --spacing-3xl: 64px;
   --spacing-4xl: 128px;
   --spacing-5xl: 160px;
-  --spacing-5xl: 220px;
+  --spacing-6xl: 220px;
 
   --spacing-page: var(--spacing-2xl);
 
@@ -22,8 +22,8 @@
 
   --color-background: #242424;
   --color-primary: #8b00ff;
-  --color-white: #ffffff;
-  --color-black: #333333;
+  --color-white: #fff;
+  --color-black: #333;
   --color-gray: #808080;
   --color-lightPurple: #7d47af;
   --color-pink: #7c007cbb;
@@ -35,13 +35,13 @@ html[data-mantine-color-scheme='dark'] {
 
   --color-background: #242424;
 
-  --color-foreground: #ffffff;
+  --color-foreground: #fff;
   --color-primary: #8b00ff;
-  --color-white: #ffffff;
+  --color-white: #fff;
   --color-black: #171717;
   --color-gray: #a0a0a0;
   --color-lightPurple: #b37ad1;
-  --color-pink: #ff66ff;
+  --color-pink: #f6f;
   --color-yellow: #ffd700;
 }
 

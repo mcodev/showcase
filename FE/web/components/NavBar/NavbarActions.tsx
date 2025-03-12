@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
+import {
+  // useParams,
+  usePathname,
+} from 'next/navigation';
 import { IconMenu, IconX } from '@tabler/icons-react';
 // import { TOPICS } from '../../common/consts';
 import styles from './NavBar.module.css';
@@ -11,7 +14,7 @@ export default function NavbarActions() {
   const [opened, setOpened] = useState(false);
   const [isTopPosition, setIsTopPosition] = useState(true);
   const pathname = usePathname();
-  const { postId } = useParams();
+  // const { postId } = useParams();
 
   const isHomePage = pathname === '/';
 
