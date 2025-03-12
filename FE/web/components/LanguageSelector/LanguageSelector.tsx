@@ -14,8 +14,8 @@ export default function LanguageChanger() {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLocale = e.target.value;
 
-    // Set persistent cookie for next-i18n-router
-    document.cookie = `NEXT_LOCALE=${newLocale}; Max-Age=315360000; Path=/`;
+    // Set persistent cookie for next-i18n-router if when redirect the language does not persist
+    // document.cookie = `NEXT_LOCALE=${newLocale}; Max-Age=315360000; Path=/`;
 
     // Redirect to the new locale path
     let newPath = currentPathname;

@@ -29,7 +29,7 @@ export function generateStaticParams() {
 }
 
 export default async function RootLayout({ children, params }: LayoutProps) {
-  const { locale } = params;
+  const { locale } = await params;
 
   const { resources } = await initTranslations(locale, NAMESPACE.CLIENT_SIDE_COMPONENTS);
 
