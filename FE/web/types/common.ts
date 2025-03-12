@@ -1,5 +1,5 @@
+import { NAMESPACES_LIST } from '@/i18n/consts';
 import i18nConfig from '@/i18n/i18nConfig';
-import { NAMESPACES_LIST } from '@/i18n/namespaces';
 
 export type LanguageType = (typeof i18nConfig.locales)[number];
 

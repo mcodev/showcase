@@ -1,5 +1,5 @@
+import { NAMESPACE } from '@/i18n/consts';
 import initTranslations from '@/i18n/i18n';
-import { NAMESPACE } from '@/i18n/namespaces';
 import { ParamsType } from '@/types/common';
 import { Welcome } from '../../components/Welcome/Welcome';
 

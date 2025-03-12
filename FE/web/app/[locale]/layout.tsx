@@ -5,8 +5,8 @@ import React from 'react';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 import { DEFAULT_THEME } from '@/common/consts';
 import NavBar from '@/components/NavBar/NavBar';
+import { NAMESPACES_LIST } from '@/i18n/consts';
 import initTranslations from '@/i18n/i18n';
-import { NAMESPACES_LIST } from '@/i18n/namespaces';
 import TranslationsProvider from '@/Providers/TranslationsProvider';
 import UserProvider from '@/Providers/UserProvider';
 import { ParamsType } from '@/types/common';
@@ -54,6 +54,3 @@ export default async function RootLayout({ children, params }: LayoutProps) {
     </html>
   );
 }
-
-// Localization:
-// https://www.youtube.com/watch?v=J8tnD2BWY28
