@@ -28,6 +28,7 @@ const NavBar = () => {
         <div>
           <nav className={styles.links_wrapper}>
             {/* {TOPICS.map(({ label, value }) => (
+            TODO add locale before each href in whole app
               <Link href={`/${value}`} key={label} className={styles.link} id={value}>
                 {label}
               </Link>

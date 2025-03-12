@@ -2,11 +2,13 @@ import '@mantine/core/styles.css';
 import '@/styles/global.css';
 
 import React from 'react';
+import { dir } from 'i18next';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 import { DEFAULT_THEME } from '@/common/consts';
 import NavBar from '@/components/NavBar/NavBar';
-import { NAMESPACES_LIST } from '@/i18n/consts';
+import { NAMESPACE } from '@/i18n/consts';
 import initTranslations from '@/i18n/i18n';
+import i18nConfig from '@/i18n/i18nConfig';
 import TranslationsProvider from '@/Providers/TranslationsProvider';
 import UserProvider from '@/Providers/UserProvider';
 import { ParamsType } from '@/types/common';
@@ -21,13 +23,18 @@ export const metadata = {
   description: 'Riderz',
 };
 
+// statically generates pages for each of our languages
+export function generateStaticParams() {
+  return i18nConfig.locales.map((locale) => ({ locale }));
+}
+
 export default async function RootLayout({ children, params }: LayoutProps) {
   const { locale } = await params;
 
-  const { resources } = await initTranslations(locale, NAMESPACES_LIST);
+  const { resources } = await initTranslations(locale, NAMESPACE.CLIENT_SIDE_COMPONENTS);
 
   return (
-    <html lang={locale} {...mantineHtmlProps}>
+    <html lang={locale} {...mantineHtmlProps} dir={dir(locale)}>
       <head data-mantine-color-scheme={DEFAULT_THEME}>
         <ColorSchemeScript defaultColorScheme={DEFAULT_THEME} />
         <link rel="shortcut icon" href="/favicon.svg" />
@@ -42,7 +49,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
           <UserProvider>
             <TranslationsProvider
               locale={locale}
-              namespaces={NAMESPACES_LIST}
+              namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
               resources={resources}
             >
               <NavBar />

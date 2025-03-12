@@ -18,7 +18,8 @@ export default async function HomePage({ params }: ParamsType) {
           color: 'white',
         }}
       >
-        {t('home')} {t('common:back')}
+        {t('home')}
+        {/* {t('common:back')} */}
       </p>
     </>
   );

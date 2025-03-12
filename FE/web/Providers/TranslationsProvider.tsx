@@ -8,7 +8,7 @@ import initTranslations from '../i18n/i18n';
 type TranslationsProviderProps = {
   children: React.ReactNode;
   locale: LanguageType;
-  namespaces: NamespacesType[];
+  namespaces: NamespacesType[] | NamespacesType;
   resources?: Record<string, any>;
 };
 
