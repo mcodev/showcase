@@ -6,11 +6,13 @@ import { dir } from 'i18next';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 import { DEFAULT_THEME } from '@/common/consts';
 import NavBar from '@/components/NavBar/NavBar';
+import Auth from '@/features/auth/Auth';
 import { NAMESPACE } from '@/i18n/consts';
 import initTranslations from '@/i18n/i18n';
 import i18nConfig from '@/i18n/i18nConfig';
-import TranslationsProvider from '@/Providers/TranslationsProvider';
-import UserProvider from '@/Providers/UserProvider';
+import { AppProvider } from '@/providers/AppProvider';
+import TranslationsProvider from '@/providers/TranslationsProvider';
+import { UserProvider } from '@/providers/UserProvider';
 import { ParamsType } from '@/types/common';
 import { theme } from '../../styles/theme';
 
@@ -49,16 +51,21 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
       <body>
         <MantineProvider theme={theme} defaultColorScheme={DEFAULT_THEME}>
-          <UserProvider>
-            <TranslationsProvider
-              locale={locale}
-              namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
-              resources={resources}
-            >
-              <NavBar t={t} locale={locale} />
-              {children}
-            </TranslationsProvider>
-          </UserProvider>
+          <AppProvider>
+            <UserProvider>
+              <TranslationsProvider
+                locale={locale}
+                namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
+                resources={resources}
+              >
+                <NavBar t={t} locale={locale} />
+
+                {children}
+
+                <Auth />
+              </TranslationsProvider>
+            </UserProvider>
+          </AppProvider>
         </MantineProvider>
       </body>
     </html>
