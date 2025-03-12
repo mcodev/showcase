@@ -24,9 +24,13 @@
     "@mantine/hooks": "7.17.1",
     "@next/bundle-analyzer": "^15.1.5",
     "@tabler/icons-react": "^3.28.1",
+    "i18next": "^24.2.2",
+    "i18next-resources-to-backend": "^1.2.1",
     "next": "15.1.5",
+    "next-i18n-router": "^5.5.1",
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "react-i18next": "^15.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
