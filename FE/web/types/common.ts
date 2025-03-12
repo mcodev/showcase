@@ -8,3 +8,5 @@ export type ParamsType = {
 };
 
 export type NamespacesType = (typeof NAMESPACES_LIST)[number];
+
+export type TranslationFunctionType = (text: string, options?: any) => string;

@@ -12,7 +12,7 @@ export default async function HomePage({ params }: ParamsType) {
 
   return (
     <>
-      <Welcome />
+      <Welcome t={t} />
       <p
         style={{
           color: 'white',

@@ -1,11 +1,16 @@
 import { Anchor, Text, Title } from '@mantine/core';
+import { TranslationFunctionType } from '@/types/common';
 import classes from './Welcome.module.css';
 
-export function Welcome() {
+type WelcomeProps = {
+  t?: TranslationFunctionType;
+};
+
+export function Welcome({ t }: WelcomeProps) {
   return (
     <>
       <Title className={classes.title} ta="center" mt={100}>
-        Welcome to{' '}
+        Welcome to {t?.('home')}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'pink', to: 'yellow' }}>
           Mantine
         </Text>
