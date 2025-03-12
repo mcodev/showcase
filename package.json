@@ -5,9 +5,15 @@
   "scripts": {
     "mobile": "cd FE/mobile && yarn start",
     "web": "cd FE/web && yarn dev",
-    "backend": "cd BE && yarn start"
+    "backend": "cd BE && yarn start",
+    "prepare": "husky",
+    "test-web": "cd FE/web && yarn test"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "pinst": "^3.0.0"
+  }
 }
