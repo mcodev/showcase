@@ -31,7 +31,10 @@ export function generateStaticParams() {
 export default async function RootLayout({ children, params }: LayoutProps) {
   const { locale } = await params;
 
-  const { resources } = await initTranslations(locale, NAMESPACE.CLIENT_SIDE_COMPONENTS);
+  const { t, resources } = await initTranslations(locale, [
+    NAMESPACE.CLIENT_SIDE_COMPONENTS,
+    NAMESPACE.LAYOUT,
+  ]);
 
   return (
     <html lang={locale} {...mantineHtmlProps} dir={dir(locale)}>
@@ -52,7 +55,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
               namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
               resources={resources}
             >
-              <NavBar />
+              <NavBar t={t} />
               {children}
             </TranslationsProvider>
           </UserProvider>

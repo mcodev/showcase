@@ -7,6 +7,7 @@ import {
   usePathname,
 } from 'next/navigation';
 import { IconMenu, IconX } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 // import { TOPICS } from '../../common/consts';
 import styles from './NavBar.module.css';
 
@@ -14,6 +15,8 @@ export default function NavbarActions() {
   const [opened, setOpened] = useState(false);
   const [isTopPosition, setIsTopPosition] = useState(true);
   const pathname = usePathname();
+  const { t } = useTranslation();
+
   // const { postId } = useParams();
 
   const isHomePage = pathname === '/';
@@ -110,6 +113,8 @@ export default function NavbarActions() {
         <Link href="/" className={styles.mobile_link} onClick={() => setOpened(!opened)}>
           Αρχική
         </Link>
+
+        <p>{t('back')}</p>
 
         {/* {TOPICS.map(({ label, value }) => (
           <Link

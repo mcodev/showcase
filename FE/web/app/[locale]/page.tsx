@@ -13,11 +13,7 @@ export default async function HomePage({ params }: ParamsType) {
   return (
     <>
       <Welcome t={t} />
-      <p
-        style={{
-          color: 'white',
-        }}
-      >
+      <p>
         {t('home')}
         {/* {t('common:back')} */}
       </p>

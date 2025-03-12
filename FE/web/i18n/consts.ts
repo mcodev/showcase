@@ -13,6 +13,7 @@ export const NAMESPACE = {
   COMMON: 'common',
   HOME: 'home',
   CLIENT_SIDE_COMPONENTS: 'client_side_components',
+  LAYOUT: 'layout',
 } as const;
 
 export const NAMESPACES_LIST = Array.from(Object.values(NAMESPACE));

@@ -1,16 +1,17 @@
-'use client';
-
 import React from 'react';
 // import Image from 'next/image';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import { TranslationFunctionType } from '@/types/common';
 // import { TOPICS } from '../../common/consts';
 import NavbarActions from './NavbarActions';
 import styles from './NavBar.module.css';
 
-const NavBar = () => {
+type NavBarProps = {
+  t: TranslationFunctionType;
+};
+
+const NavBar = ({ t }: NavBarProps) => {
   // Client side translations
-  const { t } = useTranslation();
 
   return (
     <nav className={styles.wrapper} id="navbar">
@@ -23,7 +24,7 @@ const NavBar = () => {
           </p>
         </Link>
 
-        <p>{t('back')}</p>
+        <p>{t('layout:layout')}</p>
 
         <div>
           <nav className={styles.links_wrapper}>
