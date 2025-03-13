@@ -29,7 +29,12 @@ const NavBar = ({ t, locale }: NavBarProps) => {
           <nav className={styles.links_wrapper}>
             {NAVBAR_ROUTES.map((route) => {
               return (
-                <Link href={`/${locale}${route.href}`} key={route.transKey} className={styles.link}>
+                <Link
+                  href={`/${locale}${route.href}`}
+                  key={route.transKey}
+                  className={styles.link}
+                  id={route.href}
+                >
                   {t(`layout:${route.transKey}`)}
                 </Link>
               );

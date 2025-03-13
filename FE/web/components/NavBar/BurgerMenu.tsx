@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { IconMenu, IconX } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { NAVBAR_ROUTES } from '@/common/consts';
@@ -10,6 +11,8 @@ import styles from './NavBar.module.css';
 export default function BurgerMenu() {
   const [isBurgerVisible, setIsBurgerVisible] = useState(false);
   const { t } = useTranslation();
+
+  const pathname = usePathname();
 
   const { i18n } = useTranslation();
 
@@ -37,6 +40,23 @@ export default function BurgerMenu() {
     }
   }, [isBurgerVisible]);
 
+  useEffect(() => {
+    document.getElementById(pathname)?.style.setProperty('color', 'var(--color-primary)');
+    document.getElementById(pathname)?.style.setProperty('pointer-events', 'none');
+
+    document
+      .getElementById(`mobile-${pathname}`)
+      ?.style.setProperty('color', 'var(--color-primary)');
+
+    return () => {
+      document.getElementById(pathname)?.style.setProperty('color', 'var(--color-white)');
+      document.getElementById(pathname)?.style.setProperty('pointer-events', 'auto');
+      document
+        .getElementById(`mobile-${pathname}`)
+        ?.style.setProperty('color', 'var(--color-white)');
+    };
+  }, [pathname]);
+
   const handleBurgerToggle = () => {
     setIsBurgerVisible(!isBurgerVisible);
   };
@@ -59,6 +79,7 @@ export default function BurgerMenu() {
             key={route.transKey}
             className={styles.mobile_link}
             onClick={handleBurgerToggle}
+            id={`mobile-${route.href}`}
           >
             {t(route.transKey)}
           </Link>
