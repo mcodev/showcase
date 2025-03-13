@@ -21,7 +21,7 @@
   /* COLORS LIGHT THEME */
 
   --color-background: #fff;
-  --color-primary: #8b00ff;
+  --color-primary: rgb(235, 159, 38);
   --color-text: #000;
   --color-white: #fff;
   --color-black: #333;
@@ -37,7 +37,7 @@ html[data-mantine-color-scheme='dark'] {
   --color-background: #242424;
 
   --color-foreground: #fff;
-  --color-primary: #8b00ff;
+  --color-primary: rgb(235, 159, 38);
   --color-text: #fff;
   --color-white: #fff;
   --color-black: #171717;

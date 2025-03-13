@@ -25,6 +25,7 @@
 
 .site_name {
   font-size: larger;
+  color: var(--color-primary);
 }
 
 .links_wrapper {
