@@ -5,7 +5,7 @@
   "scripts": {
     "mobile": "cd FE/mobile && yarn start",
     "web": "cd FE/web && yarn dev",
-    "backend": "cd BE && yarn start",
+    "backend": "cd BE && yarn dev",
     "prepare": "husky",
     "test-web": "cd FE/web && yarn pre-commit-test"
   },
