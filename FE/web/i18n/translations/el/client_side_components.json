@@ -2,5 +2,16 @@
   "back": "Πίσω",
   "home": "Αρχική",
   "news": "Νέα",
-  "sign_in": "Σύνδεση"
+  "sign_in": "Σύνδεση",
+  "email": "Email",
+  "password": "Κωδικός",
+  "forgot_password": "Ξεχάσατε τον κωδικό;",
+  "sign_up": "Εγγραφή",
+  "dont_have_an_account": "Δεν έχετε λογαριασμό;",
+  "already_have_an_account": "Έχετε ηδη λογαριασμό;",
+  "send_reset_link": "Αποστολή συνδέσμου επαναφοράς",
+  "name": "Όνομα",
+  "repeat_password": "Επανάληψη κωδικού",
+  "i_agree_with_the": "Συμφωνώ με τους",
+  "terms_and_conditions": "όρους χρήσης"
 }

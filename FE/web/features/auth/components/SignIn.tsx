@@ -20,8 +20,8 @@ const SignIn = () => {
 
       <Text
         onClick={() => changeSelectedComponent('forgotPassword')}
-        className="cursor_pointer cursor_hover"
-        c="blue"
+        className="cursor_pointer hover_color"
+        // c="blue"
         fw={400}
         ta="right"
       >
@@ -38,8 +38,7 @@ const SignIn = () => {
         </Text>
         <Text
           onClick={() => changeSelectedComponent('signUp')}
-          className="cursor_pointer cursor_hover"
-          c="blue"
+          className="cursor_pointer hover_color"
           fw={400}
           size="sm"
         >

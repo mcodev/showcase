@@ -94,7 +94,7 @@ const Profile = () => {
       // c="dimmed"
       ml="md"
       // size="sm"
-      // className="cursor_pointer  hover_color"
+      className="cursor_pointer  hover_color"
       onClick={openAuthModal}
       w="100%"
       miw={80}

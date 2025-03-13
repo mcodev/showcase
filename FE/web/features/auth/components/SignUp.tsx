@@ -1,14 +1,17 @@
+'use client';
+
 import React from 'react';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { Button, Checkbox, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
+import { useAppContext } from '@/providers/AppProvider';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const SignUp = () => {
   const { changeSelectedComponent } = useAuthContext();
-  const { t } = useTranslation();
+  const { closeAuthModal } = useAppContext();
 
-  const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <Flex direction="column" mt="xl">
@@ -33,19 +36,15 @@ const SignUp = () => {
       <Flex mt="lg" className=" keep_text_straight wrap">
         <Checkbox />
 
-        <Text c="dimmed" fw={400} mr="xs" ml="xs" size="sm">
+        <Text c="dimmed" fw={400} mr={4} ml="xs" size="sm">
           {t('i_agree_with_the')}
         </Text>
 
-        <Text
-          onClick={() => router.push('/terms')}
-          className="cursor_pointer cursor_hover"
-          c="blue"
-          fw={400}
-          size="sm"
-        >
-          {t('terms_and_conditions')}
-        </Text>
+        <Link href="/terms" className="cursor_pointer hover_color" onClick={closeAuthModal}>
+          <Text fw={400} size="sm">
+            {t('terms_and_conditions')}
+          </Text>
+        </Link>
       </Flex>
 
       <Button w="100%" mt="xl">
@@ -59,8 +58,7 @@ const SignUp = () => {
 
         <Text
           onClick={() => changeSelectedComponent('signIn')}
-          className="cursor_pointer cursor_hover"
-          c="blue"
+          className="cursor_pointer hover_color"
           fw={400}
           size="sm"
         >

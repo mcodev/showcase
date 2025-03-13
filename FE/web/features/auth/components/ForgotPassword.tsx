@@ -22,8 +22,7 @@ const ForgotPassword = () => {
 
         <Text
           onClick={() => changeSelectedComponent('signIn')}
-          className="cursor_pointer cursor_hover"
-          c="blue"
+          className="cursor_pointer hover_color"
           fw={400}
           size="sm"
         >

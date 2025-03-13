@@ -35,6 +35,7 @@ const CustomModal = ({
       size={size}
       transitionProps={{ transition: 'fade', duration: 200 }}
       closeOnClickOutside={false}
+      radius="lg"
       shadow="xs"
       padding="xl"
       overlayProps={{
