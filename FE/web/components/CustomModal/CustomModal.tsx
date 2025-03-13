@@ -30,6 +30,7 @@ const CustomModal = ({
     <Modal
       opened={isVisible}
       onClose={onClose}
+      autoFocus={false}
       withCloseButton={false}
       centered
       size={size}
