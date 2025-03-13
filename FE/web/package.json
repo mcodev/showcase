@@ -23,15 +23,18 @@
   "dependencies": {
     "@mantine/core": "7.17.1",
     "@mantine/hooks": "7.17.1",
+    "@mantine/nprogress": "^7.17.1",
     "@next/bundle-analyzer": "^15.1.5",
     "@tabler/icons-react": "^3.28.1",
+    "add": "^2.0.6",
     "i18next": "^24.2.2",
     "i18next-resources-to-backend": "^1.2.1",
     "next": "15.1.5",
     "next-i18n-router": "^5.5.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-i18next": "^15.4.1"
+    "react-i18next": "^15.4.1",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -43,6 +46,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^14.6.0",
+    "@types/add": "^2",
     "@types/eslint-plugin-jsx-a11y": "^6",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.7",

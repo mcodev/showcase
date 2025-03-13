@@ -6,6 +6,7 @@ import { dir } from 'i18next';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 import { DEFAULT_THEME } from '@/common/consts';
 import NavBar from '@/components/NavBar/NavBar';
+// import NavigationLoader from '@/components/NavigationLoader/NavigationLoader';
 import Auth from '@/features/auth/Auth';
 import { NAMESPACE } from '@/i18n/consts';
 import initTranslations from '@/i18n/i18n';
@@ -53,6 +54,8 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
       <body>
         <MantineProvider theme={theme} defaultColorScheme={DEFAULT_THEME}>
+          {/* <NavigationLoader /> */}
+
           <AppProvider>
             <UserProvider>
               <TranslationsProvider
