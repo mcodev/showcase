@@ -28,11 +28,13 @@ const NavBar = ({ t, locale }: NavBarProps) => {
         <Flex gap="var(--spacing-lg)" align="center">
           <nav className={styles.links_wrapper}>
             {NAVBAR_ROUTES.map((route) => {
+              const isHomeRoute = route.href === '/';
+
               return (
                 <Link
                   href={`/${locale}${route.href}`}
                   key={route.transKey}
-                  className={styles.link}
+                  className={`${styles.link} ${isHomeRoute && styles.hidden}`}
                   id={route.href}
                 >
                   {t(`layout:${route.transKey}`)}

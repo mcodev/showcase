@@ -48,6 +48,12 @@ export default function BurgerMenu() {
       .getElementById(`mobile-${pathname}`)
       ?.style.setProperty('color', 'var(--color-primary)');
 
+    if (pathname !== '/') {
+      document.getElementById('/')?.classList.remove(styles.hidden);
+    } else {
+      document.getElementById('/')?.classList.add(styles.hidden);
+    }
+
     return () => {
       document.getElementById(pathname)?.style.setProperty('color', 'var(--color-white)');
       document.getElementById(pathname)?.style.setProperty('pointer-events', 'auto');
