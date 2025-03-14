@@ -5,6 +5,13 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import compression from "compression";
+import mongoose from "mongoose";
+
+dotenv.config();
+
+const PORT = process.env.PORT || 8000;
+
+const MONGO_URL = process.env.MONGO_URL;
 
 const app = express();
 
@@ -16,10 +23,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const server = http.createServer(app);
 
-const PORT = process.env.PORT || 8000;
-
 server.listen(PORT, () => {
   console.log("Server running on port 3000");
+});
+
+mongoose.Promise = Promise;
+mongoose.connect(MONGO_URL);
+mongoose.connection.on("error", (err) => {
+  console.error(err);
+  // process.exit(1);
 });
 
 // // const express = require("express");
