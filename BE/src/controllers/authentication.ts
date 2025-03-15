@@ -25,6 +25,9 @@ export const login = async (req: express.Request, res: express.Response) => {
       password
     );
 
+    //TODO fix this error 33:14 https://www.youtube.com/watch?v=b8ZUb_Okxro&t=1211s
+    console.log(user.authentication.password, expectedHashedPassword);
+
     if (user.authentication.password !== expectedHashedPassword) {
       return res
         .status(403)

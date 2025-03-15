@@ -16,6 +16,7 @@ const login = async (req, res) => {
             return res.status(400).json({ success: false, error: "User not found" });
         }
         const expectedHashedPassword = (0, helpers_1.authentication)(user.authentication.salt, password);
+        console.log(user.authentication.password, expectedHashedPassword);
         if (user.authentication.password !== expectedHashedPassword) {
             return res
                 .status(403)
