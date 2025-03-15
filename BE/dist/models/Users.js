@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateUserById = exports.deleteUserById = exports.createUser = exports.getUserById = exports.getUserBySessionToken = exports.getUserByEmail = exports.getUsers = exports.UserModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const useColorSchema = new mongoose_1.default.Schema({
+const userSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
         required: true,
@@ -31,23 +31,23 @@ const useColorSchema = new mongoose_1.default.Schema({
         },
     },
 });
-exports.UserModel = mongoose_1.default.model("User", useColorSchema);
-const getUsers = async () => {
-    return await exports.UserModel.find();
+exports.UserModel = mongoose_1.default.model("User", userSchema);
+const getUsers = () => {
+    return exports.UserModel.find();
 };
 exports.getUsers = getUsers;
-const getUserByEmail = async (email) => {
-    return await exports.UserModel.findOne({ email });
+const getUserByEmail = (email) => {
+    return exports.UserModel.findOne({ email });
 };
 exports.getUserByEmail = getUserByEmail;
-const getUserBySessionToken = async (sessionToken) => {
-    return await exports.UserModel.findOne({
+const getUserBySessionToken = (sessionToken) => {
+    return exports.UserModel.findOne({
         "authentication.sessionToken": sessionToken,
     });
 };
 exports.getUserBySessionToken = getUserBySessionToken;
-const getUserById = async (id) => {
-    return await exports.UserModel.findById(id);
+const getUserById = (id) => {
+    return exports.UserModel.findById(id);
 };
 exports.getUserById = getUserById;
 const createUser = async (values) => {
@@ -56,12 +56,12 @@ const createUser = async (values) => {
     });
 };
 exports.createUser = createUser;
-const deleteUserById = async (id) => {
-    return await exports.UserModel.findByIdAndDelete(id);
+const deleteUserById = (id) => {
+    return exports.UserModel.findByIdAndDelete(id);
 };
 exports.deleteUserById = deleteUserById;
-const updateUserById = async (id, values) => {
-    return await exports.UserModel.findByIdAndUpdate(id, values);
+const updateUserById = (id, values) => {
+    return exports.UserModel.findByIdAndUpdate(id, values);
 };
 exports.updateUserById = updateUserById;
 //# sourceMappingURL=Users.js.map

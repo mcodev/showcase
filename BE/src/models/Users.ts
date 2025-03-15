@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const useColorSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -27,24 +27,24 @@ const useColorSchema = new mongoose.Schema({
   },
 });
 
-export const UserModel = mongoose.model("User", useColorSchema);
+export const UserModel = mongoose.model("User", userSchema);
 
-export const getUsers = async () => {
-  return await UserModel.find();
+export const getUsers = () => {
+  return UserModel.find();
 };
 
-export const getUserByEmail = async (email: string) => {
-  return await UserModel.findOne({ email });
+export const getUserByEmail = (email: string) => {
+  return UserModel.findOne({ email });
 };
 
-export const getUserBySessionToken = async (sessionToken: string) => {
-  return await UserModel.findOne({
+export const getUserBySessionToken = (sessionToken: string) => {
+  return UserModel.findOne({
     "authentication.sessionToken": sessionToken,
   });
 };
 
-export const getUserById = async (id: string) => {
-  return await UserModel.findById(id);
+export const getUserById = (id: string) => {
+  return UserModel.findById(id);
 };
 
 export const createUser = async (values: Record<string, any>) => {
@@ -53,13 +53,10 @@ export const createUser = async (values: Record<string, any>) => {
   });
 };
 
-export const deleteUserById = async (id: string) => {
-  return await UserModel.findByIdAndDelete(id);
+export const deleteUserById = (id: string) => {
+  return UserModel.findByIdAndDelete(id);
 };
 
-export const updateUserById = async (
-  id: string,
-  values: Record<string, any>
-) => {
-  return await UserModel.findByIdAndUpdate(id, values);
+export const updateUserById = (id: string, values: Record<string, any>) => {
+  return UserModel.findByIdAndUpdate(id, values);
 };

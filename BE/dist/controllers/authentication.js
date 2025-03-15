@@ -1,8 +1,35 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
+exports.register = exports.login = void 0;
 const Users_1 = require("../models/Users");
 const helpers_1 = require("../helpers");
+const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+            return res
+                .status(400)
+                .json({ success: false, error: "Missing required fields" });
+        }
+        //   30:57
+        const user = await (0, Users_1.getUserByEmail)(email).select("+authentication.salt +authentication.password");
+        if (!user) {
+            return res.status(400).json({ success: false, error: "User not found" });
+        }
+        const expectedHashedPassword = (0, helpers_1.authentication)(user.authentication.salt, password);
+        if (user.authentication.password !== expectedHashedPassword) {
+            return res
+                .status(403)
+                .json({ success: false, error: "Invalid credentials" });
+        }
+        res.status(200).json({ success: true }).end();
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+};
+exports.login = login;
 const register = async (req, res) => {
     try {
         const { name, email, password } = req.body;
