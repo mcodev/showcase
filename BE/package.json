@@ -6,7 +6,7 @@
     "build": "npx tsc",
     "start": "node dist/server.js",
     "dev": "nodemon server.ts",
-    "pre-commit-test": "npx tsc && node dist/server.js"
+    "pre-commit-test": "npx tsc"
   },
   "author": "mcodev",
   "license": "ISC",
