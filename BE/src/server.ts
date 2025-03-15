@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import compression from "compression";
 import mongoose from "mongoose";
-import { authentication } from "./helpers";
+import router from "./routes";
 
 dotenv.config();
 
@@ -34,6 +34,8 @@ mongoose.connection.on("error", (err) => {
   console.error(err);
   // process.exit(1);
 });
+
+app.use("/", router());
 
 // // const express = require("express");
 // const dotenv = require("dotenv");

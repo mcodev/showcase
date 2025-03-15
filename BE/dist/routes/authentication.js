@@ -13,4 +13,4 @@ exports.default = (router) => {
 // router.post("/login", login);
 // router.get("/me", protect, getMe);
 // module.exports = router;
-//# sourceMappingURL=authentiction.js.map
+//# sourceMappingURL=authentication.js.map

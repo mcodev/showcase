@@ -11,6 +11,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const compression_1 = __importDefault(require("compression"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const routes_1 = __importDefault(require("./routes"));
 dotenv_1.default.config();
 const PORT = process.env.PORT || 8000;
 const MONGO_URL = process.env.MONGO_URL;
@@ -30,6 +31,7 @@ mongoose_1.default.connection.on("error", (err) => {
     console.error(err);
     // process.exit(1);
 });
+app.use("/", (0, routes_1.default)());
 // // const express = require("express");
 // const dotenv = require("dotenv");
 // // const mongoose = require("mongoose");
