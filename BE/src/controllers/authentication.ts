@@ -31,7 +31,23 @@ export const login = async (req: express.Request, res: express.Response) => {
         .json({ success: false, error: "Invalid credentials" });
     }
 
-    res.status(200).json({ success: true }).end();
+    const salt = random();
+
+    user.authentication.sessionToken = authentication(
+      salt,
+      user._id.toString()
+    );
+
+    await user.save();
+
+    res.cookie("sessionToken", user.authentication.sessionToken, {
+      //   domain: "localhost",
+      //   path: "/",
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365,
+    });
+
+    res.status(200).json({ success: true, user }).end();
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, error: error.message });
