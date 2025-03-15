@@ -12,7 +12,6 @@ export const login = async (req: express.Request, res: express.Response) => {
         .json({ success: false, error: "Missing required fields" });
     }
 
-    //   30:57
     const user = await getUserByEmail(email).select(
       "+authentication.salt +authentication.password"
     );

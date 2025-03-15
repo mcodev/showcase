@@ -11,7 +11,6 @@ const login = async (req, res) => {
                 .status(400)
                 .json({ success: false, error: "Missing required fields" });
         }
-        //   30:57
         const user = await (0, Users_1.getUserByEmail)(email).select("+authentication.salt +authentication.password");
         if (!user) {
             return res.status(400).json({ success: false, error: "User not found" });
