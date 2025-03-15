@@ -27,6 +27,9 @@ server.listen(PORT, () => {
 });
 mongoose_1.default.Promise = Promise;
 mongoose_1.default.connect(MONGO_URL);
+mongoose_1.default.connection.on("connected", () => {
+    console.log("MongoDB connected");
+});
 mongoose_1.default.connection.on("error", (err) => {
     console.error(err);
     // process.exit(1);

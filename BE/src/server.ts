@@ -30,6 +30,9 @@ server.listen(PORT, () => {
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL);
+mongoose.connection.on("connected", () => {
+  console.log("MongoDB connected");
+});
 mongoose.connection.on("error", (err) => {
   console.error(err);
   // process.exit(1);
