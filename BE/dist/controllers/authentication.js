@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = void 0;
-const Users_1 = require("models/Users");
-const helpers_1 = require("helpers");
+const Users_1 = require("../models/Users");
+const helpers_1 = require("../helpers");
 const register = async (req, res) => {
     try {
         const { name, email, password } = req.body;

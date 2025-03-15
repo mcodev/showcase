@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = http.createServer(app);
 
 server.listen(PORT, () => {
-  console.log("Server running on port 3000");
+  console.log(`Server running on port ${PORT}`);
 });
 
 mongoose.Promise = Promise;

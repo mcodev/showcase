@@ -23,7 +23,7 @@ app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 const server = http_1.default.createServer(app);
 server.listen(PORT, () => {
-    console.log("Server running on port 3000");
+    console.log(`Server running on port ${PORT}`);
 });
 mongoose_1.default.Promise = Promise;
 mongoose_1.default.connect(MONGO_URL);
