@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authentication = exports.random = exports.comparePassword = exports.hashPassword = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const crypto_1 = __importDefault(require("crypto"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const SECRET = process.env.SECRET;
 const hashPassword = async (password) => {
     return await bcryptjs_1.default.hash(password, 10);
@@ -22,7 +24,7 @@ exports.random = random;
 const authentication = (salt, password) => {
     return crypto_1.default
         .createHmac("sha256", [salt, password].join("/"))
-        .update(salt)
+        .update(SECRET)
         .digest("hex");
 };
 exports.authentication = authentication;

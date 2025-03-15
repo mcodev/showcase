@@ -1,5 +1,8 @@
 import bcryptjs from "bcryptjs";
 import crypto from "crypto";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const SECRET = process.env.SECRET;
 
@@ -18,6 +21,6 @@ export const random = () => {
 export const authentication = (salt: string, password: string) => {
   return crypto
     .createHmac("sha256", [salt, password].join("/"))
-    .update(salt)
+    .update(SECRET)
     .digest("hex");
 };
