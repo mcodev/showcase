@@ -1,3 +1,6 @@
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
 import express from "express";
 import dotenv from "dotenv";
 import http from "http";
@@ -9,11 +12,14 @@ import mongoose from "mongoose";
 import router from "./routes";
 import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
+import path from "path";
+
 const xss = require("xss-clean");
 
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
+const BASE_URL = process.env.BASE_URL;
 
 const MONGO_URL = process.env.MONGO_URL;
 
@@ -42,6 +48,31 @@ app.use(helmet());
 
 // This middleware prevents cross-site scripting (XSS) attacks by sanitizing user input. It removes malicious scripts and HTML from the request body, query strings, and parameters.
 app.use(xss());
+
+//////////////////   SWAGGER   //////////////////
+app.use(
+  "/api",
+  swaggerUi.serve,
+  swaggerUi.setup(
+    swaggerJsDoc({
+      definition: {
+        // openapi: "3.0.0",
+        info: {
+          title: "Riderz API Documentation",
+        },
+      },
+      apis: [path.join(__dirname, "./routes/*.ts")],
+      securityDefinitions: {
+        bearerAuth: {
+          type: "apiKey",
+          name: "Authorization",
+          scheme: "bearer",
+          in: "header",
+        },
+      },
+    })
+  )
+);
 
 app.use("/", router());
 
