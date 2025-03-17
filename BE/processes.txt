@@ -5,3 +5,5 @@
 
 2. In controllers folder create all the necessary functions that the route will need. 
    These are the functions that interact with the DB.
+
+3. 
