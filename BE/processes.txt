@@ -1,0 +1,5 @@
+1. Create a route ex "user" where we define all actions that will take place (get,delete etc..). 
+   import the associated function (controller) that will perform the action from the controllers folder.
+   Distribute through index file of the folder.
+
+2. 

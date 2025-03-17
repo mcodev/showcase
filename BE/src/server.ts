@@ -45,12 +45,6 @@ app.use(xss());
 
 app.use("/", router());
 
-const server = http.createServer(app);
-
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
 mongoose.Promise = Promise;
 
 mongoose.connect(MONGO_URL);
@@ -62,6 +56,12 @@ mongoose.connection.on("connected", () => {
 mongoose.connection.on("error", (err) => {
   console.error(err);
   process.exit(1);
+});
+
+const server = http.createServer(app);
+
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
 process.on("unhandledRejection", (err) => {

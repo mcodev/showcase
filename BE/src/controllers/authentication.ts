@@ -1,15 +1,14 @@
 import express from "express";
 import { createUser, getUserByEmail } from "../models/Users";
 import { random, authentication } from "../helpers";
+import { response } from "../common";
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ success: false, error: "Missing required fields" });
+      return response({ res, statusCode: 400, route: "AUTH" });
     }
 
     const user = await getUserByEmail(email).select(
@@ -17,7 +16,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     );
 
     if (!user) {
-      return res.status(400).json({ success: false, error: "User not found" });
+      return response({ res, statusCode: 404, route: "AUTH" });
     }
 
     const expectedHashedPassword = authentication(
@@ -26,9 +25,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     );
 
     if (user.authentication.password !== expectedHashedPassword) {
-      return res
-        .status(403)
-        .json({ success: false, error: "Invalid credentials" });
+      return response({ res, statusCode: 403, route: "AUTH" });
     }
 
     const salt = random();
@@ -54,10 +51,15 @@ export const login = async (req: express.Request, res: express.Response) => {
       email: user.email,
     };
 
-    res.status(200).json({ success: true, userData }).end();
+    return response({
+      res,
+      statusCode: 200,
+      route: "AUTH",
+      payload: userData,
+    }).end();
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, error: error.message });
+    return response({ res, statusCode: 500, route: "AUTH" });
   }
 };
 
@@ -66,17 +68,13 @@ export const register = async (req: express.Request, res: express.Response) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      return res
-        .status(400)
-        .json({ success: false, error: "Missing required fields" });
+      return response({ res, statusCode: 400, route: "AUTH" });
     }
 
     const isUserAlreadyRegistered = await getUserByEmail(email);
 
     if (isUserAlreadyRegistered) {
-      return res
-        .status(400)
-        .json({ success: false, error: "User already registered" });
+      return response({ res, statusCode: 409, route: "AUTH" });
     }
 
     const salt = random();
@@ -90,9 +88,14 @@ export const register = async (req: express.Request, res: express.Response) => {
       },
     });
 
-    res.status(201).json({ success: true, user }).end();
+    return response({
+      res,
+      statusCode: 201,
+      route: "AUTH",
+      payload: { user },
+    }).end();
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, error: error.message });
+    return response({ res, statusCode: 500, route: "AUTH" });
   }
 };
