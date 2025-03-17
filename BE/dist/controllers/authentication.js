@@ -16,6 +16,7 @@ const login = async (req, res) => {
             return res.status(400).json({ success: false, error: "User not found" });
         }
         const expectedHashedPassword = (0, helpers_1.authentication)(user.authentication.salt, password);
+        //TODO fix this error 33:14 https://www.youtube.com/watch?v=b8ZUb_Okxro&t=1211s
         console.log(user.authentication.password, expectedHashedPassword);
         if (user.authentication.password !== expectedHashedPassword) {
             return res
@@ -54,13 +55,12 @@ const register = async (req, res) => {
                 .json({ success: false, error: "User already registered" });
         }
         const salt = (0, helpers_1.random)();
-        const hashedPassword = await (0, helpers_1.hashPassword)(password);
         const user = await (0, Users_1.createUser)({
             name,
             email,
             authentication: {
-                password: hashedPassword,
                 salt,
+                password: (0, helpers_1.authentication)(salt, password),
             },
         });
         res.status(201).json({ success: true, user }).end();

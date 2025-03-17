@@ -1,6 +1,6 @@
 import express from "express";
 import { createUser, getUserByEmail } from "../models/Users";
-import { hashPassword, random, authentication } from "../helpers";
+import { random, authentication } from "../helpers";
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {
@@ -76,14 +76,13 @@ export const register = async (req: express.Request, res: express.Response) => {
     }
 
     const salt = random();
-    const hashedPassword = await hashPassword(password);
 
     const user = await createUser({
       name,
       email,
       authentication: {
-        password: hashedPassword,
         salt,
+        password: authentication(salt, password),
       },
     });
 

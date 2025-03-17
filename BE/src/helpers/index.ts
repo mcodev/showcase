@@ -6,10 +6,6 @@ dotenv.config();
 
 const SECRET = process.env.SECRET;
 
-export const hashPassword = async (password: string) => {
-  return await bcryptjs.hash(password, 10);
-};
-
 export const comparePassword = async (password: string, hash: string) => {
   return await bcryptjs.compare(password, hash);
 };
