@@ -1,5 +1,5 @@
 import express from "express";
-import { getUsers } from "../models/Users";
+import { deleteUserById, getUserById, getUsers } from "../models/Users";
 
 //TODO Maybe this is not needed in the app
 export const getAllUsers = async (
@@ -12,6 +12,31 @@ export const getAllUsers = async (
     return res.status(200).json({ success: true, users });
   } catch (error) {
     console.log(error);
+    return res
+      .status(500)
+      .json({ success: false, error: "Internal server error" });
+  }
+};
+
+export const deleteUser = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { id } = req.params;
+
+    const user = await getUserById(id);
+
+    if (!user) {
+      return res.status(404).json({ success: false, error: "User not found" });
+    }
+
+    await deleteUserById(id);
+
+    return res.status(200).json({ success: true, message: "User deleted" });
+  } catch (error) {
+    console.log(error);
+
     return res
       .status(500)
       .json({ success: false, error: "Internal server error" });

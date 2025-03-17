@@ -1,6 +1,6 @@
 import express from "express";
 import { getUserBySessionToken } from "../models/Users";
-import { merge } from "lodash";
+import { get, merge } from "lodash";
 
 export const isAuthenticated = async (
   req: express.Request,
@@ -31,21 +31,23 @@ export const isAuthenticated = async (
   }
 };
 
-// const jwt = require("jsonwebtoken");
-// const User = require("../models/User");
+export const isOwner = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  try {
+    const { id } = req.params;
 
-// exports.protect = async (req, res, next) => {
-//   const token = req.headers.authorization?.split(" ")[1];
+    const currentUserId = get(req, "identity._id") as string;
 
-//   if (!token) {
-//     return res.status(401).json({ success: false, msg: "Not authorized" });
-//   }
+    if (currentUserId !== id) {
+      return res.status(403).json({ success: false, msg: "Not authorized" });
+    }
 
-//   try {
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//     req.user = await User.findById(decoded.id);
-//     next();
-//   } catch (err) {
-//     res.status(401).json({ success: false, msg: "Not authorized" });
-//   }
-// };
+    return next();
+  } catch (error) {
+    console.log(error);
+    return res.status(403).json({ success: false, msg: "Not authorized" });
+  }
+};
