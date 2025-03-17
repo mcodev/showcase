@@ -6,4 +6,5 @@
 2. In controllers folder create all the necessary functions that the route will need. 
    These are the functions that interact with the DB.
 
-3. 
+3. Create a model for the DB in models folder.
+   Add main functions that the DB uses.

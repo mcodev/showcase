@@ -1,6 +1,7 @@
 import express from "express";
 import { getUserBySessionToken } from "../models/Users";
 import { get, merge } from "lodash";
+import { response } from "../common";
 
 export const isAuthenticated = async (
   req: express.Request,
@@ -11,13 +12,13 @@ export const isAuthenticated = async (
     const sessionToken = req.cookies["APP-AUTH"];
 
     if (!sessionToken) {
-      return res.status(403).json({ success: false, msg: "Not authorized" });
+      return response({ res, statusCode: 403 });
     }
 
     const existingUser = await getUserBySessionToken(sessionToken);
 
     if (!existingUser) {
-      return res.status(403).json({ success: false, msg: "Not authorized" });
+      return response({ res, statusCode: 403 });
     }
 
     merge(req, {
@@ -27,7 +28,7 @@ export const isAuthenticated = async (
     return next();
   } catch (error) {
     console.log(error);
-    return res.status(403).json({ success: false, msg: "Not authorized" });
+    return response({ res, statusCode: 403 });
   }
 };
 
@@ -42,16 +43,16 @@ export const isOwner = async (
     const currentUserId = get(req, "identity._id") as string;
 
     if (!currentUserId) {
-      return res.status(403).json({ success: false, msg: "Not authorized" });
+      return response({ res, statusCode: 403 });
     }
 
     if (currentUserId.toString() !== id) {
-      return res.status(403).json({ success: false, msg: "Not authorized" });
+      return response({ res, statusCode: 403 });
     }
 
     return next();
   } catch (error) {
     console.log(error);
-    return res.status(403).json({ success: false, msg: "Not authorized" });
+    return response({ res, statusCode: 403 });
   }
 };
