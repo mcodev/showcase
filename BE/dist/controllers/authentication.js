@@ -24,7 +24,7 @@ const login = async (req, res) => {
         const salt = (0, helpers_1.random)();
         user.authentication.sessionToken = (0, helpers_1.authentication)(salt, user._id.toString());
         await user.save();
-        res.cookie("sessionToken", user.authentication.sessionToken, {
+        res.cookie("APP-AUTH", user.authentication.sessionToken, {
             //   domain: "localhost",
             //   path: "/",
             httpOnly: true,

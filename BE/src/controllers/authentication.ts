@@ -40,7 +40,7 @@ export const login = async (req: express.Request, res: express.Response) => {
 
     await user.save();
 
-    res.cookie("sessionToken", user.authentication.sessionToken, {
+    res.cookie("APP-AUTH", user.authentication.sessionToken, {
       //   domain: "localhost",
       //   path: "/",
       httpOnly: true,

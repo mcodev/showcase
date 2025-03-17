@@ -21,6 +21,7 @@
     "express-mongo-sanitize": "^2.2.0",
     "helmet": "^8.0.0",
     "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
     "mongoose": "^8.12.1",
     "xss-clean": "^0.1.4"
   },
@@ -29,6 +30,7 @@
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/lodash": "^4.17.16",
     "@types/node": "^22.13.8",
     "concurrently": "^9.1.2",
     "nodemon": "^3.1.9",
