@@ -1,6 +1,6 @@
 import express from "express";
 import { login, register } from "../controllers/authentication";
-import { ROUTES } from "consts";
+import { ROUTES } from "../consts";
 
 export default (router: express.Router) => {
   //  TODO fix any
