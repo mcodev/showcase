@@ -6,7 +6,7 @@
     "mobile": "cd FE/mobile && yarn start",
     "web": "cd FE/web && yarn dev",
     "backend": "cd BE && yarn dev",
-    "dev": "cd FE/web && yarn dev && cd ../BE && yarn dev",
+    "dev": "concurrently \"yarn web\" \"yarn backend\"",
     "prepare": "husky",
     "test-web": "cd FE/web && yarn pre-commit-test",
     "test-be": "cd BE && yarn pre-commit-test"
@@ -15,6 +15,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "husky": "^9.1.7",
     "pinst": "^3.0.0"
   }
