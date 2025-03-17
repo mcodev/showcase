@@ -28,7 +28,10 @@ const isOwner = async (req, res, next) => {
     try {
         const { id } = req.params;
         const currentUserId = (0, lodash_1.get)(req, "identity._id");
-        if (currentUserId !== id) {
+        if (!currentUserId) {
+            return res.status(403).json({ success: false, msg: "Not authorized" });
+        }
+        if (currentUserId.toString() !== id) {
             return res.status(403).json({ success: false, msg: "Not authorized" });
         }
         return next();

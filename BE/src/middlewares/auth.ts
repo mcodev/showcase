@@ -41,7 +41,11 @@ export const isOwner = async (
 
     const currentUserId = get(req, "identity._id") as string;
 
-    if (currentUserId !== id) {
+    if (!currentUserId) {
+      return res.status(403).json({ success: false, msg: "Not authorized" });
+    }
+
+    if (currentUserId.toString() !== id) {
       return res.status(403).json({ success: false, msg: "Not authorized" });
     }
 
