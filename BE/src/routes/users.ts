@@ -1,7 +1,7 @@
 // TODO Maybe this is not needed in the app
 import express from "express";
 
-import { deleteUser, getAllUsers } from "../controllers/users";
+import { deleteUser, getAllUsers, updateUser } from "../controllers/users";
 import { isAuthenticated, isOwner } from "../middlewares/auth";
 
 export default (router: express.Router) => {
@@ -13,4 +13,5 @@ export default (router: express.Router) => {
     isOwner as any,
     deleteUser as any
   );
+  router.patch("/users/:id", isAuthenticated as any, updateUser as any);
 };
