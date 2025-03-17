@@ -1,0 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const users_1 = require("../controllers/users");
+const auth_1 = require("../middlewares/auth");
+exports.default = (router) => {
+    // TODO fix any
+    router.get("/users", auth_1.isAuthenticated, users_1.getAllUsers);
+};
+//# sourceMappingURL=users.js.map
