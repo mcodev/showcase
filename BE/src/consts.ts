@@ -3,6 +3,11 @@ export const ROUTES = {
   USERS: "/users",
 } as const;
 
+export const ROUTES_NAMES = {
+  AUTH: "AUTH",
+  USERS: "USERS",
+} as const;
+
 export const RESPONSE_MESSAGES = {
   AUTH: {
     201: "USER_CREATED",
@@ -13,10 +18,10 @@ export const RESPONSE_MESSAGES = {
   },
   USERS: {
     201: "CREATED",
-    400: "BAD_REQUEST",
+    400: "MISSING_REQUIRED_FIELDS",
     401: "UNAUTHORIZED",
     403: "FORBIDDEN",
-    404: "NOT_FOUND",
+    404: "USER_NOT_FOUND",
     409: "CONFLICT",
   },
   DEFAULT: {

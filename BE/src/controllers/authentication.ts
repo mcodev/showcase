@@ -2,13 +2,14 @@ import express from "express";
 import { createUser, getUserByEmail } from "../models/Users";
 import { random, authentication } from "../helpers";
 import { response } from "../common";
+import { ROUTES_NAMES } from "consts";
 
 export const login = async (req: express.Request, res: express.Response) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return response({ res, statusCode: 400, route: "AUTH" });
+      return response({ res, statusCode: 400, route: ROUTES_NAMES.AUTH });
     }
 
     const user = await getUserByEmail(email).select(
@@ -16,7 +17,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     );
 
     if (!user) {
-      return response({ res, statusCode: 404, route: "AUTH" });
+      return response({ res, statusCode: 404, route: ROUTES_NAMES.AUTH });
     }
 
     const expectedHashedPassword = authentication(
@@ -25,7 +26,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     );
 
     if (user.authentication.password !== expectedHashedPassword) {
-      return response({ res, statusCode: 403, route: "AUTH" });
+      return response({ res, statusCode: 403, route: ROUTES_NAMES.AUTH });
     }
 
     const salt = random();
@@ -44,7 +45,6 @@ export const login = async (req: express.Request, res: express.Response) => {
       maxAge: 1000 * 60 * 60 * 24 * 365,
     });
 
-    //TODO send whole user if needed
     const userData = {
       _id: user._id,
       name: user.name,
@@ -59,7 +59,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     }).end();
   } catch (error) {
     console.log(error);
-    return response({ res, statusCode: 500, route: "AUTH" });
+    return response({ res, statusCode: 500, route: ROUTES_NAMES.AUTH });
   }
 };
 
@@ -68,13 +68,13 @@ export const register = async (req: express.Request, res: express.Response) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      return response({ res, statusCode: 400, route: "AUTH" });
+      return response({ res, statusCode: 400, route: ROUTES_NAMES.AUTH });
     }
 
     const isUserAlreadyRegistered = await getUserByEmail(email);
 
     if (isUserAlreadyRegistered) {
-      return response({ res, statusCode: 409, route: "AUTH" });
+      return response({ res, statusCode: 409, route: ROUTES_NAMES.AUTH });
     }
 
     const salt = random();
@@ -91,11 +91,11 @@ export const register = async (req: express.Request, res: express.Response) => {
     return response({
       res,
       statusCode: 201,
-      route: "AUTH",
+      route: ROUTES_NAMES.AUTH,
       payload: { user },
     }).end();
   } catch (error) {
     console.log(error);
-    return response({ res, statusCode: 500, route: "AUTH" });
+    return response({ res, statusCode: 500, route: ROUTES_NAMES.AUTH });
   }
 };

@@ -1,5 +1,7 @@
 1. Create a route ex "user" where we define all actions that will take place (get,delete etc..). 
    import the associated function (controller) that will perform the action from the controllers folder.
    Distribute through index file of the folder.
+   Here we add the middlewares that will be used in the call.
 
-2. 
+2. In controllers folder create all the necessary functions that the route will need. 
+   These are the functions that interact with the DB.
