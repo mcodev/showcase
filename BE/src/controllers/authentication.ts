@@ -25,9 +25,6 @@ export const login = async (req: express.Request, res: express.Response) => {
       password
     );
 
-    //TODO fix this error 33:14 https://www.youtube.com/watch?v=b8ZUb_Okxro&t=1211s
-    console.log(user.authentication.password, expectedHashedPassword);
-
     if (user.authentication.password !== expectedHashedPassword) {
       return res
         .status(403)
@@ -50,7 +47,14 @@ export const login = async (req: express.Request, res: express.Response) => {
       maxAge: 1000 * 60 * 60 * 24 * 365,
     });
 
-    res.status(200).json({ success: true, user }).end();
+    //TODO send whole user if needed
+    const userData = {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    };
+
+    res.status(200).json({ success: true, userData }).end();
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, error: error.message });
