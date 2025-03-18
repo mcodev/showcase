@@ -9,11 +9,38 @@ export default (router: express.Router) => {
 
 /**
  * @swagger
- * /users:
- *   get:
- *     summary: Get all users
- *     description: Returns a list of users. Requires authentication.
+ * /auth/login:
+ *   post:
+ *     summary: User login
+ *     description: Login with email and password to get a JWT token.
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "user@example.com"
+ *               password:
+ *                 type: string
+ *                 example: "password123"
  *     responses:
  *       200:
- *         description: A list of users.
+ *         description: Successfully logged in
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   example: "your.jwt.token"
+ *       400:
+ *         description: Invalid email or password
  */
