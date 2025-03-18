@@ -32,6 +32,7 @@ const CustomModal = ({
       onClose={onClose}
       autoFocus={false}
       withCloseButton={false}
+      trapFocus={false}
       centered
       size={size}
       transitionProps={{ transition: 'fade', duration: 200 }}
