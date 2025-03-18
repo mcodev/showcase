@@ -4,8 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { Button, Checkbox, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
-import { isEmail, useForm } from '@mantine/form';
-import { isName, isPassword, isPasswordMatch, isTermsOfServiceAccepted } from '@/common/validators';
+import { useForm } from '@mantine/form';
+import {
+  isEmail,
+  isName,
+  isPassword,
+  isPasswordMatch,
+  isTermsOfServiceAccepted,
+} from '@/common/validators';
 import { useAppContext } from '@/providers/AppProvider';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
