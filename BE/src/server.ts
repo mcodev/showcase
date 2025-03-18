@@ -61,27 +61,25 @@ app.use(
         },
       },
       apis: [path.join(__dirname, "./routes/*.ts")],
-
-      // servers: [
-      //   {
-      //     url: "http://localhost:8000", // Update if needed
-      //   },
-      // ],
-      // components: {
-      //   securitySchemes: {
-      //     BearerAuth: {
-      //       type: "http",
-      //       scheme: "bearer",
-      //       bearerFormat: "JWT", // Optional
-      //     },
-      //   },
-      // },
-      // security: [
-      //   {
-      //     BearerAuth: [],
-      //   },
-      // ],
-    })
+      components: {
+        securitySchemes: {
+          BearerAuth: {
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT",
+          },
+        },
+      },
+      security: [
+        {
+          BearerAuth: [],
+        },
+      ],
+    }),
+    {
+      customCss:
+        ".auth-wrapper { display: none !important; } .scheme-container { display: none !important; }", // Hides "Authorize" button
+    }
   )
 );
 
