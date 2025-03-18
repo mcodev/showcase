@@ -1,10 +1,11 @@
 export const isName = (name: string) => {
-  const re = /^[a-zA-Z ]+$/;
-  if (re.test(name)) {
+  const re = /^[A-Za-z]{3,}$/;
+
+  if (re.test(name.trim())) {
     return null;
   }
 
-  return 'Name must contain only letters and spaces';
+  return 'invalid_name';
 };
 
 export const isEmail = (email: string) => {
@@ -15,7 +16,7 @@ export const isEmail = (email: string) => {
     return null;
   }
 
-  return 'Invalid email';
+  return 'invalid_email';
 };
 
 export const isPassword = (password: string) => {
@@ -24,7 +25,7 @@ export const isPassword = (password: string) => {
     return null;
   }
 
-  return 'Password must be at least 8 characters long and contain at least one letter and one number';
+  return 'invalid_password';
 };
 
 export const isPasswordMatch = (password: string, repeatPassword: string) => {
@@ -32,7 +33,7 @@ export const isPasswordMatch = (password: string, repeatPassword: string) => {
     return null;
   }
 
-  return 'Passwords do not match';
+  return 'passwords_do_not_match';
 };
 
 export const isTermsOfServiceAccepted = (termsOfService: boolean) => {
@@ -40,5 +41,5 @@ export const isTermsOfServiceAccepted = (termsOfService: boolean) => {
     return null;
   }
 
-  return 'You must accept the terms of service';
+  return 'must_accept_terms';
 };

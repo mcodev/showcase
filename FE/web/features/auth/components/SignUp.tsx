@@ -22,7 +22,7 @@ const SignUp = () => {
   const { t } = useTranslation();
 
   const form = useForm({
-    mode: 'uncontrolled',
+    mode: 'controlled',
     initialValues: {
       name: '',
       email: '',
@@ -49,8 +49,11 @@ const SignUp = () => {
           placeholder={t('name')}
           mb="lg"
           labelProps={{ mb: '4px' }}
+          value={form.values.name}
+          onChange={(event) => form.setFieldValue('name', event.target.value.trim())}
           key={form.key('name')}
-          {...form.getInputProps('name')}
+          error={t(form.errors.name as string)}
+          required
         />
 
         <TextInput
@@ -59,7 +62,10 @@ const SignUp = () => {
           mb="xl"
           labelProps={{ mb: '4px' }}
           key={form.key('email')}
-          {...form.getInputProps('email')}
+          value={form.values.email}
+          onChange={(event) => form.setFieldValue('email', event.target.value.trim())}
+          error={t(form.errors.email as string)}
+          required
         />
 
         <PasswordInput
@@ -68,7 +74,10 @@ const SignUp = () => {
           labelProps={{ mb: '4px' }}
           mb="xs"
           key={form.key('password')}
-          {...form.getInputProps('password')}
+          value={form.values.password}
+          onChange={(event) => form.setFieldValue('password', event.target.value.trim())}
+          error={t(form.errors.password as string)}
+          required
         />
 
         <PasswordInput
@@ -77,21 +86,32 @@ const SignUp = () => {
           labelProps={{ mb: '4px' }}
           mb="lg"
           key={form.key('repeatPassword')}
-          {...form.getInputProps('repeatPassword')}
+          value={form.values.repeatPassword}
+          onChange={(event) => form.setFieldValue('repeatPassword', event.target.value.trim())}
+          error={t(form.errors.repeatPassword as string)}
+          required
         />
 
-        <Flex mt="lg" className=" keep_text_straight wrap">
-          <Checkbox key={form.key('termsOfService')} {...form.getInputProps('termsOfService')} />
+        <Flex mt="lg">
+          <Checkbox
+            key={form.key('termsOfService')}
+            checked={form.values.termsOfService}
+            onChange={(event) => form.setFieldValue('termsOfService', event.currentTarget.checked)}
+            error={t(form.errors.termsOfService as string)}
+            label={
+              <Flex className="keep_text_straight wrap">
+                <Text c="dimmed" fw={400} mr={4} ml="xs" size="sm">
+                  {t('i_agree_with_the')}
+                </Text>
 
-          <Text c="dimmed" fw={400} mr={4} ml="xs" size="sm">
-            {t('i_agree_with_the')}
-          </Text>
-
-          <Link href="/terms" className="cursor_pointer hover_color" onClick={closeAuthModal}>
-            <Text fw={400} size="sm">
-              {t('terms_and_conditions')}
-            </Text>
-          </Link>
+                <Link href="/terms" className="cursor_pointer hover_color" onClick={closeAuthModal}>
+                  <Text fw={400} size="sm">
+                    {t('terms_and_conditions')}
+                  </Text>
+                </Link>
+              </Flex>
+            }
+          />
         </Flex>
 
         <Button w="100%" mt="xl" type="submit">
