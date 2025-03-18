@@ -29,7 +29,7 @@ const SignIn = () => {
     mutationFn: AUTH.LOGIN_USER,
     onSuccess: (data) => {
       if (data) {
-        console.log('data', data);
+        // console.log('data', data);
       }
     },
   });

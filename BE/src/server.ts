@@ -28,7 +28,13 @@ const app = express();
 app.use(compression());
 
 // This middleware enables Cross-Origin Resource Sharing (CORS). It allows the server to accept requests from different origins (domains). The { credentials: true } option allows cookies and other credentials to be sent in cross-origin requests
-app.use(cors({ credentials: true }));
+app.use(
+  cors({
+    credentials: true,
+    // TODO fix this on deployment
+    origin: ["http://localhost:3000"],
+  })
+);
 
 // This middleware parses cookies attached to the req.headers.cookie in the request. It allows you to access cookies via req.cookies.
 app.use(cookieParser());
