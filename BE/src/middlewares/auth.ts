@@ -12,23 +12,25 @@ export const isAuthenticated = async (
     const sessionToken = req.cookies["APP-AUTH"];
 
     if (!sessionToken) {
-      return response({ res, statusCode: 403 });
+      response({ res, statusCode: 403 });
+      return;
     }
 
     const existingUser = await getUserBySessionToken(sessionToken);
 
     if (!existingUser) {
-      return response({ res, statusCode: 403 });
+      response({ res, statusCode: 403 });
+      return;
     }
 
     merge(req, {
       identity: existingUser,
     });
 
-    return next();
+    next();
   } catch (error) {
     console.log(error);
-    return response({ res, statusCode: 403 });
+    response({ res, statusCode: 403 });
   }
 };
 
@@ -43,16 +45,18 @@ export const isOwner = async (
     const currentUserId = get(req, "identity._id") as string;
 
     if (!currentUserId) {
-      return response({ res, statusCode: 403 });
+      response({ res, statusCode: 403 });
+      return;
     }
 
     if (currentUserId.toString() !== id) {
-      return response({ res, statusCode: 403 });
+      response({ res, statusCode: 403 });
+      return;
     }
 
-    return next();
+    next();
   } catch (error) {
     console.log(error);
-    return response({ res, statusCode: 403 });
+    response({ res, statusCode: 403 });
   }
 };

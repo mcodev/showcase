@@ -4,12 +4,16 @@ import { random, authentication } from "../helpers";
 import { response } from "../common";
 import { ROUTES_NAMES } from "../consts";
 
-export const login = async (req: express.Request, res: express.Response) => {
+export const login = async (
+  req: express.Request,
+  res: express.Response
+): Promise<void> => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return response({ res, statusCode: 400, route: ROUTES_NAMES.AUTH });
+      response({ res, statusCode: 400, route: ROUTES_NAMES.AUTH });
+      return;
     }
 
     const user = await getUserByEmail(email).select(
@@ -17,7 +21,8 @@ export const login = async (req: express.Request, res: express.Response) => {
     );
 
     if (!user) {
-      return response({ res, statusCode: 404, route: ROUTES_NAMES.AUTH });
+      response({ res, statusCode: 404, route: ROUTES_NAMES.AUTH });
+      return;
     }
 
     const expectedHashedPassword = authentication(
@@ -26,7 +31,8 @@ export const login = async (req: express.Request, res: express.Response) => {
     );
 
     if (user.authentication.password !== expectedHashedPassword) {
-      return response({ res, statusCode: 403, route: ROUTES_NAMES.AUTH });
+      response({ res, statusCode: 403, route: ROUTES_NAMES.AUTH });
+      return;
     }
 
     const salt = random();
@@ -51,7 +57,7 @@ export const login = async (req: express.Request, res: express.Response) => {
       email: user.email,
     };
 
-    return response({
+    response({
       res,
       statusCode: 200,
       route: "AUTH",
@@ -59,22 +65,27 @@ export const login = async (req: express.Request, res: express.Response) => {
     }).end();
   } catch (error) {
     console.log(error);
-    return response({ res, statusCode: 500, route: ROUTES_NAMES.AUTH });
+    response({ res, statusCode: 500, route: ROUTES_NAMES.AUTH });
   }
 };
 
-export const register = async (req: express.Request, res: express.Response) => {
+export const register = async (
+  req: express.Request,
+  res: express.Response
+): Promise<void> => {
   try {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      return response({ res, statusCode: 400, route: ROUTES_NAMES.AUTH });
+      response({ res, statusCode: 400, route: ROUTES_NAMES.AUTH });
+      return;
     }
 
     const isUserAlreadyRegistered = await getUserByEmail(email);
 
     if (isUserAlreadyRegistered) {
-      return response({ res, statusCode: 409, route: ROUTES_NAMES.AUTH });
+      response({ res, statusCode: 409, route: ROUTES_NAMES.AUTH });
+      return;
     }
 
     const salt = random();
@@ -88,7 +99,7 @@ export const register = async (req: express.Request, res: express.Response) => {
       },
     });
 
-    return response({
+    response({
       res,
       statusCode: 201,
       route: ROUTES_NAMES.AUTH,
@@ -96,6 +107,6 @@ export const register = async (req: express.Request, res: express.Response) => {
     }).end();
   } catch (error) {
     console.log(error);
-    return response({ res, statusCode: 500, route: ROUTES_NAMES.AUTH });
+    response({ res, statusCode: 500, route: ROUTES_NAMES.AUTH });
   }
 };

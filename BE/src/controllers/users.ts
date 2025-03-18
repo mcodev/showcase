@@ -10,7 +10,7 @@ export const getAllUsers = async (
   try {
     const users = await getUsers();
 
-    return response({
+    response({
       res,
       statusCode: 200,
       payload: { users },
@@ -18,7 +18,7 @@ export const getAllUsers = async (
   } catch (error) {
     console.log(error);
 
-    return response({
+    response({
       res,
       statusCode: 500,
     });
@@ -35,12 +35,13 @@ export const deleteUser = async (
     const user = await getUserById(id);
 
     if (!user) {
-      return response({ res, statusCode: 404, route: ROUTES_NAMES.USERS });
+      response({ res, statusCode: 404, route: ROUTES_NAMES.USERS });
+      return;
     }
 
     await deleteUserById(id);
 
-    return response({
+    response({
       res,
       statusCode: 200,
       route: ROUTES_NAMES.USERS,
@@ -49,7 +50,7 @@ export const deleteUser = async (
   } catch (error) {
     console.log(error);
 
-    return response({
+    response({
       res,
       statusCode: 500,
     });
@@ -66,7 +67,9 @@ export const updateUser = async (
     const user = await getUserById(id);
 
     if (!user) {
-      return response({ res, statusCode: 404, route: ROUTES_NAMES.USERS });
+      response({ res, statusCode: 404, route: ROUTES_NAMES.USERS });
+
+      return;
     }
 
     const {
@@ -75,7 +78,9 @@ export const updateUser = async (
     } = req.body;
 
     if (!name) {
-      return response({ res, statusCode: 400, route: ROUTES_NAMES.USERS });
+      response({ res, statusCode: 400, route: ROUTES_NAMES.USERS });
+
+      return;
     }
 
     // if (!email) {
@@ -92,16 +97,16 @@ export const updateUser = async (
 
     await user.save();
 
-    return response({
+    response({
       res,
       statusCode: 200,
       route: ROUTES_NAMES.USERS,
       payload: { user },
-    });
+    }).end();
   } catch (error) {
     console.log(error);
 
-    return response({
+    response({
       res,
       statusCode: 500,
     });

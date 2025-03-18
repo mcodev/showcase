@@ -6,17 +6,7 @@ import { isAuthenticated, isOwner } from "../middlewares/auth";
 import { ROUTES } from "../consts";
 
 export default (router: express.Router) => {
-  // TODO fix any
-  router.get(`${ROUTES.USERS}`, isAuthenticated as any, getAllUsers as any);
-  router.delete(
-    `${ROUTES.USERS}/:id`,
-    isAuthenticated as any,
-    isOwner as any,
-    deleteUser as any
-  );
-  router.patch(
-    `${ROUTES.USERS}/:id`,
-    isAuthenticated as any,
-    updateUser as any
-  );
+  router.get(`${ROUTES.USERS}`, isAuthenticated, getAllUsers);
+  router.delete(`${ROUTES.USERS}/:id`, isAuthenticated, isOwner, deleteUser);
+  router.patch(`${ROUTES.USERS}/:id`, isAuthenticated, updateUser);
 };
