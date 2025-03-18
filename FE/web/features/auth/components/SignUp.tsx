@@ -32,7 +32,6 @@ const SignUp = () => {
     },
 
     validate: {
-      // name: (value) => (value ? null : 'Name is required'),
       name: (value) => isName(value),
       email: (value) => isEmail(value),
       password: (value) => isPassword(value),
