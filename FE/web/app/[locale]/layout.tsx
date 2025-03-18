@@ -11,6 +11,7 @@ import { NAMESPACE } from '@/i18n/consts';
 import initTranslations from '@/i18n/i18n';
 import i18nConfig from '@/i18n/i18nConfig';
 import { AppProvider } from '@/providers/AppProvider';
+import ReactQueryProvider from '@/providers/QueryClientProvider';
 import TranslationsProvider from '@/providers/TranslationsProvider';
 import { UserProvider } from '@/providers/UserProvider';
 import { ParamsType } from '@/types/common';
@@ -62,8 +63,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
               >
                 <NavBar t={t} locale={locale} />
 
-                {children}
-
+                <ReactQueryProvider>{children}</ReactQueryProvider>
                 <Auth />
               </TranslationsProvider>
             </UserProvider>
