@@ -36,7 +36,13 @@ const Auth = () => {
   return (
     <CustomModal
       isVisible={isAuthModalOpen}
-      onClose={closeAuthModal}
+      onClose={() => {
+        closeAuthModal();
+
+        setTimeout(() => {
+          setSelectedComponent('signIn');
+        }, 500);
+      }}
       title={components[selectedComponent].titleKey}
       size="md"
     >
