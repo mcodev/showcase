@@ -1,8 +1,10 @@
 import React from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { isEmail } from '@/common/validators';
+import AUTH from '@/services/auth';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const SignIn = () => {
@@ -21,8 +23,19 @@ const SignIn = () => {
     },
   });
 
+  // tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr#server-components-and-nextjs-app-router
+
+  const SignInMutation = useMutation({
+    mutationFn: AUTH.LOGIN_USER,
+    onSuccess: (data) => {
+      if (data) {
+        console.log('data', data);
+      }
+    },
+  });
+
   return (
-    <form onSubmit={form.onSubmit((values) => console.log('values', values))}>
+    <form onSubmit={form.onSubmit((values) => SignInMutation.mutate(values))}>
       <Flex mt="xl" direction="column">
         <TextInput
           label="Email"

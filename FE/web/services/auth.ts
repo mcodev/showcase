@@ -1,12 +1,15 @@
 import request from './api';
+import { LoginFormType, RegisterFormType } from './payloadTypes';
 
-const postAuthLogin = async (email: string, password: string) => {
+const postAuthLogin = async ({ email, password }: LoginFormType) => {
   const res = await request('auth/login', 'POST', { email, password });
+
+  console.log('res', res);
 
   return res;
 };
 
-const postAuthRegister = async (name: string, email: string, password: string) => {
+const postAuthRegister = async ({ name, email, password }: RegisterFormType) => {
   const res = await request('auth/register', 'POST', { name, email, password });
 
   return res;
