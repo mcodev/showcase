@@ -54,20 +54,22 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
       <body>
         <MantineProvider theme={theme} defaultColorScheme={DEFAULT_THEME}>
-          <AppProvider>
-            <UserProvider>
-              <TranslationsProvider
-                locale={locale}
-                namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
-                resources={resources}
-              >
-                <NavBar t={t} locale={locale} />
+          <ReactQueryProvider>
+            <AppProvider>
+              <UserProvider>
+                <TranslationsProvider
+                  locale={locale}
+                  namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
+                  resources={resources}
+                >
+                  <NavBar t={t} locale={locale} />
 
-                <ReactQueryProvider>{children}</ReactQueryProvider>
-                <Auth />
-              </TranslationsProvider>
-            </UserProvider>
-          </AppProvider>
+                  {children}
+                  <Auth />
+                </TranslationsProvider>
+              </UserProvider>
+            </AppProvider>
+          </ReactQueryProvider>
         </MantineProvider>
       </body>
     </html>
