@@ -13,7 +13,8 @@ export default (router: express.Router) => {
  *   post:
  *     summary: User login
  *     description: Login with email and password to get a JWT token.
- *     tags: [Auth]
+ *     tags:
+ *       - Auth
  *     requestBody:
  *       required: true
  *       content:
@@ -29,6 +30,7 @@ export default (router: express.Router) => {
  *                 example: "user@example.com"
  *               password:
  *                 type: string
+ *                 format: password
  *                 example: "password123"
  *     responses:
  *       200:
