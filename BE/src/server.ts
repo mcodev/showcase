@@ -19,7 +19,6 @@ const xss = require("xss-clean");
 dotenv.config();
 
 const PORT = process.env.PORT || 8000;
-const BASE_URL = process.env.BASE_URL;
 
 const MONGO_URL = process.env.MONGO_URL;
 
@@ -58,18 +57,30 @@ app.use(
       definition: {
         // openapi: "3.0.0",
         info: {
-          title: "Riderz API Documentation",
+          title: "Riderz APIs",
         },
       },
       apis: [path.join(__dirname, "./routes/*.ts")],
-      securityDefinitions: {
-        bearerAuth: {
-          type: "apiKey",
-          name: "Authorization",
-          scheme: "bearer",
-          in: "header",
-        },
-      },
+
+      // servers: [
+      //   {
+      //     url: "http://localhost:8000", // Update if needed
+      //   },
+      // ],
+      // components: {
+      //   securitySchemes: {
+      //     BearerAuth: {
+      //       type: "http",
+      //       scheme: "bearer",
+      //       bearerFormat: "JWT", // Optional
+      //     },
+      //   },
+      // },
+      // security: [
+      //   {
+      //     BearerAuth: [],
+      //   },
+      // ],
     })
   )
 );

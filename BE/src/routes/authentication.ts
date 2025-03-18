@@ -13,8 +13,10 @@ export default (router: express.Router) => {
  * /users:
  *   get:
  *     summary: Get all users
- *     description: Retrieve a list of all users.
+ *     description: Returns a list of users. Requires authentication.
+ *     security:
+ *       - BearerAuth: []
  *     responses:
  *       200:
- *         description: Successfully retrieved users.
+ *         description: A list of users.
  */
