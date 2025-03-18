@@ -2,6 +2,7 @@
 
 import { Button, createTheme, Input } from '@mantine/core';
 import buttonStyles from './components/Button.module.css';
+import checkboxStyles from './components/Checkbox.module.css';
 import inputStyles from './components/Input.module.css';
 
 export const theme = createTheme({
@@ -17,6 +18,9 @@ export const theme = createTheme({
       defaultProps: {
         variant: 'primary',
       },
+    }),
+    Checkbox: Input.extend({
+      classNames: checkboxStyles,
     }),
   },
   // other: {

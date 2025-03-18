@@ -100,7 +100,7 @@ const SignUp = () => {
             error={t(form.errors.termsOfService as string)}
             label={
               <Flex className="keep_text_straight wrap">
-                <Text c="dimmed" fw={400} mr={4} ml="xs" size="sm">
+                <Text c="dimmed" fw={400} mr={4} size="sm">
                   {t('i_agree_with_the')}
                 </Text>
 

@@ -1,0 +1,15 @@
+.root {
+  .input {
+    cursor: pointer;
+
+    &:checked {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary);
+    }
+
+    &:disabled {
+      background-color: transparent;
+      border-color: lightGray;
+    }
+  }
+}
