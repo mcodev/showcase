@@ -58,7 +58,6 @@ app.use(xss());
 //////////////////   SWAGGER   //////////////////
 
 const theme = new SwaggerTheme();
-const darkStyle = theme.getBuffer(SwaggerThemeNameEnum.DARK);
 
 app.use(
   "/api",
