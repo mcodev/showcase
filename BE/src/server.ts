@@ -1,5 +1,6 @@
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const { SwaggerTheme, SwaggerThemeNameEnum } = require("swagger-themes");
 
 import express from "express";
 import dotenv from "dotenv";
@@ -55,6 +56,10 @@ app.use(helmet());
 app.use(xss());
 
 //////////////////   SWAGGER   //////////////////
+
+const theme = new SwaggerTheme();
+const darkStyle = theme.getBuffer(SwaggerThemeNameEnum.DARK);
+
 app.use(
   "/api",
   swaggerUi.serve,
@@ -84,6 +89,7 @@ app.use(
     }),
     {
       customCss:
+        (theme.getBuffer(SwaggerThemeNameEnum.DARK) || "") +
         ".auth-wrapper { display: none !important; } .scheme-container { display: none !important; }", // Hides "Authorize" button
     }
   )
