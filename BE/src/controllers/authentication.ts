@@ -11,6 +11,8 @@ export const login = async (
   try {
     const { email, password } = req.body;
 
+    // TODO check fields with validators
+
     if (!email || !password) {
       response({ res, statusCode: 400, route: ROUTES_NAMES.AUTH });
       return;

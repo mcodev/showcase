@@ -8,5 +8,7 @@ export const GLOBAL_ERRORS = {
 } as const;
 
 export const AUTH_ERRORS = {
-  SEND_BAD_DATA: 'check-provided-data',
+  USER_NOT_FOUND: 'user_not_found',
+  INCORRECT_CREDENTIALS: 'incorrect_credentials',
+  MISSING_REQUIRED_FIELDS: 'missing_required_fields',
 } as const;

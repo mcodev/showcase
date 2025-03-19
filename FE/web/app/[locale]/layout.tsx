@@ -17,6 +17,10 @@ import { UserProvider } from '@/providers/UserProvider';
 import { ParamsType } from '@/types/common';
 import { theme } from '../../styles/theme';
 
+import '@mantine/notifications/styles.css';
+
+import { Notifications } from '@mantine/notifications';
+
 type LayoutProps = {
   children: React.ReactNode;
 } & ParamsType;
@@ -60,6 +64,8 @@ export default async function RootLayout({ children, params }: LayoutProps) {
                   namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
                   resources={resources}
                 >
+                  <Notifications />
+
                   <NavBar t={t} locale={locale} />
 
                   {children}

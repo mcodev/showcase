@@ -1,21 +1,28 @@
 import request from './api';
-import { GLOBAL_ERRORS } from './errors';
+import { AUTH_ERRORS, GLOBAL_ERRORS } from './errors';
 import { LoginFormType, RegisterFormType } from './payloadTypes';
+import { LoginResponseDataType } from './responseTypes';
 
-const postAuthLogin = async ({ email, password }: LoginFormType) => {
+const postAuthLogin = async ({
+  email,
+  password,
+}: LoginFormType): Promise<LoginResponseDataType | null> => {
   const res = await request('auth/login', 'POST', { email, password });
 
   if (!res.success) {
     switch (res.statusCode) {
       case 400:
-        break;
-
+        throw new Error(AUTH_ERRORS.MISSING_REQUIRED_FIELDS);
+      case 403:
+        throw new Error(AUTH_ERRORS.INCORRECT_CREDENTIALS);
+      case 404:
+        throw new Error(AUTH_ERRORS.USER_NOT_FOUND);
       default:
         throw new Error(GLOBAL_ERRORS.UNEXPECTED_ERROR);
     }
   }
 
-  return res;
+  return res.data;
 };
 
 const postAuthRegister = async ({ name, email, password }: RegisterFormType) => {

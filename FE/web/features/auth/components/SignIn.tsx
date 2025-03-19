@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { isEmail } from '@/common/validators';
+import Notification from '@/components/Notifications/Notification';
 import AUTH from '@/services/auth';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
@@ -31,6 +32,13 @@ const SignIn = () => {
       if (data) {
         // console.log('data', data);
       }
+    },
+    onError: (error) => {
+      Notification({
+        type: 'error',
+        title: t('error'),
+        message: t(error.message),
+      });
     },
   });
 
