@@ -48,8 +48,6 @@ export default async function RootLayout({ children, params }: LayoutProps) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
         />
-        {/* prefetch icons */}
-        <link rel="preload" href="/logo.png" as="image" />
       </head>
 
       <body>
