@@ -19,7 +19,7 @@ const request = async (path: string, method: HTTP_METHODS = 'GET', params = {}):
 
     const statusCode = response.status;
 
-    return { ...data, statusCode };
+    return { statusCode, success: data.success, data: data.data };
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);

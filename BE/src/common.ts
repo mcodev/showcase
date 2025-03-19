@@ -31,7 +31,7 @@ export const response = ({
 
   return res.status(statusCode).json({
     success: Boolean(statusCode < 400),
-    error: customMessage || AUTOMATED_MESSAGE,
-    ...(payload && payload),
+    data: payload || null,
+    ...(statusCode >= 400 ? { error: customMessage || AUTOMATED_MESSAGE } : {}),
   });
 };
