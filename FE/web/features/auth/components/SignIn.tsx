@@ -35,7 +35,6 @@ const SignIn = () => {
     },
     onError: (error) => {
       Notification({
-        type: 'error',
         title: t('error'),
         message: t(error.message),
       });

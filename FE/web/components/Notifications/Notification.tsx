@@ -19,7 +19,7 @@ const ICONS = {
   warning: <IconExclamationMark />,
 };
 
-const Notification = ({ type = 'success', title, message }: NotificationProps) => {
+const Notification = ({ type = 'error', title, message }: NotificationProps) => {
   return notifications.show({
     position: 'top-right',
     autoClose: 3000,
