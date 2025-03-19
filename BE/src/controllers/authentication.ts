@@ -54,7 +54,6 @@ export const login = async (
     const userData = {
       _id: user._id,
       name: user.name,
-      email: user.email,
     };
 
     response({

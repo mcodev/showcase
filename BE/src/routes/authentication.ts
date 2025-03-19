@@ -41,18 +41,16 @@ export default (router: express.Router) => {
  *             schema:
  *               type: object
  *               properties:
- *                 token:
+ *                 _id:
  *                   type: string
- *                   example: "your.jwt.token"
- *                   description: JWT token
+ *                 name:
+ *                   type: string
  *       400:
- *         description: Invalid email or password
- *       404:
- *         description: User not found
+ *         description: Missing required fields
  *       403:
  *         description: Invalid credentials
- *       409:
- *         description: User already exists
+ *       404:
+ *         description: User not found
  */
 
 /**
