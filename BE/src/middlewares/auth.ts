@@ -1,62 +1,30 @@
 import express from "express";
-import { getUserBySessionToken } from "../models/Users";
-import { get, merge } from "lodash";
-import { response } from "../common";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-export const isAuthenticated = async (
+dotenv.config();
+
+export const authenticateToken = (
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) => {
-  try {
-    const sessionToken = req.cookies["APP-AUTH"];
-
-    if (!sessionToken) {
-      response({ res, statusCode: 403 });
-      return;
-    }
-
-    const existingUser = await getUserBySessionToken(sessionToken);
-
-    if (!existingUser) {
-      response({ res, statusCode: 403 });
-      return;
-    }
-
-    merge(req, {
-      identity: existingUser,
-    });
-
-    next();
-  } catch (error) {
-    console.log(error);
-    response({ res, statusCode: 403 });
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Access Denied" });
   }
-};
 
-export const isOwner = async (
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  try {
-    const { id } = req.params;
+  const token = authHeader.split(" ")[1];
 
-    const currentUserId = get(req, "identity._id") as string;
+  jwt.verify(
+    token,
+    process.env.ACCESS_TOKEN_SECRET as string,
+    (err, user: any) => {
+      if (err) return res.status(403).json({ message: "Invalid Token" });
 
-    if (!currentUserId) {
-      response({ res, statusCode: 403 });
-      return;
+      // @ts-ignore
+      req.user = user;
+      next();
     }
-
-    if (currentUserId.toString() !== id) {
-      response({ res, statusCode: 403 });
-      return;
-    }
-
-    next();
-  } catch (error) {
-    console.log(error);
-    response({ res, statusCode: 403 });
-  }
+  );
 };
