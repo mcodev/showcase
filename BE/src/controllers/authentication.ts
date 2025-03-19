@@ -11,11 +11,11 @@ export const login = async (
   try {
     const { email, password } = req.body;
 
-    // www.youtube.com/watch?v=XYjOteYbCMo
+    //www.youtube.com/watch?v=XYjOteYbCMo
 
     // TODO check fields with validators
 
-    https: if (!email || !password) {
+    if (!email || !password) {
       response({ res, statusCode: 400, route: ROUTES_NAMES.AUTH });
       return;
     }
