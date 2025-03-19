@@ -24,8 +24,6 @@ const SignIn = () => {
     },
   });
 
-  // tanstack.com/query/latest/docs/framework/react/guides/advanced-ssr#server-components-and-nextjs-app-router
-
   const SignInMutation = useMutation({
     mutationFn: AUTH.LOGIN_USER,
     onSuccess: (data) => {
