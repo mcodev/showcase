@@ -1,14 +1,24 @@
 export const ROUTES = {
   AUTH: "/auth",
   USERS: "/users",
+  REFRESH: "/refresh",
 } as const;
 
 export const ROUTES_NAMES = {
   AUTH: "AUTH",
   USERS: "USERS",
+  REFRESH: "REFRESH",
 } as const;
 
 export const RESPONSE_MESSAGES = {
+  REFRESH: {
+    201: "TOKEN_REFRESHED",
+    400: "INVALID_REFRESH_TOKEN",
+    401: "UNAUTHORIZED",
+    403: "FORBIDDEN",
+    404: "USER_NOT_FOUND",
+    409: "CONFLICT",
+  },
   AUTH: {
     201: "USER_CREATED",
     400: "MISSING_REQUIRED_FIELDS",

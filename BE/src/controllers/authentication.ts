@@ -26,6 +26,7 @@ export const login = async (
     const user = await getUserByEmail(email).select(
       "+authentication.salt +authentication.password"
     );
+
     if (!user) {
       response({
         res,
@@ -39,6 +40,7 @@ export const login = async (
       user.authentication.salt,
       password
     );
+
     if (user.authentication.password !== expectedHashedPassword) {
       response({
         res,
@@ -50,7 +52,7 @@ export const login = async (
 
     // Generate JWT tokens
     const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
+    const refreshToken = await generateRefreshToken(user);
 
     response({
       res,
@@ -90,6 +92,7 @@ export const register = async (
     }
 
     const isUserAlreadyRegistered = await getUserByEmail(email);
+
     if (isUserAlreadyRegistered) {
       response({
         res,
@@ -100,6 +103,7 @@ export const register = async (
     }
 
     const salt = random();
+
     const user = await createUser({
       name,
       email,
@@ -109,9 +113,29 @@ export const register = async (
       },
     });
 
+    if (!user) {
+      response({
+        res,
+        statusCode: 500,
+        route: ROUTES_NAMES.AUTH,
+        // message: "User registration failed",
+      });
+      return;
+    }
+
     // Generate JWT tokens
     const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user);
+    const refreshToken = await generateRefreshToken(user);
+
+    if (!accessToken || !refreshToken) {
+      response({
+        res,
+        statusCode: 500,
+        route: ROUTES_NAMES.AUTH,
+        // message: "User registration failed",
+      });
+      return;
+    }
 
     response({
       res,
@@ -129,7 +153,7 @@ export const register = async (
   }
 };
 
-// LOGOUT ENDPOINT
+// LOGOUT CONTROLLER
 export const logout = async (
   req: express.Request,
   res: express.Response
@@ -137,7 +161,19 @@ export const logout = async (
   const { refreshToken } = req.body;
 
   // Delete refresh token from DB
-  await RefreshToken.findOneAndDelete({ token: refreshToken });
+  const deletedToken = await RefreshToken.findOneAndDelete({
+    token: refreshToken,
+  });
+
+  if (!deletedToken) {
+    response({
+      res,
+      statusCode: 404,
+      route: ROUTES_NAMES.AUTH,
+      // message: "Refresh token not found",
+    });
+    return;
+  }
 
   response({
     res,

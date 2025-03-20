@@ -9,7 +9,7 @@ export const refresh = async (
   req: express.Request,
   res: express.Response
 ): Promise<void> => {
-  const { refreshToken } = req.body;
+  const { refreshToken, email } = req.body;
 
   if (!refreshToken) {
     response({

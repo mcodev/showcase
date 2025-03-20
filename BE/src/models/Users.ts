@@ -48,9 +48,12 @@ export const getUserById = (id: string) => {
 };
 
 export const createUser = async (values: Record<string, any>) => {
-  new UserModel(values).save().then((user) => {
-    user.toObject();
-  });
+  try {
+    const user = await new UserModel(values).save();
+    return user.toObject();
+  } catch (error) {
+    throw false;
+  }
 };
 
 export const deleteUserById = (id: string) => {

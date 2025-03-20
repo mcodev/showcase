@@ -6,6 +6,8 @@ dotenv.config();
 
 // Generate JWT Access Token
 export const generateAccessToken = (user: any) => {
+  console.log("user", user);
+
   return jwt.sign(
     { userId: user._id },
     process.env.ACCESS_TOKEN_SECRET as string,
@@ -24,5 +26,31 @@ export const generateRefreshToken = async (user: any) => {
   // Store the token in the DB
   await RefreshToken.create({ userId: user._id, token: refreshToken });
 
+  if (!refreshToken) {
+    return false;
+  }
+
   return refreshToken;
+};
+
+export const verifyRefreshToken = async (
+  refreshToken: string,
+  email: string
+) => {
+  try {
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET as string);
+
+    const storedToken = await RefreshToken.findOne({ token: refreshToken });
+
+    if (!storedToken) {
+      return false;
+    }
+
+    if (storedToken.userId.toString() !== email) {
+      return false;
+    }
+    return true;
+  } catch (err) {
+    return false;
+  }
 };
