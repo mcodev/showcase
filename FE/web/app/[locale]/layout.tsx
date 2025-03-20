@@ -20,6 +20,7 @@ import { theme } from '../../styles/theme';
 import '@mantine/notifications/styles.css';
 
 import { Notifications } from '@mantine/notifications';
+import ApiConnectionProvider from '@/providers/ApiConnectionProvider';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -68,7 +69,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
                   <NavBar t={t} locale={locale} />
 
-                  {children}
+                  <ApiConnectionProvider>{children}</ApiConnectionProvider>
 
                   <AuthComponentsDisplay />
                 </TranslationsProvider>

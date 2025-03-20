@@ -5,12 +5,14 @@ import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { isEmail } from '@/common/validators';
 import Notification from '@/components/Notifications/Notification';
-import AUTH from '@/services/auth';
+import { useApiConnection } from '@/providers/ApiConnectionProvider';
+// import AUTH from '@/services/auth';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const SignIn = () => {
   const { changeSelectedComponent } = useAuthContext();
   const { t } = useTranslation();
+  const { request } = useApiConnection();
 
   const form = useForm({
     mode: 'controlled',
@@ -25,7 +27,7 @@ const SignIn = () => {
   });
 
   const SignInMutation = useMutation({
-    mutationFn: AUTH.LOGIN_USER,
+    mutationFn: request('LOGIN_SERVICE'),
 
     onSuccess: (data) => {
       if (data) {
