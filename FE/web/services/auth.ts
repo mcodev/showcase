@@ -1,7 +1,7 @@
-import request from './api';
 import { AUTH_ERRORS, GLOBAL_ERRORS } from './errors';
 import { LoginFormType, RegisterFormType } from './payloadTypes';
 import { LoginResponseDataType } from './responseTypes';
+import request from './useApiConnection';
 
 const postAuthLogin = async ({
   email,
@@ -36,4 +36,4 @@ const AUTH = {
   REGISTER_USER: postAuthRegister,
 };
 
-export default AUTH;
+// export default AUTH;
