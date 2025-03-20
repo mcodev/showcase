@@ -36,4 +36,4 @@ const AUTH = {
   REGISTER_USER: postAuthRegister,
 };
 
-// export default AUTH;
+export default AUTH;
