@@ -6,7 +6,7 @@ import { dir } from 'i18next';
 import { ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core';
 import { DEFAULT_THEME } from '@/common/consts';
 import NavBar from '@/components/NavBar/NavBar';
-import Auth from '@/features/auth/Auth';
+import AuthComponentsDisplay from '@/features/auth/AuthComponentsDisplay';
 import { NAMESPACE } from '@/i18n/consts';
 import initTranslations from '@/i18n/i18n';
 import i18nConfig from '@/i18n/i18nConfig';
@@ -69,7 +69,8 @@ export default async function RootLayout({ children, params }: LayoutProps) {
                   <NavBar t={t} locale={locale} />
 
                   {children}
-                  <Auth />
+
+                  <AuthComponentsDisplay />
                 </TranslationsProvider>
               </UserProvider>
             </AppProvider>

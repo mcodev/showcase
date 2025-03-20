@@ -11,8 +11,6 @@ type DefaultContextDataType = {
   newNotifications: boolean;
   userDetails: any | null;
   isUserDataLoading: boolean;
-  isUserProfessional: boolean;
-  isUserClient: boolean;
 };
 
 const defaultContextData: DefaultContextDataType = {
@@ -20,8 +18,6 @@ const defaultContextData: DefaultContextDataType = {
   newNotifications: false,
   userDetails: null,
   isUserDataLoading: true,
-  isUserProfessional: false,
-  isUserClient: false,
 };
 
 const UserContextData = createContext(defaultContextData);
@@ -31,10 +27,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [userDetails, setUserDetails] = useState<any | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [newNotifications, setNewNotifications] = useState(false);
-
-  const isUserProfessional = userDetails?.type === 'professional';
-
-  const isUserClient = userDetails?.type === 'user';
 
   useEffect(() => {
     setIsLoggedIn(true);
@@ -50,8 +42,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         newNotifications,
         userDetails,
         isUserDataLoading,
-        isUserProfessional,
-        isUserClient,
       }}
     >
       {children}

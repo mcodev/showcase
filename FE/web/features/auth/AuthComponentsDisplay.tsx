@@ -24,7 +24,7 @@ const components = {
   },
 };
 
-const Auth = () => {
+const AuthComponentsDisplay = () => {
   const [selectedComponent, setSelectedComponent] = useState<SelectedComponentType>('signIn');
 
   const { isAuthModalOpen, closeAuthModal } = useAppContext();
@@ -56,4 +56,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default AuthComponentsDisplay;
