@@ -6,8 +6,6 @@ dotenv.config();
 
 // Generate JWT Access Token
 export const generateAccessToken = (user: any) => {
-  console.log("user", user);
-
   return jwt.sign(
     { userId: user._id },
     process.env.ACCESS_TOKEN_SECRET as string,

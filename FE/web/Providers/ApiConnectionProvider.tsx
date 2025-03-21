@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext } from 'react';
-import { encryptToLocalStorage } from '@/common/helpers';
+import secureLocalStorage from 'react-secure-storage';
 import {
   // PROTECTED_ROUTES,
   SERVICES,
@@ -33,7 +33,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
     updateAccessToken(data.accessToken);
     updateUser(data.user);
 
-    encryptToLocalStorage('rt', data.accessToken);
+    secureLocalStorage.setItem('rt', data.refreshToken);
   };
 
   const request = async ({

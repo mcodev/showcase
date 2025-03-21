@@ -9,7 +9,7 @@ export const refresh = async (
   req: express.Request,
   res: express.Response
 ): Promise<void> => {
-  const { refreshToken, email } = req.body;
+  const { refreshToken } = req.body;
 
   if (!refreshToken) {
     response({
@@ -23,6 +23,7 @@ export const refresh = async (
 
   // Check if the token exists in the DB
   const storedToken = await RefreshToken.findOne({ token: refreshToken });
+
   if (!storedToken) {
     response({
       res,
@@ -38,6 +39,8 @@ export const refresh = async (
     process.env.REFRESH_TOKEN_SECRET as string,
     async (err: any, user: any) => {
       if (err) {
+        console.log("err in verification", err);
+
         response({
           res,
           statusCode: 403,

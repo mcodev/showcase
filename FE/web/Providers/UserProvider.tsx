@@ -27,6 +27,8 @@ const UserContextData = createContext(defaultContextData);
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const { closeAuthModal } = useAppContext();
+  const { refresh } = useRefresh();
+
   const [userDetails, setUserDetails] = useState<UserDetailsType | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
@@ -40,12 +42,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     closeAuthModal();
   };
 
-  const { refresh } = useRefresh({ updateAccessToken });
-
-  console.log('accessToken', accessToken);
-
   React.useEffect(() => {
-    refresh();
+    refresh({ updateAccessToken });
   }, []);
 
   return (
