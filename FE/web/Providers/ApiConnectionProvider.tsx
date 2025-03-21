@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext } from 'react';
-import { SERVICES, ServicesSelectorType } from '@/services';
+import { PROTECTED_ROUTES, SERVICES, ServicesSelectorType } from '@/services';
 import { GLOBAL_ERRORS } from '@/services/errors';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
