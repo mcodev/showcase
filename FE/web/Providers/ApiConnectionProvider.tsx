@@ -71,9 +71,12 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
       }
 
       if (service === SERVICE.LOGIN_SERVICE || service === SERVICE.SIGN_UP_SERVICE) {
-        await handleAuthInitialization(data);
+        if (data.data.accessToken && data.data.refreshToken) {
+          await handleAuthInitialization(data.data);
 
-        return { statusCode, success: data.success, data: null };
+          return { statusCode, success: data.success, data: null };
+        }
+        throw new Error('Unexpected error');
       }
 
       return { statusCode, success: data.success, data: data.data };
