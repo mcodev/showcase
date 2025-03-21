@@ -33,7 +33,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
     updateAccessToken(data.accessToken);
     updateUser(data.user);
 
-    encryptToLocalStorage('at', data.accessToken);
+    encryptToLocalStorage('rt', data.accessToken);
   };
 
   const request = async ({
@@ -49,7 +49,6 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
-        credentials: 'include',
         cache: 'no-cache',
         referrerPolicy: 'no-referrer',
       });

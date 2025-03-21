@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
+import useRefresh from '@/hooks/useRefresh';
 import { UserDetailsType } from '@/types/responseTypes';
 import { useAppContext } from './AppProvider';
 
@@ -38,6 +39,14 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
     closeAuthModal();
   };
+
+  const { refresh } = useRefresh({ updateAccessToken });
+
+  console.log('accessToken', accessToken);
+
+  React.useEffect(() => {
+    refresh();
+  }, []);
 
   return (
     <UserContextData.Provider
