@@ -1,6 +1,7 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
+import { UserDetailsType } from '@/types/responseTypes';
 
 type UserProviderProps = {
   children: React.ReactNode;
@@ -8,40 +9,39 @@ type UserProviderProps = {
 
 type DefaultContextDataType = {
   isLoggedIn: boolean;
-  newNotifications: boolean;
   userDetails: any | null;
-  isUserDataLoading: boolean;
+  updateUser: (user: any) => void;
+  updateAccessToken: (token: string) => void;
 };
 
 const defaultContextData: DefaultContextDataType = {
   isLoggedIn: false,
-  newNotifications: false,
   userDetails: null,
-  isUserDataLoading: true,
+  updateUser: () => {},
+  updateAccessToken: () => {},
 };
 
 const UserContextData = createContext(defaultContextData);
 
 export const UserProvider = ({ children }: UserProviderProps) => {
-  const [isUserDataLoading, setIsUserDataLoading] = useState(true);
-  const [userDetails, setUserDetails] = useState<any | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [newNotifications, setNewNotifications] = useState(false);
+  const [userDetails, setUserDetails] = useState<UserDetailsType | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
-  useEffect(() => {
-    setIsLoggedIn(true);
-    setIsUserDataLoading(false);
-    setUserDetails({});
-    setNewNotifications(false);
-  }, []);
+  const updateUser = (user: any) => {
+    setUserDetails(user);
+  };
+
+  const updateAccessToken = (token: string) => {
+    setAccessToken(token);
+  };
 
   return (
     <UserContextData.Provider
       value={{
-        isLoggedIn,
-        newNotifications,
+        isLoggedIn: Boolean(accessToken),
         userDetails,
-        isUserDataLoading,
+        updateUser,
+        updateAccessToken,
       }}
     >
       {children}

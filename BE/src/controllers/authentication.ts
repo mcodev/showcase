@@ -61,7 +61,7 @@ export const login = async (
       payload: {
         accessToken,
         refreshToken,
-        user: { _id: user._id, name: user.name, email: user.email },
+        user: { _id: user._id, name: user.name },
       },
     }).end();
   } catch (error) {

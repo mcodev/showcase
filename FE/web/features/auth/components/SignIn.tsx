@@ -6,12 +6,13 @@ import { useForm } from '@mantine/form';
 import { isEmail } from '@/common/validators';
 import Notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
+import { LoginFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const SignIn = () => {
   const { changeSelectedComponent } = useAuthContext();
   const { t } = useTranslation();
-  const { request } = useApiConnection();
+  const { request, SERVICE } = useApiConnection();
 
   const form = useForm({
     mode: 'controlled',
@@ -26,7 +27,8 @@ const SignIn = () => {
   });
 
   const SignInMutation = useMutation({
-    mutationFn: (values: any) => request({ service: 'LOGIN_SERVICE', payload: values }),
+    mutationFn: (values: LoginFormType) =>
+      request({ service: SERVICE.LOGIN_SERVICE, payload: values }),
 
     onSuccess: (data) => {
       if (data) {
