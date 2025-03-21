@@ -37,8 +37,7 @@ const useRefresh = () => {
         await secureLocalStorage.removeItem('rt');
       }
     } else {
-      //TODO fix this id needed
-      // await secureLocalStorage.removeItem('rt');
+      await secureLocalStorage.removeItem('rt');
     }
   };
 

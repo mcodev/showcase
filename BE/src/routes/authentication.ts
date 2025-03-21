@@ -1,11 +1,12 @@
 import express from "express";
 import { login, logout, register } from "../controllers/authentication";
 import { ROUTES } from "../consts";
+import { isAuthenticated } from "../middlewares/auth";
 
 export default (router: express.Router) => {
   router.post(`${ROUTES.AUTH}/register`, register);
   router.post(`${ROUTES.AUTH}/login`, login);
-  router.post(`${ROUTES.AUTH}/logout`, logout);
+  router.post(`${ROUTES.AUTH}/logout`, isAuthenticated, logout);
 };
 
 // TODO fix response messages on swagger
