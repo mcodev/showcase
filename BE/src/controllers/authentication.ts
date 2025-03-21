@@ -161,7 +161,7 @@ export const logout = async (
   const { refreshToken } = req.body;
 
   // Delete refresh token from DB
-  const deletedToken = await RefreshToken.findOneAndDelete({
+  const deletedToken = await RefreshToken.deleteOne({
     token: refreshToken,
   });
 

@@ -23,7 +23,7 @@ export const isAuthenticated = (
     token,
     process.env.ACCESS_TOKEN_SECRET as string,
     (err, user: any) => {
-      if (err) return res.status(403).json({ message: "Invalid Token" });
+      if (err) res.status(403).json({ message: "Invalid Token" });
 
       // @ts-ignore
       req.user = user;
