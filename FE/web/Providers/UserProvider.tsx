@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import { UserDetailsType } from '@/types/responseTypes';
+import { useAppContext } from './AppProvider';
 
 type UserProviderProps = {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ const defaultContextData: DefaultContextDataType = {
 const UserContextData = createContext(defaultContextData);
 
 export const UserProvider = ({ children }: UserProviderProps) => {
+  const { closeAuthModal } = useAppContext();
   const [userDetails, setUserDetails] = useState<UserDetailsType | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
@@ -33,12 +35,16 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   const updateAccessToken = (token: string) => {
     setAccessToken(token);
+
+    closeAuthModal();
   };
 
   return (
     <UserContextData.Provider
       value={{
-        isLoggedIn: Boolean(accessToken),
+        // isLoggedIn: Boolean(accessToken),
+        isLoggedIn: true,
+
         userDetails,
         updateUser,
         updateAccessToken,

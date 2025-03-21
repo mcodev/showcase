@@ -14,12 +14,10 @@ import SignedInBar from './components/SignedInBar/SignedInBar';
 import { ModalType, SelectedDrawerType } from './types';
 
 const Profile = () => {
-  const { isUserClient } = useUserContext();
   const { openAuthModal } = useAppContext();
+  const { isLoggedIn } = useUserContext();
 
   const { t } = useTranslation();
-
-  const isUserLoggedIn = false;
 
   const [isSettingsModalVisible, { open: openSettingsModal, close: closeSettingsModal }] =
     useDisclosure(false);
@@ -70,7 +68,7 @@ const Profile = () => {
     }
   };
 
-  return isUserLoggedIn ? (
+  return isLoggedIn ? (
     <>
       <SignedInBar handleOpenDrawer={handleOpenDrawer} handleOpenModal={handleOpenModal} />
 
@@ -82,12 +80,10 @@ const Profile = () => {
 
       <SignOutModal isVisible={isSignOutModalVisible} handleCloseModal={closeSignOutModal} />
 
-      {isUserClient && (
-        <FavoritesDrawer
-          isVisible={isFavoritesDrawerVisible}
-          handleCloseDrawer={closeFavoritesDrawer}
-        />
-      )}
+      <FavoritesDrawer
+        isVisible={isFavoritesDrawerVisible}
+        handleCloseDrawer={closeFavoritesDrawer}
+      />
     </>
   ) : (
     <Text

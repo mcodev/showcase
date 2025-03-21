@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import { Avatar, Drawer, Flex, Paper, Rating, Text } from '@mantine/core';
 
@@ -11,7 +13,7 @@ type FavoritesDrawerProps = {
 const FavoritesDrawer = ({ isVisible, handleCloseDrawer }: FavoritesDrawerProps) => {
   const { t } = useTranslation();
   const [favorites, setFavorites] = useState<any[] | null>(null);
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
     setFavorites(JSON.parse(localStorage.getItem('favorites') || '[]'));
@@ -27,7 +29,7 @@ const FavoritesDrawer = ({ isVisible, handleCloseDrawer }: FavoritesDrawerProps)
               p="lg"
               onClick={() => {
                 handleCloseDrawer();
-                router.push(`/${favorite.id}`);
+                // router.push(`/${favorite.id}`);
               }}
               className="cursor_pointer"
               radius="md"

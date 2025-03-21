@@ -1,18 +1,17 @@
+'use client';
+
 import React from 'react';
-import { useRouter } from 'next/router';
 import {
   IconArrowBigUpFilled,
   IconCalendar,
   IconHeart,
   IconLifebuoy,
   IconLogout,
-  IconScissors,
   IconSettings,
   IconUser,
 } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { Avatar, Flex, Indicator, Menu, Tooltip } from '@mantine/core';
-import { useUserContext } from '../../../../providers/UserProvider';
 import { ModalType, SelectedDrawerType } from '../../types';
 
 type SignedInBarProps = {
@@ -23,14 +22,9 @@ type SignedInBarProps = {
 const SignedInBar = ({ handleOpenDrawer, handleOpenModal }: SignedInBarProps) => {
   const { t } = useTranslation();
 
-  const router = useRouter();
-
-  const { isUserProfessional, isUserClient } = useUserContext();
-
   const DROPDOWN_MENU_ITEMS = [
     { value: 'account', label: 'account', icon: IconUser, isVisible: true },
     { value: 'settings', label: 'settings', icon: IconSettings, isVisible: true },
-    { value: 'shop_details', label: 'edit', icon: IconScissors, isVisible: isUserProfessional },
     {
       value: 'upgrade',
       label: 'upgrade',
@@ -44,43 +38,27 @@ const SignedInBar = ({ handleOpenDrawer, handleOpenModal }: SignedInBarProps) =>
 
   return (
     <Flex align="center">
-      <Tooltip
-        label={t(isUserClient ? 'show_my_appointments' : 'view_appointments')}
-        offset={10}
-        openDelay={500}
-      >
+      <Tooltip label={t('view_appointments')} offset={10} openDelay={500}>
         <Indicator disabled withBorder mr={16} className="cursor_pointer flex">
           <IconCalendar
             size={24}
             color="gray"
-            onClick={() =>
-              isUserClient ? handleOpenDrawer('user_appointments') : router.push('/appointments')
-            }
+            // onClick={() =>
+            //   isUserClient ? handleOpenDrawer('user_appointments') : router.push('/appointments')
+            // }
           />
         </Indicator>
       </Tooltip>
 
-      {isUserClient && (
-        <Tooltip label={t('show_my_favorites')} offset={10} openDelay={500}>
-          <Indicator disabled withBorder mr={16} className="cursor_pointer flex">
-            <IconHeart size={24} color="gray" onClick={() => handleOpenDrawer('favorites')} />
-          </Indicator>
-        </Tooltip>
-      )}
+      {/* <Tooltip label={t('show_my_favorites')} offset={10} openDelay={500}>
+      </Tooltip> */}
+      <Indicator disabled withBorder mr={16} className="cursor_pointer flex">
+        <IconHeart size={24} color="gray" onClick={() => handleOpenDrawer('favorites')} />
+      </Indicator>
 
       <Menu shadow="md" width={200}>
         <Menu.Target>
-          <Tooltip label={t('view_app_settings')} offset={10} openDelay={1000}>
-            {isUserClient ? (
-              <Avatar color="indigo" className="cursor_pointer" size={32} draggable={false}>
-                {/* {userDetails?.name && getAvatarUserName(userDetails?.name)} */}
-              </Avatar>
-            ) : (
-              <Indicator disabled withBorder mr={16} className="cursor_pointer flex">
-                <IconSettings size={30} color="gray" className="cursor_pointer" />
-              </Indicator>
-            )}
-          </Tooltip>
+          <Avatar color="indigo" className="cursor_pointer" size={32} draggable={false} />
         </Menu.Target>
 
         <Menu.Dropdown>
