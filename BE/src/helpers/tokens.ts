@@ -5,24 +5,24 @@ import { RefreshToken } from "../models/RefreshToken";
 dotenv.config();
 
 // Generate JWT Access Token
-export const generateAccessToken = (user: any) => {
+export const generateAccessToken = (userId: string) => {
   return jwt.sign(
-    { userId: user._id },
+    { userId: userId },
     process.env.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: "30m" }
+    { expiresIn: "12h" }
   );
 };
 
 // Generate JWT Refresh Token
-export const generateRefreshToken = async (user: any) => {
+export const generateRefreshToken = async (userId: string) => {
   const refreshToken = jwt.sign(
-    { userId: user._id },
+    { userId: userId },
     process.env.REFRESH_TOKEN_SECRET as string,
     { expiresIn: "7d" }
   );
 
   // Store the token in the DB
-  await RefreshToken.create({ userId: user._id, token: refreshToken });
+  await RefreshToken.create({ userId: userId, token: refreshToken });
 
   if (!refreshToken) {
     return false;

@@ -3,7 +3,11 @@ import secureLocalStorage from 'react-secure-storage';
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 const useRefresh = () => {
-  const refresh = async ({ updateAccessToken }: { updateAccessToken: (token: string) => void }) => {
+  const refresh = async ({
+    updateAccessToken,
+  }: {
+    updateAccessToken: (token: string | null) => void;
+  }) => {
     const refreshToken = await secureLocalStorage.getItem('rt');
 
     if (!refreshToken) {
@@ -21,7 +25,20 @@ const useRefresh = () => {
     const data = await response.json();
 
     if (data.success) {
-      updateAccessToken(data.data.accessToken);
+      if (data.data.accessToken) {
+        updateAccessToken(data.data.accessToken);
+      } else {
+        updateAccessToken(null);
+      }
+
+      if (data.data.refreshToken) {
+        await secureLocalStorage.setItem('rt', data.data.refreshToken);
+      } else {
+        await secureLocalStorage.removeItem('rt');
+      }
+    } else {
+      //TODO fix this id needed
+      // await secureLocalStorage.removeItem('rt');
     }
   };
 

@@ -51,8 +51,8 @@ export const login = async (
     }
 
     // Generate JWT tokens
-    const accessToken = generateAccessToken(user);
-    const refreshToken = await generateRefreshToken(user);
+    const accessToken = generateAccessToken(String(user._id));
+    const refreshToken = await generateRefreshToken(String(user._id));
 
     response({
       res,
@@ -124,8 +124,8 @@ export const register = async (
     }
 
     // Generate JWT tokens
-    const accessToken = generateAccessToken(user);
-    const refreshToken = await generateRefreshToken(user);
+    const accessToken = generateAccessToken(String(user._id));
+    const refreshToken = await generateRefreshToken(String(user._id));
 
     if (!accessToken || !refreshToken) {
       response({

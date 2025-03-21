@@ -2,7 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import { response } from "../common";
 import { ROUTES_NAMES } from "../consts";
-import { generateAccessToken } from "../helpers/tokens";
+import { generateAccessToken, generateRefreshToken } from "../helpers/tokens";
 import { RefreshToken } from "../models/RefreshToken";
 
 export const refresh = async (
@@ -25,6 +25,9 @@ export const refresh = async (
   const storedToken = await RefreshToken.findOne({ token: refreshToken });
 
   if (!storedToken) {
+    // make this log red color
+    console.warn("\x1b[36m%s\x1b[0m", "Possible token theft detected!");
+
     response({
       res,
       statusCode: 403,
@@ -34,29 +37,46 @@ export const refresh = async (
     return;
   }
 
-  jwt.verify(
-    refreshToken,
-    process.env.REFRESH_TOKEN_SECRET as string,
-    async (err: any, user: any) => {
-      if (err) {
-        console.log("err in verification", err);
+  try {
+    // Verify the refresh token
+    const decoded = jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET as string
+    );
 
-        response({
-          res,
-          statusCode: 403,
-          route: ROUTES_NAMES.AUTH,
-          //   message: "Invalid refresh token",
-        });
-        return;
-      }
+    const parsedDecoded = JSON.parse(JSON.stringify(decoded));
 
-      const newAccessToken = generateAccessToken(user);
+    const newAccessToken = generateAccessToken(parsedDecoded.userId);
+
+    const newRefreshToken = await generateRefreshToken(parsedDecoded.userId);
+
+    // Remove the old refresh token
+    const deletedToken = await RefreshToken.deleteOne({
+      token: refreshToken,
+    });
+
+    if (!deletedToken) {
       response({
         res,
-        statusCode: 200,
+        statusCode: 404,
         route: ROUTES_NAMES.AUTH,
-        payload: { accessToken: newAccessToken },
-      }).end();
+        // message: "Refresh token not found",
+      });
+      return;
     }
-  );
+
+    response({
+      res,
+      statusCode: 200,
+      route: ROUTES_NAMES.AUTH,
+      payload: { accessToken: newAccessToken, refreshToken: newRefreshToken },
+    }).end();
+  } catch (err) {
+    response({
+      res,
+      statusCode: 500,
+      route: ROUTES_NAMES.AUTH,
+      //   message: "Invalid refresh token",
+    });
+  }
 };
