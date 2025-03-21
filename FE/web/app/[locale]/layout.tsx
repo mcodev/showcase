@@ -60,19 +60,21 @@ export default async function RootLayout({ children, params }: LayoutProps) {
           <ReactQueryProvider>
             <AppProvider>
               <UserProvider>
-                <TranslationsProvider
-                  locale={locale}
-                  namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
-                  resources={resources}
-                >
-                  <Notifications />
+                <ApiConnectionProvider>
+                  <TranslationsProvider
+                    locale={locale}
+                    namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
+                    resources={resources}
+                  >
+                    <Notifications />
 
-                  <NavBar t={t} locale={locale} />
+                    <NavBar t={t} locale={locale} />
 
-                  <ApiConnectionProvider>{children}</ApiConnectionProvider>
+                    {children}
 
-                  <AuthComponentsDisplay />
-                </TranslationsProvider>
+                    <AuthComponentsDisplay />
+                  </TranslationsProvider>
+                </ApiConnectionProvider>
               </UserProvider>
             </AppProvider>
           </ReactQueryProvider>

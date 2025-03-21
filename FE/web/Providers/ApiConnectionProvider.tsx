@@ -18,10 +18,6 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
   }: RequestPropsType): Promise<{ success: boolean; data: any; statusCode: number }> => {
     const SELECTED_SERVICE = SERVICES[service];
 
-    console.log('service', service);
-    console.log('payload', payload);
-    return;
-
     try {
       const response = await fetch(`${BASE_URL}/${SELECTED_SERVICE.path}`, {
         method: SELECTED_SERVICE.method,
