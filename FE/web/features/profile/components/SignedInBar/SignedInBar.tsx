@@ -29,7 +29,6 @@ const SignedInBar = ({ handleOpenDrawer, handleOpenModal }: SignedInBarProps) =>
       value: 'upgrade',
       label: 'upgrade',
       icon: IconArrowBigUpFilled,
-      // isVisible: isUserProfessional,
       isVisible: false,
     },
     { value: 'support', label: 'support', icon: IconLifebuoy, isVisible: true },
@@ -51,10 +50,10 @@ const SignedInBar = ({ handleOpenDrawer, handleOpenModal }: SignedInBarProps) =>
       </Tooltip>
 
       {/* <Tooltip label={t('show_my_favorites')} offset={10} openDelay={500}>
+        <Indicator disabled withBorder mr={16} className="cursor_pointer flex">
+          <IconHeart size={24} color="gray" onClick={() => handleOpenDrawer('favorites')} />
+        </Indicator>
       </Tooltip> */}
-      <Indicator disabled withBorder mr={16} className="cursor_pointer flex">
-        <IconHeart size={24} color="gray" onClick={() => handleOpenDrawer('favorites')} />
-      </Indicator>
 
       <Menu shadow="md" width={200}>
         <Menu.Target>

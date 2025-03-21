@@ -42,9 +42,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   return (
     <UserContextData.Provider
       value={{
-        // isLoggedIn: Boolean(accessToken),
-        isLoggedIn: true,
-
+        isLoggedIn: Boolean(accessToken),
         userDetails,
         updateUser,
         updateAccessToken,
