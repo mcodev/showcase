@@ -6,7 +6,6 @@ import { useForm } from '@mantine/form';
 import { isEmail } from '@/common/validators';
 import Notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
-// import AUTH from '@/services/auth';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const SignIn = () => {
@@ -27,7 +26,7 @@ const SignIn = () => {
   });
 
   const SignInMutation = useMutation({
-    mutationFn: request('LOGIN_SERVICE'),
+    mutationFn: (values: any) => request({ service: 'LOGIN_SERVICE', payload: values }),
 
     onSuccess: (data) => {
       if (data) {

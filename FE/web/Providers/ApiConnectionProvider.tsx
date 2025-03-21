@@ -6,12 +6,21 @@ import { GLOBAL_ERRORS } from '@/services/errors';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
+type RequestPropsType = {
+  service: ServicesSelectorType;
+  payload: any;
+};
+
 export const ApiConnectionProvider = ({ children }: { children: React.ReactNode }) => {
-  const request = async (
-    service: ServicesSelectorType,
-    params: object = {}
-  ): Promise<{ success: boolean; data: any; statusCode: number }> => {
+  const request = async ({
+    service,
+    payload,
+  }: RequestPropsType): Promise<{ success: boolean; data: any; statusCode: number }> => {
     const SELECTED_SERVICE = SERVICES[service];
+
+    console.log('service', service);
+    console.log('payload', payload);
+    return;
 
     try {
       const response = await fetch(`${BASE_URL}/${SELECTED_SERVICE.path}`, {
@@ -19,7 +28,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(params),
+        body: JSON.stringify(payload),
         credentials: 'include',
         cache: 'no-cache',
         referrerPolicy: 'no-referrer',
@@ -57,7 +66,9 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
 };
 
 const ApiConnectionContext = createContext({
-  request: async () => ({ success: false, data: null, statusCode: 500 }),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  request: ({ service, payload }: RequestPropsType) =>
+    Promise.resolve({ success: false, data: null, statusCode: 500 }),
 });
 
 export const useApiConnection = () => useContext(ApiConnectionContext);
