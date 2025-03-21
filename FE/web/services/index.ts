@@ -1,7 +1,16 @@
-import { LOGIN_SERVICE, SIGN_UP_SERVICE } from './auth';
+import { LOGIN_SERVICE, LOGOUT_SERVICE, SIGN_UP_SERVICE } from './auth';
 
-export const PROTECTED_ROUTES = [LOGIN_SERVICE.path];
+type ServiceType = {
+  [key in keyof typeof SERVICES]: ServicesSelectorType;
+};
 
-export const SERVICES = { LOGIN_SERVICE, SIGN_UP_SERVICE };
+export const SERVICES = { LOGIN_SERVICE, SIGN_UP_SERVICE, LOGOUT_SERVICE };
+
+export const SERVICE = Object.keys(SERVICES).reduce((acc, key) => {
+  acc[key as ServicesSelectorType] = key as ServicesSelectorType;
+  return acc;
+}, {} as ServiceType);
 
 export type ServicesSelectorType = keyof typeof SERVICES;
+
+export const PROTECTED_ROUTES = [SERVICE.LOGOUT_SERVICE];

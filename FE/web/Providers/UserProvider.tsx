@@ -13,7 +13,8 @@ type DefaultContextDataType = {
   isLoggedIn: boolean;
   userDetails: any | null;
   updateUser: (user: any) => void;
-  updateAccessToken: (token: string) => void;
+  updateAccessToken: (token: string | null) => void;
+  accessToken: string | null;
 };
 
 const defaultContextData: DefaultContextDataType = {
@@ -21,6 +22,7 @@ const defaultContextData: DefaultContextDataType = {
   userDetails: null,
   updateUser: () => {},
   updateAccessToken: () => {},
+  accessToken: null,
 };
 
 const UserContextData = createContext(defaultContextData);
@@ -36,14 +38,16 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     setUserDetails(user);
   };
 
-  const updateAccessToken = (token: string) => {
+  const updateAccessToken = (token: string | null) => {
     setAccessToken(token);
 
     closeAuthModal();
   };
 
   React.useEffect(() => {
-    refresh({ updateAccessToken });
+    refresh({
+      updateAccessToken,
+    });
   }, []);
 
   return (
@@ -53,6 +57,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         userDetails,
         updateUser,
         updateAccessToken,
+        accessToken,
       }}
     >
       {children}

@@ -1,18 +1,52 @@
+import { useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
+import secureLocalStorage from 'react-secure-storage';
 import AlertModalContent from '@/components/CustomModal/templates/AlertModalContent';
+import Notification from '@/components/Notifications/Notification';
+import { useApiConnection } from '@/providers/ApiConnectionProvider';
+import { useUserContext } from '@/providers/UserProvider';
+import { SERVICE } from '@/services';
 
 type SignOutModalProps = {
   handleCloseModal: () => void;
 };
+const REFRESH_TOKEN = secureLocalStorage.getItem('rt');
 
-const SignOut = ({ handleCloseModal }: SignOutModalProps) => (
-  <AlertModalContent
-    descriptionKey="sign_out_confirmation"
-    onCloseModal={handleCloseModal}
-    onActionClick={handleCloseModal}
-    closeButtonKey="cancel"
-    actionButtonKey="sign_out"
-    alertType="danger"
-  />
-);
+const SignOut = ({ handleCloseModal }: SignOutModalProps) => {
+  const { request } = useApiConnection();
+  const { updateAccessToken } = useUserContext();
+  const { t } = useTranslation();
+
+  const SignOutMutation = useMutation({
+    mutationFn: () =>
+      request({
+        service: SERVICE.LOGOUT_SERVICE,
+        payload: { refreshToken: REFRESH_TOKEN },
+      }),
+
+    onSuccess: () => {
+      secureLocalStorage.removeItem('rt');
+      updateAccessToken(null);
+      handleCloseModal();
+    },
+    onError: (error) => {
+      Notification({
+        title: t('error'),
+        message: t(error.message),
+      });
+    },
+  });
+
+  return (
+    <AlertModalContent
+      descriptionKey="sign_out_confirmation"
+      onCloseModal={handleCloseModal}
+      onActionClick={SignOutMutation.mutate}
+      closeButtonKey="cancel"
+      actionButtonKey="sign_out"
+      alertType="danger"
+    />
+  );
+};
 
 export default SignOut;

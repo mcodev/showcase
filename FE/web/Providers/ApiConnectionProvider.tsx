@@ -2,11 +2,7 @@
 
 import React, { createContext, useContext } from 'react';
 import secureLocalStorage from 'react-secure-storage';
-import {
-  // PROTECTED_ROUTES,
-  SERVICES,
-  ServicesSelectorType,
-} from '@/services';
+import { PROTECTED_ROUTES, SERVICE, SERVICES, ServicesSelectorType } from '@/services';
 import { GLOBAL_ERRORS } from '@/services/errors';
 import { GlobalResponseDataType, LoginResponseDataType } from '@/types/responseTypes';
 import { useUserContext } from './UserProvider';
@@ -15,19 +11,15 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
 type RequestPropsType = {
   service: ServicesSelectorType;
-  payload: unknown;
+  payload?: unknown;
 };
 
 type ServiceType = {
   [key in keyof typeof SERVICES]: ServicesSelectorType;
 };
-const SERVICE = Object.keys(SERVICES).reduce((acc, key) => {
-  acc[key as ServicesSelectorType] = key as ServicesSelectorType;
-  return acc;
-}, {} as ServiceType);
 
 export const ApiConnectionProvider = ({ children }: { children: React.ReactNode }) => {
-  const { updateAccessToken, updateUser } = useUserContext();
+  const { updateAccessToken, updateUser, accessToken } = useUserContext();
 
   const handleAuthInitialization = async (data: LoginResponseDataType) => {
     updateAccessToken(data.accessToken);
@@ -47,6 +39,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
         method: SELECTED_SERVICE.method,
         headers: {
           'Content-Type': 'application/json',
+          ...(PROTECTED_ROUTES.includes(service) ? { Authorization: `Bearer ${accessToken}` } : {}),
         },
         body: JSON.stringify(payload),
         cache: 'no-cache',

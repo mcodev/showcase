@@ -11,6 +11,7 @@ export const isAuthenticated = (
   next: express.NextFunction
 ) => {
   const authHeader = req.headers.authorization;
+
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     response({ res, statusCode: 403 });
     return;

@@ -6,13 +6,14 @@ import { useForm } from '@mantine/form';
 import { isEmail } from '@/common/validators';
 import Notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
+import { SERVICE } from '@/services';
 import { LoginFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const SignIn = () => {
   const { changeSelectedComponent } = useAuthContext();
   const { t } = useTranslation();
-  const { request, SERVICE } = useApiConnection();
+  const { request } = useApiConnection();
 
   const form = useForm({
     mode: 'controlled',

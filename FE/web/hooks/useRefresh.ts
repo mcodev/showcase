@@ -11,7 +11,6 @@ const useRefresh = () => {
     const refreshToken = await secureLocalStorage.getItem('rt');
 
     if (!refreshToken) {
-      // TODO issue a new refresh Token
       return null;
     }
 

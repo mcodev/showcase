@@ -31,3 +31,9 @@ export const SIGN_UP_SERVICE = {
     },
   ],
 };
+
+export const LOGOUT_SERVICE = {
+  path: 'auth/logout',
+  method: 'POST',
+  errors: [],
+};

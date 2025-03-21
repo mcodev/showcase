@@ -25,7 +25,6 @@ export const refresh = async (
   const storedToken = await RefreshToken.findOne({ token: refreshToken });
 
   if (!storedToken) {
-    // make this log red color
     console.warn("\x1b[36m%s\x1b[0m", "Possible token theft detected!");
 
     response({
@@ -38,7 +37,6 @@ export const refresh = async (
   }
 
   try {
-    // Verify the refresh token
     const decoded = jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET as string
@@ -50,7 +48,6 @@ export const refresh = async (
 
     const newRefreshToken = await generateRefreshToken(parsedDecoded.userId);
 
-    // Remove the old refresh token
     const deletedToken = await RefreshToken.deleteOne({
       token: refreshToken,
     });
