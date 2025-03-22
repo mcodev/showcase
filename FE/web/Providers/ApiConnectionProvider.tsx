@@ -58,20 +58,13 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
         ])
       );
 
-      if (response) {
-        console.log('response FE', response);
-      }
-
-      if (data) {
-        // get error message from response
-        const errorMessage = data?.message;
-
-        console.log(data);
-
-        console.log('errorMessage', errorMessage);
-      }
-
       if (!response.ok) {
+        const errorMessage = data?.error;
+
+        if (errorMessage === 'TOKEN_EXPIRED' && statusCode === 402) {
+          // get access token fro refresh an retry request
+        }
+
         throw new Error(errorMapping[statusCode] || GLOBAL_ERRORS.UNEXPECTED_ERROR);
       }
 
