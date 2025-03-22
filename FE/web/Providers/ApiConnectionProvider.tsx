@@ -53,6 +53,8 @@ export const ApiConnectionProvider: React.FC<{ children: React.ReactNode }> = ({
         const data = await response.json();
         const statusCode = response.status;
 
+        console.log(response, data);
+
         if (!response.ok) {
           if (data?.error === 'TOKEN_EXPIRED' && statusCode === 402) {
             // TODO Handle token refresh logic here
@@ -77,7 +79,17 @@ export const ApiConnectionProvider: React.FC<{ children: React.ReactNode }> = ({
 
         return { statusCode, success: data.success, data: data.data };
       } catch (error) {
-        throw new Error(`Request error: ${(error as Error).message}`);
+        let errorMessage = 'Unknown error occurred';
+
+        if (error instanceof Error) {
+          errorMessage = `Request error: ${error.message}`;
+        } else if (typeof error === 'string') {
+          errorMessage = `Request error: ${error}`;
+        } else {
+          console.error('Unexpected error type:', error);
+        }
+
+        throw new Error(errorMessage);
       }
     },
     [accessToken, handleAuthInitialization]

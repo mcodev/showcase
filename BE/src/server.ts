@@ -33,7 +33,7 @@ app.use(compression());
 // This middleware enables Cross-Origin Resource Sharing (CORS). It allows the server to accept requests from different origins (domains). The { credentials: true } option allows cookies and other credentials to be sent in cross-origin requests
 app.use(
   cors({
-    credentials: true,
+    credentials: false,
     // TODO fix this on deployment
     origin: ["http://localhost:3000"],
   })

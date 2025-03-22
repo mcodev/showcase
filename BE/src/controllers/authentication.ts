@@ -164,12 +164,14 @@ export const logout = async (
     token: refreshToken,
   });
 
-  if (!deletedToken) {
+  console.log(deletedToken.deletedCount === 0);
+
+  if (deletedToken.deletedCount === 0) {
     response({
       res,
       statusCode: 404,
       route: ROUTES_NAMES.AUTH,
-      // message: "Refresh token not found",
+      customMessage: "REFRESH_TOKEN_NOT_FOUND",
     });
     return;
   }
