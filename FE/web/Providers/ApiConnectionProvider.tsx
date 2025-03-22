@@ -58,9 +58,9 @@ export const ApiConnectionProvider: React.FC<{ children: React.ReactNode }> = ({
         if (!response.ok) {
           if (data?.error === 'TOKEN_EXPIRED' && statusCode === 402) {
             // TODO Handle token refresh logic here try 2 times before giving up
-            await refresh({ updateAccessToken });
-
-            return request({ service, payload });
+            // console.log('getting new access token');
+            // await refresh({ updateAccessToken });
+            // return request({ service, payload });
           }
 
           const errorMapping = Object.fromEntries(

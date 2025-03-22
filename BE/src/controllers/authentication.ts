@@ -160,6 +160,8 @@ export const logout = async (
 ): Promise<void> => {
   const { refreshToken } = req.body;
 
+  console.log("logout fired");
+
   const deletedToken = await RefreshToken.deleteOne({
     token: refreshToken,
   });
