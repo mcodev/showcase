@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 8000;
 
 const MONGO_URL = process.env.MONGO_URL;
 
-const ENVIRONMENT = process.env.ENVIRONMENT;
+const ENVIRONMENT = process.env.NODE_ENV;
 
 const app = express();
 
