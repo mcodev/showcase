@@ -10,6 +10,7 @@ export const generateAccessToken = (userId: string) => {
     { userId: userId },
     process.env.ACCESS_TOKEN_SECRET as string,
     // { expiresIn: "12h" }
+    // TODO change this after testing
     { expiresIn: "1m" }
   );
 };

@@ -58,6 +58,19 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
         ])
       );
 
+      if (response) {
+        console.log('response FE', response);
+      }
+
+      if (data) {
+        // get error message from response
+        const errorMessage = data?.message;
+
+        console.log(data);
+
+        console.log('errorMessage', errorMessage);
+      }
+
       if (!response.ok) {
         throw new Error(errorMapping[statusCode] || GLOBAL_ERRORS.UNEXPECTED_ERROR);
       }
@@ -74,7 +87,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
       return { statusCode, success: data.success, data: data.data };
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(error.message);
+        throw new Error(`Fetch function error: ${error.message}`);
       } else {
         throw error;
       }
