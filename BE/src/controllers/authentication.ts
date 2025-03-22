@@ -164,8 +164,6 @@ export const logout = async (
     token: refreshToken,
   });
 
-  console.log(deletedToken.deletedCount === 0);
-
   if (deletedToken.deletedCount === 0) {
     response({
       res,

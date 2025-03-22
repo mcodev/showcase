@@ -2,6 +2,7 @@
 
 import React, { createContext, useCallback, useContext } from 'react';
 import secureLocalStorage from 'react-secure-storage';
+import useRefresh from '@/hooks/useRefresh';
 import { PROTECTED_ROUTES, SERVICE, SERVICES, ServicesSelectorType } from '@/services';
 import { GLOBAL_ERRORS } from '@/services/errors';
 import { GlobalResponseDataType, LoginResponseDataType } from '@/types/responseTypes';
@@ -22,6 +23,7 @@ const ApiConnectionContext = createContext<{
 
 export const ApiConnectionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { updateAccessToken, updateUser, accessToken } = useUserContext();
+  const { refresh } = useRefresh();
 
   const handleAuthInitialization = useCallback(
     async (data: LoginResponseDataType) => {
@@ -53,11 +55,12 @@ export const ApiConnectionProvider: React.FC<{ children: React.ReactNode }> = ({
         const data = await response.json();
         const statusCode = response.status;
 
-        console.log(response, data);
-
         if (!response.ok) {
           if (data?.error === 'TOKEN_EXPIRED' && statusCode === 402) {
-            // TODO Handle token refresh logic here
+            // TODO Handle token refresh logic here try 2 times before giving up
+            await refresh({ updateAccessToken });
+
+            return request({ service, payload });
           }
 
           const errorMapping = Object.fromEntries(
