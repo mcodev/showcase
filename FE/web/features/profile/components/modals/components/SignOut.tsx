@@ -10,7 +10,6 @@ import { SERVICE } from '@/services';
 type SignOutModalProps = {
   handleCloseModal: () => void;
 };
-const REFRESH_TOKEN = secureLocalStorage.getItem('rt');
 
 const SignOut = ({ handleCloseModal }: SignOutModalProps) => {
   const { request } = useApiConnection();
@@ -21,7 +20,7 @@ const SignOut = ({ handleCloseModal }: SignOutModalProps) => {
     mutationFn: () =>
       request({
         service: SERVICE.LOGOUT_SERVICE,
-        payload: { refreshToken: REFRESH_TOKEN },
+        payload: { refreshToken: secureLocalStorage.getItem('rt') },
       }),
 
     onSuccess: () => {

@@ -160,7 +160,6 @@ export const logout = async (
 ): Promise<void> => {
   const { refreshToken } = req.body;
 
-  // Delete refresh token from DB
   const deletedToken = await RefreshToken.deleteOne({
     token: refreshToken,
   });
