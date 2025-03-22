@@ -47,4 +47,5 @@ export const RESPONSE_MESSAGES = {
 export const UNIVERSAL_RESPONSE_MESSAGES = {
   200: "OK",
   500: "INTERNAL_SERVER_ERROR",
+  402: "TOKEN_EXPIRED",
 } as const;

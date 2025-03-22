@@ -5,13 +5,15 @@ import {
   UNIVERSAL_RESPONSE_MESSAGES,
 } from "./consts";
 
-type StatusCodeType =
-  | keyof (typeof RESPONSE_MESSAGES)[keyof typeof ROUTES | "DEFAULT"]
-  | keyof typeof UNIVERSAL_RESPONSE_MESSAGES;
+type StatusCodeType = keyof (typeof RESPONSE_MESSAGES)[
+  | keyof typeof ROUTES
+  | "DEFAULT"];
+
+type UniversalCodesType = keyof typeof UNIVERSAL_RESPONSE_MESSAGES;
 
 type ResponseType = {
   res: express.Response;
-  statusCode: StatusCodeType;
+  statusCode: StatusCodeType | UniversalCodesType;
   route?: keyof typeof ROUTES;
   customMessage?: string;
   payload?: any;
@@ -25,7 +27,8 @@ export const response = ({
   payload,
 }: ResponseType) => {
   const AUTOMATED_MESSAGE =
-    statusCode === 500 || statusCode === 200
+    // TODO automate codes validation
+    statusCode === 500 || statusCode === 200 || statusCode === 402
       ? UNIVERSAL_RESPONSE_MESSAGES[statusCode]
       : RESPONSE_MESSAGES[route || "DEFAULT"][statusCode];
 

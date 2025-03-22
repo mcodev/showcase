@@ -2,6 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { response } from "../common";
+import { ROUTES_NAMES } from "consts";
 
 dotenv.config();
 
@@ -23,7 +24,11 @@ export const isAuthenticated = (
     token,
     process.env.ACCESS_TOKEN_SECRET as string,
     (err, user: any) => {
-      if (err) res.status(403).json({ message: "Invalid Token" });
+      if (err)
+        response({
+          res,
+          statusCode: 402,
+        }).end();
 
       // @ts-ignore
       req.user = user;

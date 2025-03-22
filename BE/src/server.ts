@@ -23,6 +23,8 @@ const PORT = process.env.PORT || 8000;
 
 const MONGO_URL = process.env.MONGO_URL;
 
+const ENVIRONMENT = process.env.ENVIRONMENT;
+
 const app = express();
 
 // This middleware compresses response bodies using Gzip or Brotli compression. It helps reduce the size of the response and improves performance by speeding up the transfer of data between the server and the client.
@@ -56,43 +58,44 @@ app.use(helmet());
 app.use(xss());
 
 //////////////////   SWAGGER   //////////////////
+if (ENVIRONMENT === "development") {
+  const theme = new SwaggerTheme();
 
-const theme = new SwaggerTheme();
-
-app.use(
-  "/api",
-  swaggerUi.serve,
-  swaggerUi.setup(
-    swaggerJsDoc({
-      definition: {
-        openapi: "3.0.0",
-        info: {
-          title: "Riderz APIs",
-        },
-      },
-      apis: [path.join(__dirname, "./routes/*.ts")],
-      components: {
-        securitySchemes: {
-          BearerAuth: {
-            type: "http",
-            scheme: "bearer",
-            bearerFormat: "JWT",
+  app.use(
+    "/api",
+    swaggerUi.serve,
+    swaggerUi.setup(
+      swaggerJsDoc({
+        definition: {
+          openapi: "3.0.0",
+          info: {
+            title: "Riderz APIs",
           },
         },
-      },
-      security: [
-        {
-          BearerAuth: [],
+        apis: [path.join(__dirname, "./routes/*.ts")],
+        components: {
+          securitySchemes: {
+            BearerAuth: {
+              type: "http",
+              scheme: "bearer",
+              bearerFormat: "JWT",
+            },
+          },
         },
-      ],
-    }),
-    {
-      customCss:
-        (theme.getBuffer(SwaggerThemeNameEnum.DARK) || "") +
-        ".auth-wrapper { display: none !important; } .scheme-container { display: none !important; }", // Hides "Authorize" button
-    }
-  )
-);
+        security: [
+          {
+            BearerAuth: [],
+          },
+        ],
+      }),
+      {
+        customCss:
+          (theme.getBuffer(SwaggerThemeNameEnum.DARK) || "") +
+          ".auth-wrapper { display: none !important; } .scheme-container { display: none !important; }", // Hides "Authorize" button
+      }
+    )
+  );
+}
 
 app.use("/", router());
 
