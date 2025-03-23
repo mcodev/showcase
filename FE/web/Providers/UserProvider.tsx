@@ -1,9 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
-import useRefresh from '@/hooks/useRefresh';
 import { UserDetailsType } from '@/types/responseTypes';
-import { useAppContext } from './AppProvider';
+import { useApiConnection } from './ApiConnectionProvider';
 
 type UserProviderProps = {
   children: React.ReactNode;
@@ -13,42 +12,24 @@ type DefaultContextDataType = {
   isLoggedIn: boolean;
   userDetails: any | null;
   updateUser: (user: any) => void;
-  updateAccessToken: (token: string | null) => void;
-  accessToken: string | null;
 };
 
 const defaultContextData: DefaultContextDataType = {
   isLoggedIn: false,
   userDetails: null,
   updateUser: () => {},
-  updateAccessToken: () => {},
-  accessToken: null,
 };
 
 const UserContextData = createContext(defaultContextData);
 
 export const UserProvider = ({ children }: UserProviderProps) => {
-  const { closeAuthModal } = useAppContext();
-  const { refresh } = useRefresh();
+  const { accessToken } = useApiConnection();
 
   const [userDetails, setUserDetails] = useState<UserDetailsType | null>(null);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   const updateUser = (user: any) => {
     setUserDetails(user);
   };
-
-  const updateAccessToken = (token: string | null) => {
-    setAccessToken(token);
-
-    closeAuthModal();
-  };
-
-  React.useEffect(() => {
-    refresh({
-      updateAccessToken,
-    });
-  }, []);
 
   return (
     <UserContextData.Provider
@@ -56,8 +37,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         isLoggedIn: Boolean(accessToken),
         userDetails,
         updateUser,
-        updateAccessToken,
-        accessToken,
       }}
     >
       {children}

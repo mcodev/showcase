@@ -59,8 +59,8 @@ export default async function RootLayout({ children, params }: LayoutProps) {
         <MantineProvider theme={theme} defaultColorScheme={DEFAULT_THEME}>
           <ReactQueryProvider>
             <AppProvider>
-              <UserProvider>
-                <ApiConnectionProvider>
+              <ApiConnectionProvider>
+                <UserProvider>
                   <TranslationsProvider
                     locale={locale}
                     namespaces={NAMESPACE.CLIENT_SIDE_COMPONENTS}
@@ -74,8 +74,8 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
                     <AuthComponentsDisplay />
                   </TranslationsProvider>
-                </ApiConnectionProvider>
-              </UserProvider>
+                </UserProvider>
+              </ApiConnectionProvider>
             </AppProvider>
           </ReactQueryProvider>
         </MantineProvider>

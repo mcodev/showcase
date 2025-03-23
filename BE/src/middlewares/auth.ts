@@ -28,7 +28,7 @@ export const isAuthenticated = (
       if (err) {
         response({
           res,
-          statusCode: 402,
+          statusCode: 403,
         });
       } else {
         next();

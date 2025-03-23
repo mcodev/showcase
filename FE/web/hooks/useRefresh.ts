@@ -4,16 +4,13 @@ const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 const REFRESH_TOKEN_KEY = 'rt';
 
 const useRefresh = () => {
-  const refresh = async ({
-    updateAccessToken,
-  }: {
-    updateAccessToken: (token: string | null) => void;
-  }): Promise<void> => {
+  const refresh = async (): Promise<string | null> => {
     const refreshToken = secureLocalStorage.getItem(REFRESH_TOKEN_KEY);
 
     if (!refreshToken) {
       secureLocalStorage.removeItem(REFRESH_TOKEN_KEY);
-      return;
+
+      return null;
     }
 
     try {
@@ -33,13 +30,20 @@ const useRefresh = () => {
         throw new Error('Invalid refresh token response');
       }
 
-      updateAccessToken(data.accessToken);
-      data.refreshToken
-        ? secureLocalStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken)
-        : secureLocalStorage.removeItem(REFRESH_TOKEN_KEY);
+      // Remove the old refresh token if it's not in the response
+      if (!data.refreshToken) {
+        secureLocalStorage.removeItem(REFRESH_TOKEN_KEY);
+      } else {
+        secureLocalStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
+      }
+
+      return data.accessToken;
     } catch (error) {
       console.error('Token refresh error:', error);
+
       secureLocalStorage.removeItem(REFRESH_TOKEN_KEY);
+
+      return null;
     }
   };
 
