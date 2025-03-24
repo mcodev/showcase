@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import secureLocalStorage from 'react-secure-storage';
+import { REFRESH_TOKEN_KEY } from '@/common/consts';
 import useRefresh from '@/hooks/useRefresh';
 import { PROTECTED_ROUTES, SERVICE, SERVICES, ServicesSelectorType } from '@/services';
 import { GLOBAL_ERRORS } from '@/services/errors';
@@ -30,12 +31,12 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
 
     closeAuthModal();
 
-    secureLocalStorage.setItem('rt', data.refreshToken);
+    secureLocalStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
   };
 
   useEffect(() => {
     const getNewToken = async () => {
-      const refreshToken = secureLocalStorage.getItem('rt');
+      const refreshToken = secureLocalStorage.getItem(REFRESH_TOKEN_KEY);
 
       if (refreshToken) {
         const newAccessToken = await refresh();
@@ -51,7 +52,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
 
   const clearTokens = () => {
     setAccessToken(null);
-    secureLocalStorage.removeItem('rt');
+    secureLocalStorage.removeItem(REFRESH_TOKEN_KEY);
   };
 
   const request = async ({
@@ -96,7 +97,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
             const newPayload =
               service === SERVICE.LOGOUT_SERVICE
                 ? {
-                    refreshToken: secureLocalStorage.getItem('rt'),
+                    refreshToken: secureLocalStorage.getItem(REFRESH_TOKEN_KEY),
                   }
                 : payload;
 

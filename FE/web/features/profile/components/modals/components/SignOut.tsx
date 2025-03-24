@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import secureLocalStorage from 'react-secure-storage';
+import { REFRESH_TOKEN_KEY } from '@/common/consts';
 import AlertModalContent from '@/components/CustomModal/templates/AlertModalContent';
 import Notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
@@ -18,7 +19,7 @@ const SignOut = ({ handleCloseModal }: SignOutModalProps) => {
     mutationFn: () =>
       request({
         service: SERVICE.LOGOUT_SERVICE,
-        payload: { refreshToken: secureLocalStorage.getItem('rt') },
+        payload: { refreshToken: secureLocalStorage.getItem(REFRESH_TOKEN_KEY) },
       }),
 
     onSuccess: () => {

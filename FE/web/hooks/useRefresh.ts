@@ -1,7 +1,7 @@
 import secureLocalStorage from 'react-secure-storage';
+import { REFRESH_TOKEN_KEY } from '@/common/consts';
 
 const BASE_API_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
-const REFRESH_TOKEN_KEY = 'rt';
 
 const useRefresh = () => {
   const refresh = async (): Promise<string | null> => {

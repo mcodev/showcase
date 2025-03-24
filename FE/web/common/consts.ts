@@ -19,3 +19,5 @@ export const NAVBAR_ROUTES = [
     href: ROUTES.NEWS,
   },
 ];
+
+export const REFRESH_TOKEN_KEY = 'rt';
