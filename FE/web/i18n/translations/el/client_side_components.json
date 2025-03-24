@@ -22,5 +22,8 @@
   "user_not_found": "Δεν βρέθηκε χρήστης",
   "incorrect_credentials": "Λανθασμένα στοιχεία σύνδεσης",
   "missing_required_fields": "Λείπουν υποχρεωτικά πεδία",
-  "error": "Σφάλμα"
+  "error": "Σφάλμα",
+  "MISSING_REQUIRED_FIELDS": "Λείπουν υποχρεωτικά πεδία",
+  "INVALID_CREDENTIALS": "Λανθασμένα στοιχεία σύνδεσης",
+  "USER_NOT_FOUND": "Δεν βρέθηκε χρήστης με αυτό το email"
 }

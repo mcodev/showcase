@@ -53,7 +53,7 @@ const SignIn = () => {
           mb="lg"
           mt="lg"
           labelProps={{ mb: '4px' }}
-          value={form.values.email}
+          value={form.values.email.trim()}
           onChange={(event) => form.setFieldValue('email', event.target.value)}
           error={t(form.errors.email as string)}
           required
@@ -64,7 +64,7 @@ const SignIn = () => {
           placeholder={t('password')}
           labelProps={{ mb: '4px' }}
           mb="lg"
-          value={form.values.password}
+          value={form.values.password.trim()}
           onChange={(event) => form.setFieldValue('password', event.target.value)}
           required
         />
