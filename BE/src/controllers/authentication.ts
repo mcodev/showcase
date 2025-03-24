@@ -5,6 +5,7 @@ import { response } from "../common";
 import { ROUTES_NAMES } from "../consts";
 import { RefreshToken } from "../models/RefreshToken";
 import { generateAccessToken, generateRefreshToken } from "../helpers/tokens";
+import { isValidEmail, isValidPassword } from "../helpers/validators";
 
 // LOGIN CONTROLLER
 export const login = async (
@@ -14,13 +15,20 @@ export const login = async (
   try {
     const { email, password } = req.body;
 
-    if (!email || !password) {
+    const EMAIL = email.trim();
+    const PASSWORD = password.trim();
+
+    if (
+      !email ||
+      !password ||
+      !isValidEmail(EMAIL) ||
+      !isValidPassword(PASSWORD)
+    ) {
       response({
         res,
         statusCode: 400,
         route: ROUTES_NAMES.AUTH,
       });
-      return;
     }
 
     const user = await getUserByEmail(email).select(
@@ -33,12 +41,11 @@ export const login = async (
         statusCode: 404,
         route: ROUTES_NAMES.AUTH,
       });
-      return;
     }
 
     const expectedHashedPassword = authentication(
       user.authentication.salt,
-      password
+      PASSWORD
     );
 
     if (user.authentication.password !== expectedHashedPassword) {
@@ -47,7 +54,6 @@ export const login = async (
         statusCode: 403,
         route: ROUTES_NAMES.AUTH,
       });
-      return;
     }
 
     // Generate JWT tokens
@@ -66,6 +72,7 @@ export const login = async (
     }).end();
   } catch (error) {
     console.error(error);
+
     response({
       res,
       statusCode: 500,
@@ -88,7 +95,6 @@ export const register = async (
         statusCode: 400,
         route: ROUTES_NAMES.AUTH,
       });
-      return;
     }
 
     const isUserAlreadyRegistered = await getUserByEmail(email);
@@ -99,7 +105,6 @@ export const register = async (
         statusCode: 409,
         route: ROUTES_NAMES.AUTH,
       });
-      return;
     }
 
     const salt = random();
@@ -120,7 +125,6 @@ export const register = async (
         route: ROUTES_NAMES.AUTH,
         // message: "User registration failed",
       });
-      return;
     }
 
     // Generate JWT tokens
@@ -134,7 +138,6 @@ export const register = async (
         route: ROUTES_NAMES.AUTH,
         // message: "User registration failed",
       });
-      return;
     }
 
     response({
@@ -171,7 +174,6 @@ export const logout = async (
       route: ROUTES_NAMES.AUTH,
       customMessage: "REFRESH_TOKEN_NOT_FOUND",
     });
-    return;
   }
 
   response({

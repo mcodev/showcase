@@ -7,7 +7,6 @@ import useRefresh from '@/hooks/useRefresh';
 import { PROTECTED_ROUTES, SERVICE, SERVICES, ServicesSelectorType } from '@/services';
 import { GLOBAL_ERRORS } from '@/services/errors';
 import { GlobalResponseDataType, LoginResponseDataType } from '@/types/responseTypes';
-import { useAppContext } from './AppProvider';
 import { useUserContext } from './UserProvider';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
@@ -21,15 +20,13 @@ type RequestPropsType = {
 
 export const ApiConnectionProvider = ({ children }: { children: React.ReactNode }) => {
   const { updateUser } = useUserContext();
-  const { closeAuthModal } = useAppContext();
+
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const { refresh } = useRefresh();
 
   const handleAuthInitialization = async (data: LoginResponseDataType) => {
     setAccessToken(data.accessToken);
     updateUser(data.user);
-
-    closeAuthModal();
 
     secureLocalStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
   };
