@@ -1,5 +1,11 @@
 import express from "express";
-import { login, logout, register } from "../controllers/authentication";
+import {
+  login,
+  logout,
+  register,
+  forgot_password,
+  reset_password,
+} from "../controllers/authentication";
 import { ROUTES } from "../consts";
 import { isAuthenticated } from "../middlewares/auth";
 
@@ -7,6 +13,8 @@ export default (router: express.Router) => {
   router.post(`${ROUTES.AUTH}/register`, register);
   router.post(`${ROUTES.AUTH}/login`, login);
   router.post(`${ROUTES.AUTH}/logout`, isAuthenticated, logout);
+  router.post(`${ROUTES.AUTH}/forgot_password`, forgot_password);
+  router.post(`${ROUTES.AUTH}/reset_password`, reset_password);
 };
 
 /**

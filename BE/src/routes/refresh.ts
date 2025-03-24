@@ -10,7 +10,7 @@ export default (router: express.Router) => {
  * @swagger
  * /refresh:
  *   post:
- *     summary: Refresh token
+ *     summary: Generate new access and refresh token
  *     tags:
  *       - Refresh
  *     requestBody:

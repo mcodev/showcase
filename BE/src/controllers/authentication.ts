@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, getUserByEmail } from "../models/Users";
+import { createUser, getUserByEmail, updateUserById } from "../models/Users";
 import { random, authentication } from "../helpers";
 import { response } from "../common";
 import { ROUTES_NAMES } from "../consts";
@@ -191,6 +191,116 @@ export const logout = async (
         statusCode: 404,
         route: ROUTES_NAMES.AUTH,
         customMessage: "REFRESH_TOKEN_NOT_FOUND",
+      });
+    }
+
+    response({
+      res,
+      statusCode: 200,
+      route: ROUTES_NAMES.AUTH,
+    }).end();
+  } catch (error) {
+    console.error(error);
+    response({
+      res,
+      statusCode: 500,
+    });
+  }
+};
+
+export const forgot_password = async (
+  req: express.Request,
+  res: express.Response
+): Promise<void> => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      response({
+        res,
+        statusCode: 400,
+        route: ROUTES_NAMES.AUTH,
+      });
+    }
+
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      response({
+        res,
+        statusCode: 404,
+        route: ROUTES_NAMES.AUTH,
+      });
+    }
+
+    // Generate JWT tokens
+    const accessToken = generateAccessToken(String(user._id));
+    const refreshToken = await generateRefreshToken(String(user._id));
+
+    if (!accessToken || !refreshToken) {
+      response({
+        res,
+        statusCode: 500,
+      });
+    }
+
+    response({
+      res,
+      statusCode: 200,
+      route: ROUTES_NAMES.AUTH,
+      payload: {
+        accessToken,
+        refreshToken,
+        user: { _id: user._id, name: user.name },
+      },
+    }).end();
+  } catch (error) {
+    console.error(error);
+    response({
+      res,
+      statusCode: 500,
+    });
+  }
+};
+
+export const reset_password = async (
+  req: express.Request,
+  res: express.Response
+): Promise<void> => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      response({
+        res,
+        statusCode: 400,
+        route: ROUTES_NAMES.AUTH,
+      });
+    }
+
+    const user = await getUserByEmail(email);
+
+    if (!user) {
+      response({
+        res,
+        statusCode: 404,
+        route: ROUTES_NAMES.AUTH,
+      });
+    }
+
+    const salt = random();
+
+    const updatedUser = await updateUserById(user._id, {
+      authentication: {
+        salt,
+        password: authentication(salt, password),
+      },
+    });
+
+    if (!updatedUser) {
+      response({
+        res,
+        statusCode: 500,
       });
     }
 
