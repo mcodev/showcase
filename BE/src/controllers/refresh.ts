@@ -14,11 +14,9 @@ export const refresh = async (
   if (!refreshToken) {
     response({
       res,
-      statusCode: 403,
-      route: ROUTES_NAMES.AUTH,
-      //   message: "No refresh token provided",
+      statusCode: 400,
+      route: ROUTES_NAMES.REFRESH,
     });
-    return;
   }
 
   // Check if the token exists in the DB
@@ -30,10 +28,8 @@ export const refresh = async (
     response({
       res,
       statusCode: 403,
-      route: ROUTES_NAMES.AUTH,
-      //   message: "Invalid refresh token",
+      route: ROUTES_NAMES.REFRESH,
     });
-    return;
   }
 
   try {
@@ -56,24 +52,21 @@ export const refresh = async (
       response({
         res,
         statusCode: 404,
-        route: ROUTES_NAMES.AUTH,
-        // message: "Refresh token not found",
+        route: ROUTES_NAMES.REFRESH,
       });
       return;
     }
 
     response({
       res,
-      statusCode: 200,
-      route: ROUTES_NAMES.AUTH,
+      statusCode: 201,
+      route: ROUTES_NAMES.REFRESH,
       payload: { accessToken: newAccessToken, refreshToken: newRefreshToken },
     }).end();
   } catch (err) {
     response({
       res,
       statusCode: 500,
-      route: ROUTES_NAMES.AUTH,
-      //   message: "Invalid refresh token",
     });
   }
 };

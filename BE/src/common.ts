@@ -27,7 +27,6 @@ export const response = ({
   payload,
 }: ResponseType) => {
   const AUTOMATED_MESSAGE =
-    // TODO automate codes validation
     statusCode === 500 || statusCode === 200 || statusCode === 403
       ? UNIVERSAL_RESPONSE_MESSAGES[statusCode]
       : RESPONSE_MESSAGES[route || "DEFAULT"][statusCode];

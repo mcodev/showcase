@@ -79,7 +79,6 @@ export const login = async (
     response({
       res,
       statusCode: 500,
-      route: ROUTES_NAMES.AUTH,
     });
   }
 };
@@ -141,7 +140,6 @@ export const register = async (
       response({
         res,
         statusCode: 500,
-        route: ROUTES_NAMES.AUTH,
       });
     }
 
@@ -153,7 +151,6 @@ export const register = async (
       response({
         res,
         statusCode: 500,
-        route: ROUTES_NAMES.AUTH,
       });
     }
 
@@ -172,7 +169,6 @@ export const register = async (
     response({
       res,
       statusCode: 500,
-      route: ROUTES_NAMES.AUTH,
     });
   }
 };
@@ -182,24 +178,32 @@ export const logout = async (
   req: express.Request,
   res: express.Response
 ): Promise<void> => {
-  const { refreshToken } = req.body;
+  try {
+    const { refreshToken } = req.body;
 
-  const deletedToken = await RefreshToken.deleteOne({
-    token: refreshToken,
-  });
+    const deletedToken = await RefreshToken.deleteOne({
+      token: refreshToken,
+    });
 
-  if (deletedToken.deletedCount === 0) {
+    if (deletedToken.deletedCount === 0) {
+      response({
+        res,
+        statusCode: 404,
+        route: ROUTES_NAMES.AUTH,
+        customMessage: "REFRESH_TOKEN_NOT_FOUND",
+      });
+    }
+
     response({
       res,
-      statusCode: 404,
+      statusCode: 200,
       route: ROUTES_NAMES.AUTH,
-      customMessage: "REFRESH_TOKEN_NOT_FOUND",
+    }).end();
+  } catch (error) {
+    console.error(error);
+    response({
+      res,
+      statusCode: 500,
     });
   }
-
-  response({
-    res,
-    statusCode: 200,
-    route: ROUTES_NAMES.AUTH,
-  }).end();
 };

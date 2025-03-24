@@ -13,11 +13,10 @@ export const ROUTES_NAMES = {
 export const RESPONSE_MESSAGES = {
   REFRESH: {
     201: "TOKEN_REFRESHED",
-    400: "INVALID_REFRESH_TOKEN",
-    401: "UNAUTHORIZED",
-    403: "FORBIDDEN",
-    404: "USER_NOT_FOUND",
-    409: "CONFLICT",
+    400: "NO_REFRESH_TOKEN_PROVIDED",
+    403: "INVALID_REFRESH_TOKEN",
+    404: "REFRESH_TOKEN_NOT_FOUND",
+    409: "",
   },
   AUTH: {
     201: "USER_CREATED",
@@ -27,12 +26,12 @@ export const RESPONSE_MESSAGES = {
     409: "USER_ALREADY_REGISTERED",
   },
   USERS: {
-    201: "CREATED",
-    400: "MISSING_REQUIRED_FIELDS",
-    401: "UNAUTHORIZED",
-    403: "FORBIDDEN",
-    404: "USER_NOT_FOUND",
-    409: "CONFLICT",
+    201: "",
+    400: "",
+    401: "",
+    403: "",
+    404: "",
+    409: "",
   },
   DEFAULT: {
     201: "CREATED",
