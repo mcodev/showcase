@@ -12,7 +12,7 @@ export const isEmail = (email: string) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  if (re.test(String(email).toLowerCase())) {
+  if (re.test(String(email).toLowerCase().trim())) {
     return null;
   }
 
@@ -21,7 +21,7 @@ export const isEmail = (email: string) => {
 
 export const isPassword = (password: string) => {
   const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  if (re.test(password)) {
+  if (re.test(password.trim())) {
     return null;
   }
 
@@ -29,7 +29,7 @@ export const isPassword = (password: string) => {
 };
 
 export const isPasswordMatch = (password: string, repeatPassword: string) => {
-  if (password === repeatPassword) {
+  if (password.trim() === repeatPassword.trim()) {
     return null;
   }
 

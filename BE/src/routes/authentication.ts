@@ -9,7 +9,6 @@ export default (router: express.Router) => {
   router.post(`${ROUTES.AUTH}/logout`, isAuthenticated, logout);
 };
 
-// TODO fix response messages on swagger
 /**
  * @swagger
  * /auth/login:
@@ -52,7 +51,7 @@ export default (router: express.Router) => {
  *                 user:
  *                   type: object
  *                   properties:
- *                     id:
+ *                     _id:
  *                       type: string
  *                       example: "user123"
  *                     name:
@@ -96,21 +95,33 @@ export default (router: express.Router) => {
  *                 format: password
  *                 example: "password123"
  *     responses:
- *       200:
+ *       201:
  *         description: Successfully registered
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 token:
+ *                 accessToken:
  *                   type: string
  *                   example: "your.jwt.token"
+ *                 refreshToken:
+ *                   type: string
+ *                   example: "your.jwt.token"
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                       example: "user123"
+ *                     name:
+ *                       type: string
+ *                       example: "John Doe"
  *       400:
- *         description: Missing fields
+ *         description: MISSING_REQUIRED_FIELDS
  *       403:
- *         description: Invalid credentials
+ *         description: INVALID_CREDENTIALS
  *       409:
- *         description: User already exists
+ *         description: USER_ALREADY_REGISTERED
  *
  */

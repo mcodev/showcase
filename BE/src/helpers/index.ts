@@ -1,14 +1,9 @@
-import bcryptjs from "bcryptjs";
 import crypto from "crypto";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const SECRET = process.env.SECRET;
-
-export const comparePassword = async (password: string, hash: string) => {
-  return await bcryptjs.compare(password, hash);
-};
 
 export const random = () => {
   return crypto.randomBytes(128).toString("base64");

@@ -50,7 +50,7 @@ const SignUp = () => {
           mb="lg"
           labelProps={{ mb: '4px' }}
           value={form.values.name}
-          onChange={(event) => form.setFieldValue('name', event.target.value.trim())}
+          onChange={(event) => form.setFieldValue('name', event.target.value)}
           key={form.key('name')}
           error={t(form.errors.name as string)}
           required

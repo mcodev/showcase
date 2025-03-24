@@ -5,7 +5,11 @@ import { response } from "../common";
 import { ROUTES_NAMES } from "../consts";
 import { RefreshToken } from "../models/RefreshToken";
 import { generateAccessToken, generateRefreshToken } from "../helpers/tokens";
-import { isValidEmail, isValidPassword } from "../helpers/validators";
+import {
+  isValidEmail,
+  isValidName,
+  isValidPassword,
+} from "../helpers/validators";
 
 // LOGIN CONTROLLER
 export const login = async (
@@ -15,8 +19,8 @@ export const login = async (
   try {
     const { email, password } = req.body;
 
-    const EMAIL = email.trim();
-    const PASSWORD = password.trim();
+    const EMAIL = email?.trim();
+    const PASSWORD = password?.trim();
 
     if (!email || !password) {
       response({
@@ -88,10 +92,26 @@ export const register = async (
   try {
     const { name, email, password } = req.body;
 
+    const NAME = name?.trim();
+    const EMAIL = email?.trim();
+    const PASSWORD = password?.trim();
+
     if (!name || !email || !password) {
       response({
         res,
         statusCode: 400,
+        route: ROUTES_NAMES.AUTH,
+      });
+    }
+
+    if (
+      !isValidName(NAME) ||
+      !isValidEmail(EMAIL) ||
+      !isValidPassword(PASSWORD)
+    ) {
+      response({
+        res,
+        statusCode: 403,
         route: ROUTES_NAMES.AUTH,
       });
     }
@@ -109,11 +129,11 @@ export const register = async (
     const salt = random();
 
     const user = await createUser({
-      name,
-      email,
+      name: NAME,
+      email: EMAIL,
       authentication: {
         salt,
-        password: authentication(salt, password),
+        password: authentication(salt, PASSWORD),
       },
     });
 
@@ -122,7 +142,6 @@ export const register = async (
         res,
         statusCode: 500,
         route: ROUTES_NAMES.AUTH,
-        // message: "User registration failed",
       });
     }
 
@@ -135,7 +154,6 @@ export const register = async (
         res,
         statusCode: 500,
         route: ROUTES_NAMES.AUTH,
-        // message: "User registration failed",
       });
     }
 
@@ -143,7 +161,11 @@ export const register = async (
       res,
       statusCode: 201,
       route: ROUTES_NAMES.AUTH,
-      payload: { accessToken, refreshToken, user },
+      payload: {
+        accessToken,
+        refreshToken,
+        user: { _id: user._id, name: user.name },
+      },
     }).end();
   } catch (error) {
     console.error(error);
