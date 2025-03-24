@@ -9,9 +9,7 @@ export const generateAccessToken = (userId: string) => {
   return jwt.sign(
     { userId: userId },
     process.env.ACCESS_TOKEN_SECRET as string,
-    // { expiresIn: "12h" }
-    // TODO change this after testing
-    { expiresIn: "1m" }
+    { expiresIn: "12h" }
   );
 };
 
