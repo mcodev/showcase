@@ -26,5 +26,9 @@
   "MISSING_REQUIRED_FIELDS": "Λείπουν υποχρεωτικά πεδία",
   "INVALID_CREDENTIALS": "Λανθασμένα στοιχεία σύνδεσης",
   "USER_NOT_FOUND": "Δεν βρέθηκε χρήστης με αυτό το email",
-  "USER_ALREADY_REGISTERED": "Υπάρχει ηδη χρήστης με αυτό το email"
+  "USER_ALREADY_REGISTERED": "Υπάρχει ηδη χρήστης με αυτό το email",
+  "REFRESH_TOKEN_NOT_FOUND": "Δεν βρέθηκε το refresh token",
+  "sign_out": "Αποσύνδεση",
+  "sign_out_confirmation": "Είστε σίγουροι οτι θέλετε να αποσυνδεθείτε;",
+  "cancel": "Ακύρωση"
 }

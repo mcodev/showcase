@@ -201,6 +201,5 @@ export const logout = async (
     res,
     statusCode: 200,
     route: ROUTES_NAMES.AUTH,
-    // message: "Logged out successfully",
   }).end();
 };
