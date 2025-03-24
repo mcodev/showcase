@@ -6,7 +6,7 @@ import { REFRESH_TOKEN_KEY } from '@/common/consts';
 import useRefresh from '@/hooks/useRefresh';
 import { PROTECTED_ROUTES, SERVICE, SERVICES, ServicesSelectorType } from '@/services';
 import { GLOBAL_ERRORS } from '@/services/errors';
-import { GlobalResponseDataType, LoginResponseDataType } from '@/types/responseTypes';
+import { AuthResponseDataType, GlobalResponseDataType } from '@/types/responseTypes';
 import { useUserContext } from './UserProvider';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
@@ -24,7 +24,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const { refresh } = useRefresh();
 
-  const handleAuthInitialization = async (data: LoginResponseDataType) => {
+  const handleAuthInitialization = async (data: AuthResponseDataType) => {
     setAccessToken(data.accessToken);
     updateUser(data.user);
 

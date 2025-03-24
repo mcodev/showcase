@@ -9,7 +9,7 @@ export type UserDetailsType = {
   name: string;
 };
 
-export type LoginResponseDataType = GlobalResponseDataType & {
+export type AuthResponseDataType = GlobalResponseDataType & {
   success: boolean;
   accessToken: string;
   refreshToken: string;
