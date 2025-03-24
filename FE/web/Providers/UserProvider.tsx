@@ -31,6 +31,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     setUserDetails(user);
   };
 
+  console.log('isLoggedIn', Boolean(accessToken));
+
   return (
     <UserContextData.Provider
       value={{
