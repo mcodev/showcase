@@ -34,7 +34,7 @@ const useRefresh = () => {
       if (!data.refreshToken) {
         secureLocalStorage.removeItem(REFRESH_TOKEN_KEY);
       } else {
-        secureLocalStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
+        await secureLocalStorage.setItem(REFRESH_TOKEN_KEY, data.refreshToken);
       }
 
       return data.accessToken;

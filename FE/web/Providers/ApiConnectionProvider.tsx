@@ -85,7 +85,14 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
           if (newAccessToken) {
             setAccessToken(newAccessToken);
 
-            return request({ service, payload, newAccessToken });
+            const newPayload =
+              service === SERVICE.LOGOUT_SERVICE
+                ? {
+                    refreshToken: secureLocalStorage.getItem('rt'),
+                  }
+                : payload;
+
+            return request({ service, payload: newPayload, newAccessToken });
           }
         }
 
