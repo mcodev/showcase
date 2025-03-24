@@ -2,22 +2,28 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Button, Checkbox, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import {
-  isEmail,
-  isName,
-  isPassword,
   isPasswordMatch,
   isTermsOfServiceAccepted,
+  isValidEmail,
+  isValidName,
+  isValidPassword,
 } from '@/common/validators';
+import Notification from '@/components/Notifications/Notification';
+import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { useAppContext } from '@/providers/AppProvider';
+import { SERVICE } from '@/services';
+import { RegisterFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const SignUp = () => {
   const { changeSelectedComponent } = useAuthContext();
   const { closeAuthModal } = useAppContext();
+  const { request } = useApiConnection();
 
   const { t } = useTranslation();
 
@@ -32,17 +38,39 @@ const SignUp = () => {
     },
 
     validate: {
-      name: (value) => isName(value),
-      email: (value) => isEmail(value),
-      password: (value) => isPassword(value),
+      name: (value) => isValidName(value),
+      email: (value) => isValidEmail(value),
+      password: (value) => isValidPassword(value),
       repeatPassword: (value, values) =>
         isPasswordMatch(value, values.password ? values.password : ''),
       termsOfService: (value) => isTermsOfServiceAccepted(value),
     },
   });
 
+  const signUpMutation = useMutation({
+    mutationFn: (values: RegisterFormType) =>
+      request({
+        service: SERVICE.SIGN_UP_SERVICE,
+        payload: {
+          name: values.name.trim(),
+          email: values.email,
+          password: values.password,
+        },
+      }),
+
+    onSuccess: () => {
+      closeAuthModal();
+    },
+    onError: (error) => {
+      Notification({
+        title: t('error'),
+        message: t(error.message),
+      });
+    },
+  });
+
   return (
-    <form onSubmit={form.onSubmit((values) => console.log('values', values))}>
+    <form onSubmit={form.onSubmit((values) => signUpMutation.mutate(values))}>
       <Flex direction="column" mt="xl">
         <TextInput
           label={t('name')}
@@ -114,7 +142,7 @@ const SignUp = () => {
           />
         </Flex>
 
-        <Button w="100%" mt="xl" type="submit">
+        <Button w="100%" mt="xl" type="submit" loading={signUpMutation.isPending}>
           {t('sign_up')}
         </Button>
 

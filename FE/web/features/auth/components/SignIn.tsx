@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { isEmail } from '@/common/validators';
+import { isValidEmail } from '@/common/validators';
 import Notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { useAppContext } from '@/providers/AppProvider';
@@ -25,11 +25,11 @@ const SignIn = () => {
     },
 
     validate: {
-      email: (value) => isEmail(value),
+      email: (value) => isValidEmail(value),
     },
   });
 
-  const SignInMutation = useMutation({
+  const signInMutation = useMutation({
     mutationFn: (values: LoginFormType) =>
       request({ service: SERVICE.LOGIN_SERVICE, payload: values }),
 
@@ -45,7 +45,7 @@ const SignIn = () => {
   });
 
   return (
-    <form onSubmit={form.onSubmit((values) => SignInMutation.mutate(values))}>
+    <form onSubmit={form.onSubmit((values) => signInMutation.mutate(values))}>
       <Flex mt="xl" direction="column">
         <TextInput
           label="Email"
@@ -78,7 +78,7 @@ const SignIn = () => {
           {t('forgot_password')}
         </Text>
 
-        <Button w="100%" mt="xl" type="submit">
+        <Button w="100%" mt="xl" type="submit" loading={signInMutation.isPending}>
           {t('sign_in')}
         </Button>
 

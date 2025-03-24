@@ -1,4 +1,5 @@
-export const isName = (name: string) => {
+/* eslint-disable no-useless-escape */
+export const isValidName = (name: string) => {
   const re = /^[A-Za-z]{3,}$/;
 
   if (re.test(name.trim())) {
@@ -8,7 +9,7 @@ export const isName = (name: string) => {
   return 'invalid_name';
 };
 
-export const isEmail = (email: string) => {
+export const isValidEmail = (email: string) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -19,8 +20,10 @@ export const isEmail = (email: string) => {
   return 'invalid_email';
 };
 
-export const isPassword = (password: string) => {
-  const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+export const isValidPassword = (password: string) => {
+  const re =
+    /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,}$/;
+
   if (re.test(password.trim())) {
     return null;
   }

@@ -4,30 +4,34 @@ export const LOGIN_SERVICE = {
   errors: [
     {
       code: 400,
-      message: 'user_not_found',
+      message: 'MISSING_REQUIRED_FIELDS',
     },
     {
       code: 403,
-      message: 'incorrect_credentials',
+      message: 'INVALID_CREDENTIALS',
     },
     {
       code: 404,
-      message: 'user_not_found',
+      message: 'USER_NOT_FOUND',
     },
   ],
 };
 
 export const SIGN_UP_SERVICE = {
-  path: 'auth/signup',
+  path: 'auth/register',
   method: 'POST',
   errors: [
     {
       code: 400,
-      message: 'missing_required_fields',
+      message: 'MISSING_REQUIRED_FIELDS',
+    },
+    {
+      code: 403,
+      message: 'INVALID_CREDENTIALS',
     },
     {
       code: 409,
-      message: 'user_already_registered',
+      message: 'USER_ALREADY_REGISTERED',
     },
   ],
 };

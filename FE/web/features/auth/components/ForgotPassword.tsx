@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Flex, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { isEmail } from '@/common/validators';
+import { isValidEmail } from '@/common/validators';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const ForgotPassword = () => {
@@ -16,7 +16,7 @@ const ForgotPassword = () => {
     },
 
     validate: {
-      email: (value) => isEmail(value),
+      email: (value) => isValidEmail(value),
     },
   });
 
