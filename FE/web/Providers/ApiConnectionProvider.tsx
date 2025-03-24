@@ -48,6 +48,11 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
     getNewToken();
   }, []);
 
+  const clearTokens = () => {
+    setAccessToken(null);
+    secureLocalStorage.removeItem('rt');
+  };
+
   const request = async ({
     service,
     payload,
@@ -119,7 +124,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
   };
 
   return (
-    <ApiConnectionContext.Provider value={{ request, accessToken }}>
+    <ApiConnectionContext.Provider value={{ request, accessToken, clearTokens }}>
       {children}
     </ApiConnectionContext.Provider>
   );
@@ -130,6 +135,7 @@ const ApiConnectionContext = createContext({
   request: ({ service, payload }: RequestPropsType) =>
     Promise.resolve({ success: false, data: null, statusCode: 500 }),
   accessToken: null as string | null,
+  clearTokens: () => {},
 });
 
 export const useApiConnection = () => useContext(ApiConnectionContext);

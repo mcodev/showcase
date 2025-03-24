@@ -4,7 +4,6 @@ import secureLocalStorage from 'react-secure-storage';
 import AlertModalContent from '@/components/CustomModal/templates/AlertModalContent';
 import Notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
-import { useAppContext } from '@/providers/AppProvider';
 import { SERVICE } from '@/services';
 
 type SignOutModalProps = {
@@ -12,8 +11,7 @@ type SignOutModalProps = {
 };
 
 const SignOut = ({ handleCloseModal }: SignOutModalProps) => {
-  const { request } = useApiConnection();
-  const { closeAuthModal } = useAppContext();
+  const { request, clearTokens } = useApiConnection();
   const { t } = useTranslation();
 
   const SignOutMutation = useMutation({
@@ -24,9 +22,8 @@ const SignOut = ({ handleCloseModal }: SignOutModalProps) => {
       }),
 
     onSuccess: () => {
-      secureLocalStorage.removeItem('rt');
+      clearTokens();
       handleCloseModal();
-      closeAuthModal();
     },
     onError: (error) => {
       Notification({
