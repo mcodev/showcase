@@ -18,12 +18,7 @@ export const login = async (
     const EMAIL = email.trim();
     const PASSWORD = password.trim();
 
-    if (
-      !email ||
-      !password ||
-      !isValidEmail(EMAIL) ||
-      !isValidPassword(PASSWORD)
-    ) {
+    if (!email || !password) {
       response({
         res,
         statusCode: 400,
@@ -48,7 +43,11 @@ export const login = async (
       PASSWORD
     );
 
-    if (user.authentication.password !== expectedHashedPassword) {
+    if (
+      user.authentication.password !== expectedHashedPassword ||
+      !isValidEmail(EMAIL) ||
+      !isValidPassword(PASSWORD)
+    ) {
       response({
         res,
         statusCode: 403,

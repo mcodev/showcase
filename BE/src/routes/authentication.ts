@@ -43,16 +43,27 @@ export default (router: express.Router) => {
  *             schema:
  *               type: object
  *               properties:
- *                 _id:
+ *                 accessToken:
  *                   type: string
- *                 name:
+ *                   example: "your.jwt.token"
+ *                 refreshToken:
  *                   type: string
+ *                   example: "your.jwt.token"
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: "user123"
+ *                     name:
+ *                       type: string
+ *                       example: "John Doe"
  *       400:
- *         description: Missing required fields
+ *         description: MISSING_REQUIRED_FIELDS
  *       403:
- *         description: Invalid credentials
+ *         description: INVALID_CREDENTIALS
  *       404:
- *         description: User not found
+ *         description: USER_NOT_FOUND
  */
 
 /**
