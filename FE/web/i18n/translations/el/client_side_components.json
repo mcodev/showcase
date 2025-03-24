@@ -30,5 +30,13 @@
   "REFRESH_TOKEN_NOT_FOUND": "Δεν βρέθηκε το refresh token",
   "sign_out": "Αποσύνδεση",
   "sign_out_confirmation": "Είστε σίγουροι οτι θέλετε να αποσυνδεθείτε;",
-  "cancel": "Ακύρωση"
+  "cancel": "Ακύρωση",
+  "send": "Αποστολή",
+  "support": "Υποστήριξη",
+  "how_can_we_help_you": "Πως μπορούμε να σας βοηθήσουμε;",
+  "your_message": "Το μήνυμα σας",
+  "account": "Λογαριασμός",
+  "settings": "Ρυθμίσεις",
+  "save": "Αποθήκευση",
+  "delete": "Διαγραφή"
 }
