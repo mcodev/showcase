@@ -10,7 +10,7 @@ import AuthComponentsDisplay from '@/features/auth/AuthComponentsDisplay';
 import { NAMESPACE } from '@/i18n/consts';
 import initTranslations from '@/i18n/i18n';
 import i18nConfig from '@/i18n/i18nConfig';
-import { AppProvider } from '@/providers/AppProvider';
+import { ModulesProvider } from '@/providers/ModulesProvider';
 import ReactQueryProvider from '@/providers/QueryClientProvider';
 import TranslationsProvider from '@/providers/TranslationsProvider';
 import { UserProvider } from '@/providers/UserProvider';
@@ -58,7 +58,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
       <body>
         <MantineProvider theme={theme} defaultColorScheme={DEFAULT_THEME}>
           <ReactQueryProvider>
-            <AppProvider>
+            <ModulesProvider>
               <ApiConnectionProvider>
                 <UserProvider>
                   <TranslationsProvider
@@ -76,7 +76,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
                   </TranslationsProvider>
                 </UserProvider>
               </ApiConnectionProvider>
-            </AppProvider>
+            </ModulesProvider>
           </ReactQueryProvider>
         </MantineProvider>
       </body>

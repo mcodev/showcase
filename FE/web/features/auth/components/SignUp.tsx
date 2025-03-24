@@ -15,14 +15,14 @@ import {
 } from '@/common/validators';
 import Notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
-import { useAppContext } from '@/providers/AppProvider';
+import { useModulesContext } from '@/providers/ModulesProvider';
 import { SERVICE } from '@/services';
 import { RegisterFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const SignUp = () => {
   const { changeSelectedComponent } = useAuthContext();
-  const { closeAuthModal } = useAppContext();
+  const { closeAuthModal } = useModulesContext();
   const { request } = useApiConnection();
 
   const { t } = useTranslation();

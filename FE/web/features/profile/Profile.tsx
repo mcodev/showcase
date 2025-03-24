@@ -3,7 +3,7 @@
 import { useTranslation } from 'react-i18next';
 import { Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { useAppContext } from '@/providers/AppProvider';
+import { useModulesContext } from '@/providers/ModulesProvider';
 import { useUserContext } from '@/providers/UserProvider';
 import FavoritesDrawer from './components/Drawers/FavoritesDrawer';
 import AccountModal from './components/modals/AccountModal';
@@ -14,7 +14,7 @@ import SignedInBar from './components/SignedInBar/SignedInBar';
 import { ModalType, SelectedDrawerType } from './types';
 
 const Profile = () => {
-  const { openAuthModal } = useAppContext();
+  const { openAuthModal } = useModulesContext();
   const { isLoggedIn } = useUserContext();
 
   const { t } = useTranslation();

@@ -6,7 +6,7 @@ import { useForm } from '@mantine/form';
 import { isValidEmail } from '@/common/validators';
 import Notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
-import { useAppContext } from '@/providers/AppProvider';
+import { useModulesContext } from '@/providers/ModulesProvider';
 import { SERVICE } from '@/services';
 import { LoginFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
@@ -14,7 +14,7 @@ import { useAuthContext } from '../context/AuthSelectionProvider';
 const SignIn = () => {
   const { changeSelectedComponent } = useAuthContext();
   const { request } = useApiConnection();
-  const { closeAuthModal } = useAppContext();
+  const { closeAuthModal } = useModulesContext();
   const { t } = useTranslation();
 
   const form = useForm({

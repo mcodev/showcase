@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import CustomModal from '@/components/CustomModal/CustomModal';
-import { useAppContext } from '@/providers/AppProvider';
+import { useModulesContext } from '@/providers/ModulesProvider';
 import ForgotPassword from './components/ForgotPassword';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
@@ -27,7 +27,7 @@ const components = {
 const AuthComponentsDisplay = () => {
   const [selectedComponent, setSelectedComponent] = useState<SelectedComponentType>('signIn');
 
-  const { isAuthModalOpen, closeAuthModal } = useAppContext();
+  const { isAuthModalOpen, closeAuthModal } = useModulesContext();
 
   const changeSelectedComponent = (component: SelectedComponentType) => {
     setSelectedComponent(component);

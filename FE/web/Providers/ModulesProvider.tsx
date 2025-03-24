@@ -3,7 +3,7 @@
 import React, { createContext, useContext } from 'react';
 import { useDisclosure } from '@mantine/hooks';
 
-type AppProviderProps = {
+type ModulesProviderProps = {
   children: React.ReactNode;
 };
 
@@ -19,13 +19,13 @@ const defaultContextData: DefaultContextDataType = {
   closeAuthModal: () => {},
 };
 
-const AppContext = createContext(defaultContextData);
+const ModulesContext = createContext(defaultContextData);
 
-export const AppProvider = ({ children }: AppProviderProps) => {
+export const ModulesProvider = ({ children }: ModulesProviderProps) => {
   const [isAuthModalOpen, { open: openAuthModal, close: closeAuthModal }] = useDisclosure(false);
 
   return (
-    <AppContext.Provider
+    <ModulesContext.Provider
       value={{
         isAuthModalOpen,
         openAuthModal,
@@ -33,8 +33,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       }}
     >
       {children}
-    </AppContext.Provider>
+    </ModulesContext.Provider>
   );
 };
 
-export const useAppContext = () => useContext(AppContext);
+export const useModulesContext = () => useContext(ModulesContext);
