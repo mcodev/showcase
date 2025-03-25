@@ -13,7 +13,7 @@ import router from "./routes";
 import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 import path from "path";
-import { ENVIRONMENT, FE_URL, MONGO_URL, PORT } from "consts";
+import { ENVIRONMENT, FE_URL, MONGO_URL, PORT } from "./consts";
 
 const xss = require("xss-clean");
 
