@@ -3,7 +3,7 @@ import {
   ROUTES,
   RESPONSE_MESSAGES,
   UNIVERSAL_RESPONSE_MESSAGES,
-} from "./consts";
+} from "../consts";
 
 type StatusCodeType = keyof (typeof RESPONSE_MESSAGES)[
   | keyof typeof ROUTES

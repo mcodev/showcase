@@ -1,6 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import { response } from "../../response";
+import { response } from "../../helpers/response";
 import { ROUTES_NAMES } from "../../consts";
 import {
   generateAccessToken,

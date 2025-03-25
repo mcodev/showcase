@@ -1,7 +1,7 @@
 import express from "express";
 import { getUserBySessionToken } from "../models/Users";
 import { get, merge } from "lodash";
-import { response } from "../response";
+import { response } from "../helpers/response";
 
 export const isAuthenticated = async (
   req: express.Request,
