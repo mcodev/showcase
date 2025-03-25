@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { RefreshToken } from "../models/RefreshToken";
+import { createToken, getToken } from "../models/RefreshToken";
 import {
   ACCESS_TOKEN_EXPIRATION,
   ACCESS_TOKEN_SECRET,
@@ -18,9 +18,9 @@ export const generateRefreshToken = async (userId: string) => {
     expiresIn: REFRESH_TOKEN_EXPIRATION,
   });
 
-  await RefreshToken.create({ userId: userId, token: refreshToken });
+  const isTokenCreated = await createToken(userId, refreshToken);
 
-  if (!refreshToken) {
+  if (!isTokenCreated) {
     return false;
   }
 
@@ -34,7 +34,7 @@ export const verifyRefreshToken = async (
   try {
     jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
 
-    const storedToken = await RefreshToken.findOne({ token: refreshToken });
+    const storedToken = await getToken(refreshToken);
 
     if (!storedToken) {
       return false;

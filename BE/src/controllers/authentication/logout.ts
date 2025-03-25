@@ -1,7 +1,7 @@
 import express from "express";
 import { response } from "../../helpers/response";
 import { ROUTES_NAMES } from "../../consts";
-import { RefreshToken } from "../../models/RefreshToken";
+import { deleteToken } from "../../models/RefreshToken";
 
 const logout = async (
   req: express.Request,
@@ -10,11 +10,9 @@ const logout = async (
   try {
     const { refreshToken } = req.body;
 
-    const deletedToken = await RefreshToken.deleteOne({
-      token: refreshToken,
-    });
+    const isTokenDeleted = await deleteToken(refreshToken);
 
-    if (deletedToken.deletedCount === 0) {
+    if (!isTokenDeleted) {
       response({
         res,
         statusCode: 404,

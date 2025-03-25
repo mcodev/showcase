@@ -6,7 +6,7 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../../helpers/tokens";
-import { RefreshToken } from "../../models/RefreshToken";
+import { deleteToken, getToken } from "../../models/RefreshToken";
 
 const refresh = async (
   req: express.Request,
@@ -22,7 +22,7 @@ const refresh = async (
     });
   }
 
-  const storedToken = await RefreshToken.findOne({ token: refreshToken });
+  const storedToken = await getToken(refreshToken);
 
   if (!storedToken) {
     console.warn("\x1b[36m%s\x1b[0m", "Possible token theft detected!");
@@ -46,11 +46,9 @@ const refresh = async (
 
     const newRefreshToken = await generateRefreshToken(parsedDecoded.userId);
 
-    const deletedToken = await RefreshToken.deleteOne({
-      token: refreshToken,
-    });
+    const isTokenDeleted = await deleteToken(refreshToken);
 
-    if (!deletedToken) {
+    if (!isTokenDeleted) {
       response({
         res,
         statusCode: 404,
