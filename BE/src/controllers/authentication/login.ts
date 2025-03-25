@@ -1,6 +1,6 @@
 import express from "express";
 import { getUserByEmail } from "../../models/Users";
-import { authentication } from "../../helpers/generators";
+import { generatePasswordHash } from "../../helpers/generators";
 import { response } from "../../helpers/response";
 import { ROUTES_NAMES } from "../../consts";
 import {
@@ -39,7 +39,7 @@ const login = async (
       });
     }
 
-    const expectedHashedPassword = authentication(
+    const expectedHashedPassword = generatePasswordHash(
       user.authentication.salt,
       PASSWORD
     );

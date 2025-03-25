@@ -1,6 +1,9 @@
+import express from "express";
 import { response } from "../../helpers/response";
 import { RESET_CODE_EXPIRY, ROUTES_NAMES } from "../../consts";
-import express from "express";
+import { getUserByEmail } from "../../models/Users";
+import { isValidEmail } from "../../helpers/validators";
+import { generateResetCode } from "../../helpers/generators";
 
 const request_password_reset = async (
   req: express.Request,
@@ -9,34 +12,34 @@ const request_password_reset = async (
   try {
     const { email } = req.body;
 
-    // Validate email or phone number is provided
     if (!email) {
       response({
         res,
         statusCode: 400,
-        // message: "Email or phone number is required",
         route: ROUTES_NAMES.AUTH,
       });
-      return;
     }
 
-    // Find user by email or phone number
-    const user = await User.findOne({
-      $or: [{ email }],
-    });
+    if (!isValidEmail(email)) {
+      response({
+        res,
+        statusCode: 403,
+        route: ROUTES_NAMES.AUTH,
+      });
+    }
+
+    const user = await getUserByEmail(email);
 
     if (!user) {
       response({
         res,
         statusCode: 404,
-        // message: "User not found",
         route: ROUTES_NAMES.AUTH,
       });
-      return;
     }
 
-    // Generate reset code
     const resetCode = generateResetCode();
+
     const hashedResetCode = crypto
       .createHash("sha256")
       .update(resetCode)
@@ -58,15 +61,13 @@ const request_password_reset = async (
     response({
       res,
       statusCode: 200,
-      // message: "Password reset code sent",
-      route: ROUTES_NAMES.AUTH,
     });
   } catch (error) {
     console.error("Request Password Reset Error:", error);
+
     response({
       res,
       statusCode: 500,
-      // message: "Internal server error",
     });
   }
 };
