@@ -110,11 +110,9 @@ export default request_password_reset;
  *       200:
  *         description: Password reset request successful. Reset code sent to email.
  *       400:
- *         description: Missing or invalid request body.
+ *         description: MISSING_REQUIRED_FIELDS
  *       403:
- *         description: Invalid email format.
+ *         description: INVALID_CREDENTIALS
  *       404:
- *         description: No user found with the provided email.
- *       500:
- *         description: Internal server error.
+ *         description: USER_NOT_FOUND
  */

@@ -48,37 +48,6 @@ app.use(helmet());
 // This middleware prevents cross-site scripting (XSS) attacks by sanitizing user input. It removes malicious scripts and HTML from the request body, query strings, and parameters.
 app.use(xss());
 
-app.use("/", router());
-
-mongoose.Promise = Promise;
-
-mongoose.connect(MONGO_URL);
-
-mongoose.connection.on("connected", () => {
-  console.log("MongoDB connected");
-});
-
-mongoose.connection.on("error", (err) => {
-  console.error(err);
-  process.exit(1);
-});
-
-const server = http.createServer(app);
-
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-process.on("unhandledRejection", (err) => {
-  console.log(`Error: ${err}`);
-  server.close(() => process.exit(1));
-});
-
-process.on("uncaughtException", (err) => {
-  console.log(`Error: ${err.message}`);
-  server.close(() => process.exit(1));
-});
-
 //////////////////   SWAGGER   //////////////////
 if (ENVIRONMENT === "development") {
   const theme = new SwaggerTheme();
@@ -118,3 +87,34 @@ if (ENVIRONMENT === "development") {
     )
   );
 }
+
+app.use("/", router());
+
+mongoose.Promise = Promise;
+
+mongoose.connect(MONGO_URL);
+
+mongoose.connection.on("connected", () => {
+  console.log("MongoDB connected");
+});
+
+mongoose.connection.on("error", (err) => {
+  console.error(err);
+  process.exit(1);
+});
+
+const server = http.createServer(app);
+
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.log(`Error: ${err}`);
+  server.close(() => process.exit(1));
+});
+
+process.on("uncaughtException", (err) => {
+  console.log(`Error: ${err.message}`);
+  server.close(() => process.exit(1));
+});
