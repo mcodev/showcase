@@ -22,7 +22,6 @@ const refresh = async (
     });
   }
 
-  // Check if the token exists in the DB
   const storedToken = await RefreshToken.findOne({ token: refreshToken });
 
   if (!storedToken) {

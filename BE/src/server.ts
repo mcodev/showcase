@@ -72,7 +72,7 @@ if (ENVIRONMENT === "development") {
             title: "Riderz APIs",
           },
         },
-        apis: [path.join(__dirname, "./routes/*.ts")],
+        apis: [path.join(__dirname, "./controllers/**/*.ts")],
         components: {
           securitySchemes: {
             BearerAuth: {
