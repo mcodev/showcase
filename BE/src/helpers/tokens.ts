@@ -1,21 +1,23 @@
 import jwt from "jsonwebtoken";
 import { RefreshToken } from "../models/RefreshToken";
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "consts";
+import {
+  ACCESS_TOKEN_EXPIRATION,
+  ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_EXPIRATION,
+  REFRESH_TOKEN_SECRET,
+} from "consts";
 
-// Generate JWT Access Token
 export const generateAccessToken = (userId: string) => {
   return jwt.sign({ userId: userId }, ACCESS_TOKEN_SECRET, {
-    expiresIn: "12h",
+    expiresIn: ACCESS_TOKEN_EXPIRATION,
   });
 };
 
-// Generate JWT Refresh Token
 export const generateRefreshToken = async (userId: string) => {
   const refreshToken = jwt.sign({ userId: userId }, REFRESH_TOKEN_SECRET, {
-    expiresIn: "7d",
+    expiresIn: REFRESH_TOKEN_EXPIRATION,
   });
 
-  // Store the token in the DB
   await RefreshToken.create({ userId: userId, token: refreshToken });
 
   if (!refreshToken) {
