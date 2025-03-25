@@ -21,9 +21,11 @@ dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 
-const MONGO_URL = process.env.MONGO_URL;
+const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017";
 
-const ENVIRONMENT = process.env.NODE_ENV;
+const ENVIRONMENT = process.env.NODE_ENV || "development";
+
+const FE_URL = process.env.FE_URL || "http://localhost:3000";
 
 const app = express();
 
@@ -34,8 +36,7 @@ app.use(compression());
 app.use(
   cors({
     credentials: true,
-    // TODO fix this on deployment
-    origin: ["http://localhost:3000"],
+    origin: [FE_URL],
   })
 );
 
@@ -69,7 +70,7 @@ if (ENVIRONMENT === "development") {
         definition: {
           openapi: "3.0.0",
           info: {
-            title: "Riderz APIs",
+            title: "APIs Documentation",
           },
         },
         apis: [path.join(__dirname, "./controllers/**/*.ts")],
