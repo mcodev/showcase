@@ -1,6 +1,6 @@
 import express from "express";
 import { getUserByEmail } from "../../models/Users";
-import { authentication } from "../../helpers/functions";
+import { authentication } from "../../helpers/generators";
 import { response } from "../../helpers/response";
 import { ROUTES_NAMES } from "../../consts";
 import {

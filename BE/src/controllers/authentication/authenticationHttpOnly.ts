@@ -1,6 +1,6 @@
 import express from "express";
 import { createUser, getUserByEmail } from "../../models/Users";
-import { random, authentication } from "../../helpers/functions";
+import { random, authentication } from "../../helpers/generators";
 import { response } from "../../helpers/response";
 import { ROUTES_NAMES } from "../../consts";
 
