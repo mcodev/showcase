@@ -6,10 +6,10 @@ export const sendPasswordResetEmail = async (
 ): Promise<boolean> => {
   try {
     const transporter = nodemailer.createTransport({
-      service: "Gmail", // or use a custom SMTP server
+      service: "Gmail",
       auth: {
-        user: process.env.EMAIL_USER, // ✅ Environment variable
-        pass: process.env.EMAIL_PASS, // ✅ Environment variable
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
@@ -18,6 +18,7 @@ export const sendPasswordResetEmail = async (
       to: email,
       subject: "Password Reset Request",
       text: `Your password reset code is: ${resetCode}. This code will expire soon.`,
+      html: `<p>Your password reset code is: <strong>${resetCode}</strong>. This code will expire soon.</p>`,
     };
 
     const response = await transporter.sendMail(mailOptions);

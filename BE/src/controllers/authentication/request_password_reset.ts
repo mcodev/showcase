@@ -84,3 +84,37 @@ const request_password_reset = async (
 };
 
 export default request_password_reset;
+
+/**
+ * @swagger
+ * /auth/request_password_reset:
+ *   post:
+ *     summary: Request a password reset
+ *     description: Sends a password reset code to the user's email if the email exists in the system.
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "user@example.com"
+ *             required:
+ *               - email
+ *     responses:
+ *       200:
+ *         description: Password reset request successful. Reset code sent to email.
+ *       400:
+ *         description: Missing or invalid request body.
+ *       403:
+ *         description: Invalid email format.
+ *       404:
+ *         description: No user found with the provided email.
+ *       500:
+ *         description: Internal server error.
+ */
