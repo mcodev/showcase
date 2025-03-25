@@ -1,8 +1,8 @@
 import express from "express";
-import { createUser, getUserByEmail } from "../models/Users";
-import { random, authentication } from "../helpers";
-import { response } from "../common";
-import { ROUTES_NAMES } from "../consts";
+import { createUser, getUserByEmail } from "../../models/Users";
+import { random, authentication } from "../../helpers/functions";
+import { response } from "../../common";
+import { ROUTES_NAMES } from "../../consts";
 
 export const login = async (
   req: express.Request,

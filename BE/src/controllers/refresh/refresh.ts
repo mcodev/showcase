@@ -1,11 +1,14 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import { response } from "../common";
-import { ROUTES_NAMES } from "../consts";
-import { generateAccessToken, generateRefreshToken } from "../helpers/tokens";
-import { RefreshToken } from "../models/RefreshToken";
+import { response } from "../../common";
+import { ROUTES_NAMES } from "../../consts";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../../helpers/tokens";
+import { RefreshToken } from "../../models/RefreshToken";
 
-export const refresh = async (
+const refresh = async (
   req: express.Request,
   res: express.Response
 ): Promise<void> => {
@@ -70,3 +73,5 @@ export const refresh = async (
     });
   }
 };
+
+export default refresh;
