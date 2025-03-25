@@ -35,7 +35,7 @@ export const createUser = async (values: Record<string, any>) => {
     const user = await new UserModel(values).save();
     return user.toObject();
   } catch (error) {
-    throw false;
+    return null;
   }
 };
 

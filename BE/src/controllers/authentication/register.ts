@@ -16,7 +16,7 @@ import {
 const register = async (
   req: express.Request,
   res: express.Response
-): Promise<void> => {
+): Promise<any> => {
   try {
     const { name, email, password } = req.body;
 
@@ -44,7 +44,9 @@ const register = async (
       });
     }
 
-    const isUserAlreadyRegistered = await getUserByEmail(email);
+    const userCheck = await getUserByEmail(email);
+
+    const isUserAlreadyRegistered = Boolean(userCheck);
 
     if (isUserAlreadyRegistered) {
       response({
@@ -54,10 +56,12 @@ const register = async (
       });
     }
 
+    const encryptedPassword = await generateEncryptedPassword(PASSWORD);
+
     const user = await createUser({
       name: NAME,
       email: EMAIL,
-      password: generateEncryptedPassword(PASSWORD),
+      password: encryptedPassword,
     });
 
     if (!user) {
