@@ -1,6 +1,6 @@
 import express from "express";
 import { createUser, getUserByEmail } from "../../models/Users";
-import { generatePasswordHash, generateSalt } from "../../helpers/generators";
+import { generateEncryptedPassword } from "../../helpers/generators";
 import { response } from "../../helpers/response";
 import { ROUTES_NAMES } from "../../consts";
 import {
@@ -54,15 +54,10 @@ const register = async (
       });
     }
 
-    const salt = generateSalt();
-
     const user = await createUser({
       name: NAME,
       email: EMAIL,
-      authentication: {
-        salt,
-        password: generatePasswordHash(salt, PASSWORD),
-      },
+      password: generateEncryptedPassword(PASSWORD),
     });
 
     if (!user) {

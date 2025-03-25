@@ -1,3 +1,5 @@
+import bcrypt from "bcrypt";
+
 export const isValidName = (name: string) => {
   const re = /^[A-Za-z]{3,}$/;
 
@@ -16,4 +18,11 @@ export const isValidPassword = (password: string) => {
     /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,}$/;
 
   return re.test(password.trim());
+};
+
+export const isUserPasswordMatch = async (
+  password: string,
+  encryptedPassword: string
+) => {
+  return await bcrypt.compare(password, encryptedPassword);
 };

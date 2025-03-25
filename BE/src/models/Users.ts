@@ -10,20 +10,17 @@ const userSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
-  authentication: {
-    password: {
-      type: String,
-      required: true,
-      select: false,
-    },
-    salt: {
-      type: String,
-      select: false,
-    },
-    sessionToken: {
-      type: String,
-      select: false,
-    },
+  password: {
+    type: String,
+    required: true,
+  },
+  resetCode: {
+    type: String,
+    required: false,
+  },
+  resetCodeExpiry: {
+    type: Date,
+    required: false,
   },
 });
 
@@ -36,6 +33,17 @@ export const getUserByEmail = (email: string) => {
 export const createUser = async (values: Record<string, any>) => {
   try {
     const user = await new UserModel(values).save();
+    return user.toObject();
+  } catch (error) {
+    throw false;
+  }
+};
+
+export const updateUser = async (id: string, values: Record<string, any>) => {
+  try {
+    const user = await UserModel.findOneAndUpdate({ _id: id }, values, {
+      new: true,
+    });
     return user.toObject();
   } catch (error) {
     throw false;

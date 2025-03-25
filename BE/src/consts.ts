@@ -21,6 +21,8 @@ export const REFRESH_TOKEN_EXPIRATION = "7d";
 
 export const RESET_CODE_EXPIRY = "15m";
 
+export const PASSWORD_ENCRYPTION_LEVEL = 10;
+
 export const ROUTES = {
   AUTH: "/auth",
   USERS: "/users",

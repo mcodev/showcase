@@ -1,6 +1,6 @@
 import express from "express";
 import { getUserByEmail } from "../../models/Users";
-import { generatePasswordHash } from "../../helpers/generators";
+import { isUserPasswordMatch } from "../../helpers/validators";
 import { response } from "../../helpers/response";
 import { ROUTES_NAMES } from "../../consts";
 import {
@@ -27,9 +27,7 @@ const login = async (
       });
     }
 
-    const user = await getUserByEmail(email).select(
-      "+authentication.salt +authentication.password"
-    );
+    const user = await getUserByEmail(email).select("password");
 
     if (!user) {
       response({
@@ -39,13 +37,8 @@ const login = async (
       });
     }
 
-    const expectedHashedPassword = generatePasswordHash(
-      user.authentication.salt,
-      PASSWORD
-    );
-
     if (
-      user.authentication.password !== expectedHashedPassword ||
+      !isUserPasswordMatch(PASSWORD, user.password) ||
       !isValidEmail(EMAIL) ||
       !isValidPassword(PASSWORD)
     ) {

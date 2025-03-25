@@ -1,21 +1,10 @@
-import crypto from "crypto";
-import dotenv from "dotenv";
+import bcrypt from "bcrypt";
+import { PASSWORD_ENCRYPTION_LEVEL } from "consts";
 
-dotenv.config();
-
-const SECRET = process.env.SECRET;
-
-export const generateSalt = () => {
-  return crypto.randomBytes(128).toString("base64");
+export const generateEncryptedPassword = async (password: string) => {
+  return await bcrypt.hash(password, PASSWORD_ENCRYPTION_LEVEL);
 };
 
-export const generatePasswordHash = (salt: string, password: string) => {
-  return crypto
-    .createHmac("sha256", [salt, password].join("/"))
-    .update(SECRET)
-    .digest("hex");
-};
-
-export const generateResetCode = () => {
+export const generate5DigitResetCode = () => {
   return Math.floor(10000 + Math.random() * 90000).toString();
 };

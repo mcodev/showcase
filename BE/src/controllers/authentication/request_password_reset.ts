@@ -1,9 +1,13 @@
 import express from "express";
 import { response } from "../../helpers/response";
 import { RESET_CODE_EXPIRY, ROUTES_NAMES } from "../../consts";
-import { getUserByEmail } from "../../models/Users";
+import { getUserByEmail, updateUser } from "../../models/Users";
 import { isValidEmail } from "../../helpers/validators";
-import { generateResetCode } from "../../helpers/generators";
+import {
+  generate5DigitResetCode,
+  generateEncryptedPassword,
+} from "../../helpers/generators";
+import { sendPasswordResetEmail } from "../../helpers/email_service";
 
 const request_password_reset = async (
   req: express.Request,
@@ -38,25 +42,32 @@ const request_password_reset = async (
       });
     }
 
-    const resetCode = generateResetCode();
+    const resetCode = generate5DigitResetCode();
 
-    const hashedResetCode = crypto
-      .createHash("sha256")
-      .update(resetCode)
-      .digest("hex");
+    const hashedResetCode = await generateEncryptedPassword(resetCode);
 
-    // Set code expiry
     const resetCodeExpiry = new Date(Date.now() + RESET_CODE_EXPIRY);
 
-    // Update user with reset code and expiry
-    user.resetCode = hashedResetCode;
-    user.resetCodeExpiry = resetCodeExpiry;
-    await user.save();
-
-    sendPasswordResetEmail(email, {
-      resetCode: resetCode,
+    const isUserUpdated = await updateUser(String(user._id), {
+      resetCode: hashedResetCode,
       resetCodeExpiry: resetCodeExpiry,
     });
+
+    if (!isUserUpdated) {
+      response({
+        res,
+        statusCode: 500,
+      });
+    }
+
+    const isEmailSent = await sendPasswordResetEmail(email, resetCode);
+
+    if (!isEmailSent) {
+      response({
+        res,
+        statusCode: 500,
+      });
+    }
 
     response({
       res,
