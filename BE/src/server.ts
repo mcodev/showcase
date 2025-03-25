@@ -3,7 +3,6 @@ const swaggerUi = require("swagger-ui-express");
 const { SwaggerTheme, SwaggerThemeNameEnum } = require("swagger-themes");
 
 import express from "express";
-import dotenv from "dotenv";
 import http from "http";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -14,18 +13,9 @@ import router from "./routes";
 import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 import path from "path";
+import { ENVIRONMENT, FE_URL, MONGO_URL, PORT } from "consts";
 
 const xss = require("xss-clean");
-
-dotenv.config();
-
-const PORT = process.env.PORT || 8000;
-
-const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost:27017";
-
-const ENVIRONMENT = process.env.NODE_ENV || "development";
-
-const FE_URL = process.env.FE_URL || "http://localhost:3000";
 
 const app = express();
 

@@ -1,25 +1,19 @@
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import { RefreshToken } from "../models/RefreshToken";
-
-dotenv.config();
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "consts";
 
 // Generate JWT Access Token
 export const generateAccessToken = (userId: string) => {
-  return jwt.sign(
-    { userId: userId },
-    process.env.ACCESS_TOKEN_SECRET as string,
-    { expiresIn: "12h" }
-  );
+  return jwt.sign({ userId: userId }, ACCESS_TOKEN_SECRET, {
+    expiresIn: "12h",
+  });
 };
 
 // Generate JWT Refresh Token
 export const generateRefreshToken = async (userId: string) => {
-  const refreshToken = jwt.sign(
-    { userId: userId },
-    process.env.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: "7d" }
-  );
+  const refreshToken = jwt.sign({ userId: userId }, REFRESH_TOKEN_SECRET, {
+    expiresIn: "7d",
+  });
 
   // Store the token in the DB
   await RefreshToken.create({ userId: userId, token: refreshToken });
@@ -36,7 +30,7 @@ export const verifyRefreshToken = async (
   email: string
 ) => {
   try {
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET as string);
+    jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
 
     const storedToken = await RefreshToken.findOne({ token: refreshToken });
 
