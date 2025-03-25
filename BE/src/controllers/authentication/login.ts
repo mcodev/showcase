@@ -1,7 +1,7 @@
 import express from "express";
 import { getUserByEmail } from "../../models/Users";
 import { authentication } from "../../helpers/functions";
-import { response } from "../../common";
+import { response } from "../../response";
 import { ROUTES_NAMES } from "../../consts";
 import {
   generateAccessToken,

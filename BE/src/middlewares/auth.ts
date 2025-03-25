@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { response } from "../common";
+import { response } from "../response";
 
 dotenv.config();
 
