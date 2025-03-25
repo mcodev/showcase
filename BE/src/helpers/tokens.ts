@@ -5,7 +5,7 @@ import {
   ACCESS_TOKEN_SECRET,
   REFRESH_TOKEN_EXPIRATION,
   REFRESH_TOKEN_SECRET,
-} from "consts";
+} from "../consts";
 
 export const generateAccessToken = (userId: string) => {
   return jwt.sign({ userId: userId }, ACCESS_TOKEN_SECRET, {

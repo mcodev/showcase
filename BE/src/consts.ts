@@ -19,6 +19,8 @@ export const ACCESS_TOKEN_EXPIRATION = "12h";
 
 export const REFRESH_TOKEN_EXPIRATION = "7d";
 
+export const RESET_CODE_EXPIRY = "15m";
+
 export const ROUTES = {
   AUTH: "/auth",
   USERS: "/users",

@@ -1,75 +1,74 @@
-// export const request_password_reset = async (
-//   req: express.Request,
-//   res: express.Response
-// ): Promise<void> => {
-//   try {
-//     const { email, phoneNumber } = req.body;
+import { response } from "../../helpers/response";
+import { RESET_CODE_EXPIRY, ROUTES_NAMES } from "../../consts";
+import express from "express";
 
-//     // Validate email or phone number is provided
-//     if (!email && !phoneNumber) {
-//       response({
-//         res,
-//         statusCode: 400,
-//         // message: "Email or phone number is required",
-//         route: ROUTES_NAMES.AUTH,
-//       });
-//       return;
-//     }
+const request_password_reset = async (
+  req: express.Request,
+  res: express.Response
+): Promise<void> => {
+  try {
+    const { email } = req.body;
 
-//     // Find user by email or phone number
-//     const user = await User.findOne({
-//       $or: [{ email }, { phoneNumber }],
-//     });
+    // Validate email or phone number is provided
+    if (!email) {
+      response({
+        res,
+        statusCode: 400,
+        // message: "Email or phone number is required",
+        route: ROUTES_NAMES.AUTH,
+      });
+      return;
+    }
 
-//     if (!user) {
-//       response({
-//         res,
-//         statusCode: 404,
-//         // message: "User not found",
-//         route: ROUTES_NAMES.AUTH,
-//       });
-//       return;
-//     }
+    // Find user by email or phone number
+    const user = await User.findOne({
+      $or: [{ email }],
+    });
 
-//     // Generate reset code
-//     const resetCode = generateResetCode();
-//     const hashedResetCode = crypto
-//       .createHash("sha256")
-//       .update(resetCode)
-//       .digest("hex");
+    if (!user) {
+      response({
+        res,
+        statusCode: 404,
+        // message: "User not found",
+        route: ROUTES_NAMES.AUTH,
+      });
+      return;
+    }
 
-//     // Set code expiry
-//     const resetCodeExpiry = new Date(Date.now() + RESET_CODE_EXPIRY);
+    // Generate reset code
+    const resetCode = generateResetCode();
+    const hashedResetCode = crypto
+      .createHash("sha256")
+      .update(resetCode)
+      .digest("hex");
 
-//     // Update user with reset code and expiry
-//     user.resetCode = hashedResetCode;
-//     user.resetCodeExpiry = resetCodeExpiry;
-//     await user.save();
+    // Set code expiry
+    const resetCodeExpiry = new Date(Date.now() + RESET_CODE_EXPIRY);
 
-//     // Send reset code via SMS or email
-//     if (phoneNumber) {
-//       await sendPasswordResetSMS(phoneNumber, {
-//         resetCode: resetCode,
-//       });
-//     } else {
-//       // Fallback to email if no phone number
-//       await sendPasswordResetEmail(email, {
-//         resetCode: resetCode,
-//       });
-//     }
+    // Update user with reset code and expiry
+    user.resetCode = hashedResetCode;
+    user.resetCodeExpiry = resetCodeExpiry;
+    await user.save();
 
-//     response({
-//       res,
-//       statusCode: 200,
-//       // message: "Password reset code sent",
-//       route: ROUTES_NAMES.AUTH,
-//     });
-//   } catch (error) {
-//     console.error("Request Password Reset Error:", error);
-//     response({
-//       res,
-//       statusCode: 500,
-//       // message: "Internal server error",
-//     });
-//   }
-// };
+    sendPasswordResetEmail(email, {
+      resetCode: resetCode,
+      resetCodeExpiry: resetCodeExpiry,
+    });
+
+    response({
+      res,
+      statusCode: 200,
+      // message: "Password reset code sent",
+      route: ROUTES_NAMES.AUTH,
+    });
+  } catch (error) {
+    console.error("Request Password Reset Error:", error);
+    response({
+      res,
+      statusCode: 500,
+      // message: "Internal server error",
+    });
+  }
+};
+
+export default request_password_reset;
