@@ -62,6 +62,8 @@ const request_password_reset = async (
 
     const isEmailSent = await sendPasswordResetEmail(email, resetCode);
 
+    console.log("isEmailSent", isEmailSent);
+
     if (!isEmailSent) {
       response({
         res,

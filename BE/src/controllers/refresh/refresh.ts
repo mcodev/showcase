@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import { response } from "../../helpers/response";
-import { ROUTES_NAMES } from "../../consts";
+import { REFRESH_TOKEN_SECRET, ROUTES_NAMES } from "../../consts";
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -35,10 +35,7 @@ const refresh = async (
   }
 
   try {
-    const decoded = jwt.verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_SECRET as string
-    );
+    const decoded = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
 
     const parsedDecoded = JSON.parse(JSON.stringify(decoded));
 

@@ -1,3 +1,4 @@
+import { EMAIL_PASS, EMAIL_USER } from "../consts";
 import nodemailer from "nodemailer";
 
 export const sendPasswordResetEmail = async (
@@ -8,20 +9,27 @@ export const sendPasswordResetEmail = async (
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: EMAIL_USER,
+        pass: EMAIL_PASS,
       },
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: EMAIL_USER,
       to: email,
       subject: "Password Reset Request",
       text: `Your password reset code is: ${resetCode}. This code will expire soon.`,
       html: `<p>Your password reset code is: <strong>${resetCode}</strong>. This code will expire soon.</p>`,
     };
 
+    console.log("Sending password reset email to:", email);
+
     const response = await transporter.sendMail(mailOptions);
+
+    if (!response.messageId) {
+      console.error("Error sending password reset email:", response);
+      return false;
+    }
 
     return Boolean(response.messageId);
   } catch (error) {
