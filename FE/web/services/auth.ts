@@ -41,3 +41,22 @@ export const LOGOUT_SERVICE = {
   method: 'POST',
   errors: [],
 };
+
+export const FORGOT_PASSWORD_SERVICE = {
+  path: 'auth/request_password_reset',
+  method: 'POST',
+  errors: [
+    {
+      code: 400,
+      message: 'MISSING_REQUIRED_FIELDS',
+    },
+    {
+      code: 403,
+      message: 'INVALID_CREDENTIALS',
+    },
+    {
+      code: 404,
+      message: 'USER_NOT_FOUND',
+    },
+  ],
+};

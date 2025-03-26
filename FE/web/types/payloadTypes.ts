@@ -9,7 +9,7 @@ export type RegisterFormType = {
   password: string;
 };
 
-export type ResetPasswordFormType = {
+export type ForgotPasswordFormType = {
   email: string;
 };
 

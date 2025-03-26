@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { isValidEmail } from '@/common/validators';
-import Notification from '@/components/Notifications/Notification';
+import notification from '@/components/Notifications/notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { useModulesContext } from '@/providers/ModulesProvider';
 import { SERVICE } from '@/services';
@@ -37,7 +37,7 @@ const SignIn = () => {
       closeAuthModal();
     },
     onError: (error) => {
-      Notification({
+      notification({
         title: t('error'),
         message: t(error.message),
       });

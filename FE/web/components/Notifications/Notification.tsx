@@ -19,7 +19,7 @@ const ICONS = {
   warning: <IconExclamationMark />,
 };
 
-const Notification = ({ type = 'error', title, message }: NotificationProps) => {
+export const notification = ({ type = 'error', title, message }: NotificationProps) => {
   return notifications.show({
     position: 'top-right',
     autoClose: 3000,
@@ -30,4 +30,4 @@ const Notification = ({ type = 'error', title, message }: NotificationProps) => 
   });
 };
 
-export default Notification;
+export default notification;
