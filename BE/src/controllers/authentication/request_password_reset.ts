@@ -62,8 +62,6 @@ const request_password_reset = async (
 
     const isEmailSent = await sendPasswordResetEmail(email, resetCode);
 
-    console.log("isEmailSent", isEmailSent);
-
     if (!isEmailSent) {
       response({
         res,
@@ -76,8 +74,6 @@ const request_password_reset = async (
       statusCode: 200,
     });
   } catch (error) {
-    console.error("Request Password Reset Error:", error);
-
     response({
       res,
       statusCode: 500,

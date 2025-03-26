@@ -7,7 +7,9 @@ export const sendPasswordResetEmail = async (
 ): Promise<boolean> => {
   try {
     const transporter = nodemailer.createTransport({
-      service: "Gmail",
+      port: 465,
+      host: "smtp.gmail.com",
+      secure: true,
       auth: {
         user: EMAIL_USER,
         pass: EMAIL_PASS,
@@ -24,14 +26,21 @@ export const sendPasswordResetEmail = async (
 
     console.log("Sending password reset email to:", email);
 
-    const response = await transporter.sendMail(mailOptions);
+    const response = await transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending password reset email:", error);
+      }
 
-    if (!response.messageId) {
-      console.error("Error sending password reset email:", response);
-      return false;
-    }
+      return info;
+    });
 
-    return Boolean(response.messageId);
+    // if (response) {
+    //   console.log("Password reset email sent successfully:", response);
+    //   return true;
+    // }
+
+    // return false;
+    return false;
   } catch (error) {
     console.error("Error sending password reset email:", error);
   }
