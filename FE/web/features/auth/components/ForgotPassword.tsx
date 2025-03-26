@@ -53,7 +53,7 @@ const ForgotPassword = () => {
         />
 
         <Button w="100%" mt="xl" type="submit" loading={forgotPasswordMutation.isPending}>
-          {t('send_reset_link')}
+          {t('send_reset_code')}
         </Button>
 
         <Flex mt="xl" justify="center">

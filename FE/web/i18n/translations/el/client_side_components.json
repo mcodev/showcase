@@ -9,7 +9,7 @@
   "sign_up": "Εγγραφή",
   "dont_have_an_account": "Δεν έχετε λογαριασμό;",
   "already_have_an_account": "Έχετε ηδη λογαριασμό;",
-  "send_reset_link": "Αποστολή συνδέσμου επαναφοράς",
+  "send_reset_code": "Αποστολή κωδικού επαναφοράς",
   "name": "Όνομα",
   "repeat_password": "Επανάληψη κωδικού",
   "i_agree_with_the": "Συμφωνώ με τους",
