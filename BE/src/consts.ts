@@ -19,7 +19,7 @@ export const ACCESS_TOKEN_EXPIRATION = "12h";
 
 export const REFRESH_TOKEN_EXPIRATION = "7d";
 
-export const RESET_CODE_EXPIRY = "15m";
+export const RESET_CODE_EXPIRY = 15 * 60 * 1000; // 15 minutes in milliseconds
 
 export const PASSWORD_ENCRYPTION_LEVEL = 10;
 

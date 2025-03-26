@@ -25,8 +25,8 @@ app.use(compression());
 // This middleware enables Cross-Origin Resource Sharing (CORS). It allows the server to accept requests from different origins (domains). The { credentials: true } option allows cookies and other credentials to be sent in cross-origin requests
 app.use(
   cors({
-    credentials: true,
-    origin: [FE_URL],
+    credentials: false,
+    origin: [FE_URL, "http://localhost:8000"],
   })
 );
 
@@ -64,20 +64,20 @@ if (ENVIRONMENT === "development") {
           },
         },
         apis: [path.join(__dirname, "./controllers/**/*.ts")],
-        components: {
-          securitySchemes: {
-            BearerAuth: {
-              type: "http",
-              scheme: "bearer",
-              bearerFormat: "JWT",
-            },
-          },
-        },
-        security: [
-          {
-            BearerAuth: [],
-          },
-        ],
+        // components: {
+        //   securitySchemes: {
+        //     BearerAuth: {
+        //       type: "http",
+        //       scheme: "bearer",
+        //       bearerFormat: "JWT",
+        //     },
+        //   },
+        // },
+        // security: [
+        //   {
+        //     BearerAuth: [],
+        //   },
+        // ],
       }),
       {
         customCss:

@@ -27,7 +27,7 @@ const login = async (
       });
     }
 
-    const user = await getUserByEmail(email).select("password");
+    const user = await getUserByEmail(email);
 
     if (!user) {
       response({

@@ -41,9 +41,14 @@ export const createUser = async (values: Record<string, any>) => {
 
 export const updateUser = async (id: string, values: Record<string, any>) => {
   try {
+    console.log("values", values);
+
     const user = await UserModel.findOneAndUpdate({ _id: id }, values, {
       new: true,
     });
+
+    console.log("user", user);
+
     return user.toObject();
   } catch (error) {
     throw false;
