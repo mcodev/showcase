@@ -1,6 +1,7 @@
 export const LOGIN_SERVICE = {
   path: 'auth/login',
   method: 'POST',
+  errorCodes: [400, 403, 404],
   errors: [
     {
       code: 400,

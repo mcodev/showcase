@@ -51,15 +51,19 @@ const AuthComponentsDisplay = () => {
 
   const isModalVisible = isAuthModalOpen || Boolean(authModal);
 
+  const removeAuthModalParam = () => {
+    const url = new URL(window.location.href);
+
+    url.searchParams.delete('authModal');
+
+    window.history.replaceState({}, '', url.href);
+  };
+
   const handleCloseModal = () => {
     closeAuthModal();
 
     if (authModal) {
-      const url = new URL(window.location.href);
-
-      url.searchParams.delete('authModal');
-
-      window.history.replaceState({}, '', url.href);
+      removeAuthModalParam();
     }
 
     setTimeout(() => {
