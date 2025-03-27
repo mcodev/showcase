@@ -1,15 +1,23 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import CustomModal from '@/components/CustomModal/CustomModal';
 import { useModulesContext } from '@/providers/ModulesProvider';
+import CodeVerification from './components/CodeVerification';
 import ForgotPassword from './components/ForgotPassword';
+import PasswordChange from './components/PasswordChange';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import { AuthSelectionProvider } from './context/AuthSelectionProvider';
 import { SelectedComponentType } from './types';
 
 const components = {
+  signUp: {
+    titleKey: 'sign_up',
+    component: <SignUp />,
+  },
   signIn: {
     titleKey: 'sign_in',
     component: <SignIn />,
@@ -18,31 +26,52 @@ const components = {
     titleKey: 'forgot_password',
     component: <ForgotPassword />,
   },
-  signUp: {
-    titleKey: 'sign_up',
-    component: <SignUp />,
+  verifyResetCode: {
+    titleKey: 'verify_reset_code',
+    component: <CodeVerification />,
+  },
+  changePassword: {
+    titleKey: 'change_password',
+    component: <PasswordChange />,
   },
 };
 
 const AuthComponentsDisplay = () => {
-  const [selectedComponent, setSelectedComponent] = useState<SelectedComponentType>('signIn');
-
   const { isAuthModalOpen, closeAuthModal } = useModulesContext();
+
+  const searchParams = useSearchParams();
+  const authModal = searchParams.get('authModal') as SelectedComponentType;
+
+  const [selectedComponent, setSelectedComponent] = useState<SelectedComponentType>(
+    authModal || 'signIn'
+  );
 
   const changeSelectedComponent = (component: SelectedComponentType) => {
     setSelectedComponent(component);
   };
 
+  const isModalVisible = isAuthModalOpen || Boolean(authModal);
+
+  const handleCloseModal = () => {
+    closeAuthModal();
+
+    if (authModal) {
+      const url = new URL(window.location.href);
+
+      url.searchParams.delete('authModal');
+
+      window.history.replaceState({}, '', url.href);
+    }
+
+    setTimeout(() => {
+      setSelectedComponent('signIn');
+    }, 500);
+  };
+
   return (
     <CustomModal
-      isVisible={isAuthModalOpen}
-      onClose={() => {
-        closeAuthModal();
-
-        setTimeout(() => {
-          setSelectedComponent('signIn');
-        }, 500);
-      }}
+      isVisible={isModalVisible}
+      onClose={handleCloseModal}
       title={components[selectedComponent].titleKey}
       size="md"
     >

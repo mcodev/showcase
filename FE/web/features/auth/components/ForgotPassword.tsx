@@ -30,7 +30,15 @@ const ForgotPassword = () => {
     mutationFn: (values: ForgotPasswordFormType) =>
       request({ service: SERVICE.FORGOT_PASSWORD_SERVICE, payload: values }),
 
-    onSuccess: () => {},
+    onSuccess: () => {
+      const url = new URL(window.location.href);
+
+      url.searchParams.set('authModal', 'verifyResetCode');
+
+      window.history.pushState({}, '', url.href);
+
+      changeSelectedComponent('verifyResetCode');
+    },
     onError: (error) => {
       notification({
         title: t('error'),

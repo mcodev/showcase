@@ -1,1 +1,6 @@
-export type SelectedComponentType = 'forgotPassword' | 'signUp' | 'signIn';
+export type SelectedComponentType =
+  | 'forgotPassword'
+  | 'signUp'
+  | 'signIn'
+  | 'verifyResetCode'
+  | 'changePassword';

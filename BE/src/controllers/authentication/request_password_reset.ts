@@ -70,16 +70,19 @@ const request_password_reset = async (
       return;
     }
 
-    const isEmailSent = await sendPasswordResetEmail(email, resetCode);
+    console.log("Password reset code:", resetCode);
 
-    if (!isEmailSent) {
-      response({
-        res,
-        statusCode: 500,
-      });
+    //TODO enable after testing
+    // const isEmailSent = await sendPasswordResetEmail(email, resetCode);
 
-      return;
-    }
+    // if (!isEmailSent) {
+    //   response({
+    //     res,
+    //     statusCode: 500,
+    //   });
+
+    //   return;
+    // }
 
     response({
       res,
