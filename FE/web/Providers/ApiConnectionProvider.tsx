@@ -76,12 +76,12 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
       const data = await response.json();
       const statusCode = response.status;
 
-      const errorMapping = Object.fromEntries(
-        SELECTED_SERVICE.errors.map(({ code, message }: { code: number; message: string }) => [
-          code,
-          message,
-        ])
-      );
+      // const errorMapping = Object.fromEntries(
+      //   SELECTED_SERVICE.errors.map(({ code, message }: { code: number; message: string }) => [
+      //     code,
+      //     message,
+      //   ])
+      // );
 
       if (!response.ok) {
         if (data.error === 'TOKEN_EXPIRED' && retryCount < 2) {
@@ -115,7 +115,11 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
           throw new Error(GLOBAL_ERRORS.UNAUTHORIZED_ACCESS);
         }
 
-        throw new Error(errorMapping[statusCode] || GLOBAL_ERRORS.UNEXPECTED_ERROR);
+        throw new Error(
+          SELECTED_SERVICE.errorCodes.includes(statusCode)
+            ? data.error
+            : GLOBAL_ERRORS.UNEXPECTED_ERROR
+        );
       }
 
       if (service === SERVICE.LOGIN_SERVICE || service === SERVICE.SIGN_UP_SERVICE) {

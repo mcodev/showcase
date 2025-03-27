@@ -149,9 +149,9 @@ export default login;
  *                       type: string
  *                       example: "John Doe"
  *       400:
- *         description: MISSING_EMAIL | MISSING_PASSWORD
+ *         description: MISSING_EMAIL , MISSING_PASSWORD
  *       403:
- *         description: INVALID_EMAIL | INVALID_PASSWORD
+ *         description: INVALID_EMAIL , INVALID_PASSWORD
  *       404:
  *         description: USER_NOT_FOUND
  */

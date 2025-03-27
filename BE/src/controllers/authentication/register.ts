@@ -203,9 +203,9 @@ export default register;
  *                       type: string
  *                       example: "John Doe"
  *       400:
- *         description: MISSING_NAME | MISSING_EMAIL | MISSING_PASSWORD
+ *         description: MISSING_NAME , MISSING_EMAIL , MISSING_PASSWORD
  *       403:
- *         description: INVALID_NAME | INVALID_EMAIL | INVALID_PASSWORD
+ *         description: INVALID_NAME , INVALID_EMAIL , INVALID_PASSWORD
  *       409:
  *         description: USER_ALREADY_REGISTERED
  *
