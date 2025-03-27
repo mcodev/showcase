@@ -35,6 +35,24 @@ const components = {
   },
 };
 
+const handleAuthModalParam = ({
+  type,
+  param,
+}: {
+  type: 'set' | 'delete';
+  param?: SelectedComponentType;
+}) => {
+  const url = new URL(window.location.href);
+
+  if (type === 'set') {
+    url.searchParams.set('authModal', param || 'signIn');
+  } else if (type === 'delete') {
+    url.searchParams.delete('authModal');
+  }
+
+  window.history.replaceState({}, '', url.href);
+};
+
 const AuthComponentsDisplay = () => {
   const { isAuthModalOpen, closeAuthModal } = useModulesContext();
 
@@ -51,19 +69,11 @@ const AuthComponentsDisplay = () => {
 
   const isModalVisible = isAuthModalOpen || Boolean(authModal);
 
-  const removeAuthModalParam = () => {
-    const url = new URL(window.location.href);
-
-    url.searchParams.delete('authModal');
-
-    window.history.replaceState({}, '', url.href);
-  };
-
   const handleCloseModal = () => {
     closeAuthModal();
 
     if (authModal) {
-      removeAuthModalParam();
+      handleAuthModalParam({ type: 'delete' });
     }
 
     setTimeout(() => {
@@ -81,6 +91,7 @@ const AuthComponentsDisplay = () => {
       <AuthSelectionProvider
         selectedComponent={selectedComponent}
         changeSelectedComponent={changeSelectedComponent}
+        handleAuthModalParam={handleAuthModalParam}
       >
         {components[selectedComponent].component}
       </AuthSelectionProvider>

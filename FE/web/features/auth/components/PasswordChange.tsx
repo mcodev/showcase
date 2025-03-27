@@ -3,9 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { Button, Flex, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { isPasswordMatch, isValidPassword } from '@/common/validators';
+import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const PasswordChange = () => {
   const { t } = useTranslation();
+  const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
 
   const form = useForm({
     mode: 'controlled',
@@ -49,7 +51,7 @@ const PasswordChange = () => {
       </Flex>
 
       <Button w="100%" mt="xl" type="submit">
-        {t('sign_up')}
+        {t('change')}
       </Button>
     </form>
   );

@@ -11,7 +11,7 @@ import { ForgotPasswordFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const ForgotPassword = () => {
-  const { changeSelectedComponent } = useAuthContext();
+  const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
   const { t } = useTranslation();
   const { request } = useApiConnection();
 
@@ -31,11 +31,7 @@ const ForgotPassword = () => {
       request({ service: SERVICE.FORGOT_PASSWORD_SERVICE, payload: values }),
 
     onSuccess: () => {
-      const url = new URL(window.location.href);
-
-      url.searchParams.set('authModal', 'verifyResetCode');
-
-      window.history.pushState({}, '', url.href);
+      handleAuthModalParam({ type: 'set', param: 'verifyResetCode' });
 
       changeSelectedComponent('verifyResetCode');
     },

@@ -43,5 +43,6 @@
   "verify_reset_code": "Επιβεβαίωση pin",
   "change_password": "Αλλαγή κωδικού",
   "new_password": "Νέος κωδικός",
-  "confirm_password": "Επιβεβαίωση κωδικού"
+  "confirm_password": "Επιβεβαίωση κωδικού",
+  "change": "Αλλαγή"
 }
