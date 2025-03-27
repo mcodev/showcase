@@ -14,33 +14,33 @@ const refresh = async (
   req: express.Request,
   res: express.Response
 ): Promise<void> => {
-  const { refreshToken } = req.body;
-
-  if (!refreshToken) {
-    response({
-      res,
-      statusCode: 400,
-      message: RESPONSE_MESSAGE[400],
-    });
-
-    return;
-  }
-
-  const storedToken = await getToken(refreshToken);
-
-  if (!storedToken) {
-    console.warn("\x1b[36m%s\x1b[0m", "Possible token theft detected!");
-
-    response({
-      res,
-      statusCode: 403,
-      message: RESPONSE_MESSAGE[403],
-    });
-
-    return;
-  }
-
   try {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE[400],
+      });
+
+      return;
+    }
+
+    const storedToken = await getToken(refreshToken);
+
+    if (!storedToken) {
+      console.warn("\x1b[36m%s\x1b[0m", "Possible token theft detected!");
+
+      response({
+        res,
+        statusCode: 403,
+        message: RESPONSE_MESSAGE[403],
+      });
+
+      return;
+    }
+
     const decoded = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
 
     const parsedDecoded = JSON.parse(JSON.stringify(decoded));
