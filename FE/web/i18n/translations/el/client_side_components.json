@@ -39,5 +39,6 @@
   "settings": "Ρυθμίσεις",
   "save": "Αποθήκευση",
   "delete": "Διαγραφή",
-  "INTERNAL_SERVER_ERROR": "Σφάλμα συστήματος, προσπαθήστε ξανά"
+  "INTERNAL_SERVER_ERROR": "Σφάλμα συστήματος, προσπαθήστε ξανά",
+  "verify_reset_code": "Επιβεβαίωση pin"
 }
