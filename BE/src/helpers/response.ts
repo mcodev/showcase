@@ -1,39 +1,29 @@
 import express from "express";
-import {
-  ROUTES,
-  RESPONSE_MESSAGES,
-  UNIVERSAL_RESPONSE_MESSAGES,
-} from "../consts";
+import { UNIVERSAL_RESPONSE_MESSAGES } from "../consts";
 
-type StatusCodeType = keyof (typeof RESPONSE_MESSAGES)[
-  | keyof typeof ROUTES
-  | "DEFAULT"];
+type StatusCodeType = 200 | 201 | 400 | 401 | 403 | 404 | 409 | 500;
 
 type UniversalCodesType = keyof typeof UNIVERSAL_RESPONSE_MESSAGES;
 
 type ResponseType = {
   res: express.Response;
-  statusCode: StatusCodeType | UniversalCodesType;
-  route?: keyof typeof ROUTES;
-  customMessage?: string;
+  statusCode: StatusCodeType;
+  message?: string;
   payload?: any;
 };
 
 export const response = ({
   res,
   statusCode,
-  route,
-  customMessage,
+  message,
   payload,
 }: ResponseType) => {
-  const AUTOMATED_MESSAGE =
-    statusCode === 500 || statusCode === 200 || statusCode === 403
-      ? UNIVERSAL_RESPONSE_MESSAGES[statusCode]
-      : RESPONSE_MESSAGES[route || "DEFAULT"][statusCode];
+  const MESSAGE =
+    message || UNIVERSAL_RESPONSE_MESSAGES[statusCode as UniversalCodesType];
 
   return res.status(statusCode).json({
     success: Boolean(statusCode < 400),
     data: payload || null,
-    ...(statusCode >= 400 ? { error: customMessage || AUTOMATED_MESSAGE } : {}),
+    ...(statusCode >= 300 ? { error: MESSAGE } : {}),
   });
 };

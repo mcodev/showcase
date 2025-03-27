@@ -2,7 +2,7 @@ import express from "express";
 import { createUser, getUserByEmail } from "../../models/Users";
 import { generateEncryptedPassword } from "../../helpers/generators";
 import { response } from "../../helpers/response";
-import { ROUTES_NAMES } from "../../consts";
+import { RESPONSE_MESSAGES } from "../../consts";
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -12,6 +12,8 @@ import {
   isValidName,
   isValidPassword,
 } from "../../helpers/validators";
+
+const RESPONSE_MESSAGE = RESPONSE_MESSAGES.REGISTER;
 
 const register = async (
   req: express.Request,
@@ -28,7 +30,7 @@ const register = async (
       response({
         res,
         statusCode: 400,
-        route: ROUTES_NAMES.AUTH,
+        message: RESPONSE_MESSAGE[400],
       });
     }
 
@@ -40,7 +42,7 @@ const register = async (
       response({
         res,
         statusCode: 403,
-        route: ROUTES_NAMES.AUTH,
+        message: RESPONSE_MESSAGE[403],
       });
     }
 
@@ -52,7 +54,7 @@ const register = async (
       response({
         res,
         statusCode: 409,
-        route: ROUTES_NAMES.AUTH,
+        message: RESPONSE_MESSAGE[409],
       });
     }
 
@@ -85,7 +87,7 @@ const register = async (
     response({
       res,
       statusCode: 201,
-      route: ROUTES_NAMES.AUTH,
+      message: RESPONSE_MESSAGE[201],
       payload: {
         accessToken,
         refreshToken,

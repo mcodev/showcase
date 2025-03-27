@@ -1,12 +1,14 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import { response } from "../../helpers/response";
-import { REFRESH_TOKEN_SECRET, ROUTES_NAMES } from "../../consts";
+import { REFRESH_TOKEN_SECRET, RESPONSE_MESSAGES } from "../../consts";
 import {
   generateAccessToken,
   generateRefreshToken,
 } from "../../helpers/tokens";
 import { deleteToken, getToken } from "../../models/RefreshToken";
+
+const RESPONSE_MESSAGE = RESPONSE_MESSAGES.REFRESH;
 
 const refresh = async (
   req: express.Request,
@@ -18,7 +20,7 @@ const refresh = async (
     response({
       res,
       statusCode: 400,
-      route: ROUTES_NAMES.REFRESH,
+      message: RESPONSE_MESSAGE[400],
     });
   }
 
@@ -30,7 +32,7 @@ const refresh = async (
     response({
       res,
       statusCode: 403,
-      route: ROUTES_NAMES.REFRESH,
+      message: RESPONSE_MESSAGE[403],
     });
   }
 
@@ -49,7 +51,7 @@ const refresh = async (
       response({
         res,
         statusCode: 404,
-        route: ROUTES_NAMES.REFRESH,
+        message: RESPONSE_MESSAGE[404],
       });
       return;
     }
@@ -57,7 +59,7 @@ const refresh = async (
     response({
       res,
       statusCode: 201,
-      route: ROUTES_NAMES.REFRESH,
+      message: RESPONSE_MESSAGE[201],
       payload: { accessToken: newAccessToken, refreshToken: newRefreshToken },
     }).end();
   } catch (err) {

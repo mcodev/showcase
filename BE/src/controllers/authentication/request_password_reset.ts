@@ -1,6 +1,6 @@
 import express from "express";
 import { response } from "../../helpers/response";
-import { RESET_CODE_EXPIRY, ROUTES_NAMES } from "../../consts";
+import { RESET_CODE_EXPIRY, RESPONSE_MESSAGES } from "../../consts";
 import { getUserByEmail, updateUser } from "../../models/Users";
 import { isValidEmail } from "../../helpers/validators";
 import {
@@ -8,6 +8,8 @@ import {
   generateEncryptedPassword,
 } from "../../helpers/generators";
 import { sendPasswordResetEmail } from "../../helpers/email_service";
+
+const RESPONSE_MESSAGE = RESPONSE_MESSAGES.REQUEST_PASSWORD_RESET;
 
 const request_password_reset = async (
   req: express.Request,
@@ -20,7 +22,7 @@ const request_password_reset = async (
       response({
         res,
         statusCode: 400,
-        route: ROUTES_NAMES.AUTH,
+        message: RESPONSE_MESSAGE[400],
       });
     }
 
@@ -28,7 +30,7 @@ const request_password_reset = async (
       response({
         res,
         statusCode: 403,
-        route: ROUTES_NAMES.AUTH,
+        message: RESPONSE_MESSAGE[403],
       });
     }
 
@@ -38,7 +40,7 @@ const request_password_reset = async (
       response({
         res,
         statusCode: 404,
-        route: ROUTES_NAMES.AUTH,
+        message: RESPONSE_MESSAGE[404],
       });
     }
 

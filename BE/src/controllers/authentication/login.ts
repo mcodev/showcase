@@ -2,12 +2,14 @@ import express from "express";
 import { getUserByEmail } from "../../models/Users";
 import { isUserPasswordMatch } from "../../helpers/validators";
 import { response } from "../../helpers/response";
-import { ROUTES_NAMES } from "../../consts";
+import { RESPONSE_MESSAGES } from "../../consts";
 import {
   generateAccessToken,
   generateRefreshToken,
 } from "../../helpers/tokens";
 import { isValidEmail, isValidPassword } from "../../helpers/validators";
+
+const RESPONSE_MESSAGE = RESPONSE_MESSAGES.LOGIN;
 
 const login = async (
   req: express.Request,
@@ -23,7 +25,7 @@ const login = async (
       response({
         res,
         statusCode: 400,
-        route: ROUTES_NAMES.AUTH,
+        message: RESPONSE_MESSAGE[400],
       });
     }
 
@@ -33,7 +35,7 @@ const login = async (
       response({
         res,
         statusCode: 404,
-        route: ROUTES_NAMES.AUTH,
+        message: RESPONSE_MESSAGE[404],
       });
     }
 
@@ -45,7 +47,7 @@ const login = async (
       response({
         res,
         statusCode: 403,
-        route: ROUTES_NAMES.AUTH,
+        message: RESPONSE_MESSAGE[403],
       });
     }
 
@@ -56,7 +58,6 @@ const login = async (
     response({
       res,
       statusCode: 200,
-      route: ROUTES_NAMES.AUTH,
       payload: {
         accessToken,
         refreshToken,

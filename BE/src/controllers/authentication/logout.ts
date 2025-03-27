@@ -1,7 +1,9 @@
 import express from "express";
 import { response } from "../../helpers/response";
-import { ROUTES_NAMES } from "../../consts";
+import { RESPONSE_MESSAGES } from "../../consts";
 import { deleteToken } from "../../models/RefreshToken";
+
+const RESPONSE_MESSAGE = RESPONSE_MESSAGES.LOGOUT;
 
 const logout = async (
   req: express.Request,
@@ -10,21 +12,27 @@ const logout = async (
   try {
     const { refreshToken } = req.body;
 
+    if (!refreshToken) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE[400],
+      });
+    }
+
     const isTokenDeleted = await deleteToken(refreshToken);
 
     if (!isTokenDeleted) {
       response({
         res,
         statusCode: 404,
-        route: ROUTES_NAMES.AUTH,
-        customMessage: "REFRESH_TOKEN_NOT_FOUND",
+        message: RESPONSE_MESSAGE[404],
       });
     }
 
     response({
       res,
       statusCode: 200,
-      route: ROUTES_NAMES.AUTH,
     }).end();
   } catch (error) {
     console.error(error);
@@ -73,6 +81,8 @@ export default logout;
  *                   type: string
  *                 error:
  *                   type: string
+ *       400:
+ *         description: NO_REFRESH_TOKEN_PROVIDED
  *       404:
  *         description: REFRESH_TOKEN_NOT_FOUND
  */
