@@ -66,7 +66,6 @@ const login = async (
       });
     }
 
-    // Generate JWT tokens
     const accessToken = generateAccessToken(String(user._id));
     const refreshToken = await generateRefreshToken(String(user._id));
 

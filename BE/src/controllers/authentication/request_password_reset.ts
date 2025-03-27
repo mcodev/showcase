@@ -110,9 +110,9 @@ export default request_password_reset;
  *       200:
  *         description: Password reset request successful. Reset code sent to email.
  *       400:
- *         description: MISSING_REQUIRED_FIELDS
+ *         description: MISSING_EMAIL
  *       403:
- *         description: INVALID_CREDENTIALS
+ *         description: INVALID_EMAIL
  *       404:
  *         description: USER_NOT_FOUND
  */
