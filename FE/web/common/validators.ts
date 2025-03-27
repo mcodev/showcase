@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 export const isValidName = (name: string) => {
-  const re = /^[A-Za-z]{3,}$/;
+  const re = /^[A-Za-z ]{3,15}$/;
 
   if (re.test(name.trim())) {
     return null;

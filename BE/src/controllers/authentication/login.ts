@@ -27,6 +27,8 @@ const login = async (
         statusCode: 400,
         message: RESPONSE_MESSAGE[400].MISSING_EMAIL,
       });
+
+      return;
     }
 
     if (!password) {
@@ -35,6 +37,8 @@ const login = async (
         statusCode: 400,
         message: RESPONSE_MESSAGE[400].MISSING_PASSWORD,
       });
+
+      return;
     }
 
     const user = await getUserByEmail(email);
@@ -45,6 +49,8 @@ const login = async (
         statusCode: 404,
         message: RESPONSE_MESSAGE[404],
       });
+
+      return;
     }
 
     if (
@@ -56,6 +62,8 @@ const login = async (
         statusCode: 403,
         message: RESPONSE_MESSAGE[403].INVALID_PASSWORD,
       });
+
+      return;
     }
 
     if (!isValidEmail(EMAIL)) {
@@ -64,6 +72,8 @@ const login = async (
         statusCode: 403,
         message: RESPONSE_MESSAGE[403].INVALID_EMAIL,
       });
+
+      return;
     }
 
     const accessToken = generateAccessToken(String(user._id));

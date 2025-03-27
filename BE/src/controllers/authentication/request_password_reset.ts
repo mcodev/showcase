@@ -24,6 +24,8 @@ const request_password_reset = async (
         statusCode: 400,
         message: RESPONSE_MESSAGE[400],
       });
+
+      return;
     }
 
     if (!isValidEmail(email)) {
@@ -32,6 +34,8 @@ const request_password_reset = async (
         statusCode: 403,
         message: RESPONSE_MESSAGE[403],
       });
+
+      return;
     }
 
     const user = await getUserByEmail(email);
@@ -42,6 +46,8 @@ const request_password_reset = async (
         statusCode: 404,
         message: RESPONSE_MESSAGE[404],
       });
+
+      return;
     }
 
     const resetCode = generate5DigitResetCode();
@@ -60,6 +66,8 @@ const request_password_reset = async (
         res,
         statusCode: 500,
       });
+
+      return;
     }
 
     const isEmailSent = await sendPasswordResetEmail(email, resetCode);
@@ -69,6 +77,8 @@ const request_password_reset = async (
         res,
         statusCode: 500,
       });
+
+      return;
     }
 
     response({

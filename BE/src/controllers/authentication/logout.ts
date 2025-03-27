@@ -18,6 +18,8 @@ const logout = async (
         statusCode: 400,
         message: RESPONSE_MESSAGE[400],
       });
+
+      return;
     }
 
     const isTokenDeleted = await deleteToken(refreshToken);
@@ -28,6 +30,8 @@ const logout = async (
         statusCode: 404,
         message: RESPONSE_MESSAGE[404],
       });
+
+      return;
     }
 
     response({

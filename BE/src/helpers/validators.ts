@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 
 export const isValidName = (name: string) => {
+  // const re = /^[A-Za-z ]{3,15}$/;
   const re = /^[A-Za-z]{3,}$/;
 
   return re.test(name.trim());

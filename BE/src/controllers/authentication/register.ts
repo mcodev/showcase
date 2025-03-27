@@ -32,6 +32,8 @@ const register = async (
         statusCode: 400,
         message: RESPONSE_MESSAGE[400].MISSING_NAME,
       });
+
+      return;
     }
 
     if (!email) {
@@ -40,6 +42,8 @@ const register = async (
         statusCode: 400,
         message: RESPONSE_MESSAGE[400].MISSING_EMAIL,
       });
+
+      return;
     }
 
     if (!password) {
@@ -48,6 +52,8 @@ const register = async (
         statusCode: 400,
         message: RESPONSE_MESSAGE[400].MISSING_PASSWORD,
       });
+
+      return;
     }
 
     if (!isValidName(NAME)) {
@@ -56,6 +62,8 @@ const register = async (
         statusCode: 403,
         message: RESPONSE_MESSAGE[403].INVALID_NAME,
       });
+
+      return;
     }
 
     if (!isValidEmail(EMAIL)) {
@@ -64,6 +72,8 @@ const register = async (
         statusCode: 403,
         message: RESPONSE_MESSAGE[403].INVALID_EMAIL,
       });
+
+      return;
     }
 
     if (!isValidPassword(PASSWORD)) {
@@ -72,6 +82,8 @@ const register = async (
         statusCode: 403,
         message: RESPONSE_MESSAGE[403].INVALID_PASSWORD,
       });
+
+      return;
     }
 
     const userCheck = await getUserByEmail(email);
@@ -84,6 +96,8 @@ const register = async (
         statusCode: 409,
         message: RESPONSE_MESSAGE[409],
       });
+
+      return;
     }
 
     const encryptedPassword = await generateEncryptedPassword(PASSWORD);
@@ -99,6 +113,8 @@ const register = async (
         res,
         statusCode: 500,
       });
+
+      return;
     }
 
     const accessToken = generateAccessToken(String(user._id));
@@ -109,6 +125,8 @@ const register = async (
         res,
         statusCode: 500,
       });
+
+      return;
     }
 
     response({

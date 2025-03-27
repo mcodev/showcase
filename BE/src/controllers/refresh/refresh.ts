@@ -22,6 +22,8 @@ const refresh = async (
       statusCode: 400,
       message: RESPONSE_MESSAGE[400],
     });
+
+    return;
   }
 
   const storedToken = await getToken(refreshToken);
@@ -34,6 +36,8 @@ const refresh = async (
       statusCode: 403,
       message: RESPONSE_MESSAGE[403],
     });
+
+    return;
   }
 
   try {
@@ -53,6 +57,7 @@ const refresh = async (
         statusCode: 404,
         message: RESPONSE_MESSAGE[404],
       });
+
       return;
     }
 
