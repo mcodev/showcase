@@ -11,5 +11,9 @@ export default (router: express.Router) => {
     `${ROUTES.AUTH}/request_password_reset`,
     AUTHENTICATION.REQUEST_PASSWORD_RESET
   );
-  // router.post(`${ROUTES.AUTH}/reset_password`, reset_password);
+  router.post(`${ROUTES.AUTH}/reset_password`, AUTHENTICATION.RESET_PASSWORD);
+  router.post(
+    `${ROUTES.AUTH}/verify_reset_code`,
+    AUTHENTICATION.VERIFY_RESET_CODE
+  );
 };

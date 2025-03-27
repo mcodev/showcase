@@ -5,13 +5,13 @@ import { useForm } from '@mantine/form';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const CodeVerification = () => {
-  const { changeSelectedComponent } = useAuthContext();
+  const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
   const { t } = useTranslation();
 
   const form = useForm({
     mode: 'controlled',
     initialValues: {
-      code: '',
+      resetCode: '',
     },
   });
 
@@ -22,14 +22,14 @@ const CodeVerification = () => {
           <PinInput
             length={5}
             size="xl"
-            value={form.values.code}
+            value={form.values.resetCode}
             inputMode="numeric"
             oneTimeCode
             onChange={(value) => form.setFieldValue('code', value)}
           />
         </Flex>
 
-        <Button w="100%" mt="xl" type="submit" disabled={form.values.code.length !== 5}>
+        <Button w="100%" mt="xl" type="submit" disabled={form.values.resetCode.length !== 5}>
           {t('send')}
         </Button>
       </Flex>

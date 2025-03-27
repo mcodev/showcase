@@ -21,3 +21,9 @@ export const FORGOT_PASSWORD_SERVICE = {
   method: 'POST',
   errorCodes: [400, 403, 404],
 };
+
+export const CODE_VERIFICATION_SERVICE = {
+  path: 'auth/verify_code',
+  method: 'POST',
+  errorCodes: [400, 403, 404],
+};
