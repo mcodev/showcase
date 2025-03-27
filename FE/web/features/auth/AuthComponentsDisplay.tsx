@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/router';
 import CustomModal from '@/components/CustomModal/CustomModal';
 import { useModulesContext } from '@/providers/ModulesProvider';
 import CodeVerification from './components/CodeVerification';
