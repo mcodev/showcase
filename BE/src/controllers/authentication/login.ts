@@ -21,11 +21,19 @@ const login = async (
     const EMAIL = email?.trim();
     const PASSWORD = password?.trim();
 
-    if (!email || !password) {
+    if (!email) {
       response({
         res,
         statusCode: 400,
-        message: RESPONSE_MESSAGE[400],
+        message: RESPONSE_MESSAGE[400].MISSING_EMAIL,
+      });
+    }
+
+    if (!password) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE[400].MISSING_PASSWORD,
       });
     }
 
@@ -41,13 +49,20 @@ const login = async (
 
     if (
       !isUserPasswordMatch(PASSWORD, user.password) ||
-      !isValidEmail(EMAIL) ||
       !isValidPassword(PASSWORD)
     ) {
       response({
         res,
         statusCode: 403,
-        message: RESPONSE_MESSAGE[403],
+        message: RESPONSE_MESSAGE[403].INVALID_PASSWORD,
+      });
+    }
+
+    if (!isValidEmail(EMAIL)) {
+      response({
+        res,
+        statusCode: 403,
+        message: RESPONSE_MESSAGE[403].INVALID_EMAIL,
       });
     }
 
@@ -125,9 +140,9 @@ export default login;
  *                       type: string
  *                       example: "John Doe"
  *       400:
- *         description: MISSING_REQUIRED_FIELDS
+ *         description: MISSING_EMAIL | MISSING_PASSWORD
  *       403:
- *         description: INVALID_CREDENTIALS
+ *         description: INVALID_EMAIL | INVALID_PASSWORD
  *       404:
  *         description: USER_NOT_FOUND
  */

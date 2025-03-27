@@ -30,7 +30,7 @@ const register = async (
       response({
         res,
         statusCode: 400,
-        message: RESPONSE_MESSAGE.SPECIAL_MESSAGES.MISSING_NAME,
+        message: RESPONSE_MESSAGE[400].MISSING_NAME,
       });
     }
 
@@ -38,7 +38,7 @@ const register = async (
       response({
         res,
         statusCode: 400,
-        message: RESPONSE_MESSAGE.SPECIAL_MESSAGES.MISSING_EMAIL,
+        message: RESPONSE_MESSAGE[400].MISSING_EMAIL,
       });
     }
 
@@ -46,7 +46,7 @@ const register = async (
       response({
         res,
         statusCode: 400,
-        message: RESPONSE_MESSAGE.SPECIAL_MESSAGES.MISSING_PASSWORD,
+        message: RESPONSE_MESSAGE[400].MISSING_PASSWORD,
       });
     }
 
@@ -54,7 +54,7 @@ const register = async (
       response({
         res,
         statusCode: 403,
-        message: RESPONSE_MESSAGE.SPECIAL_MESSAGES.INVALID_NAME,
+        message: RESPONSE_MESSAGE[403].INVALID_NAME,
       });
     }
 
@@ -62,7 +62,7 @@ const register = async (
       response({
         res,
         statusCode: 403,
-        message: RESPONSE_MESSAGE[403],
+        message: RESPONSE_MESSAGE[403].INVALID_EMAIL,
       });
     }
 
@@ -70,7 +70,7 @@ const register = async (
       response({
         res,
         statusCode: 403,
-        message: RESPONSE_MESSAGE[403],
+        message: RESPONSE_MESSAGE[403].INVALID_PASSWORD,
       });
     }
 
@@ -164,7 +164,7 @@ export default register;
  *                 example: "password123"
  *     responses:
  *       201:
- *         description: Successfully registered
+ *         description: USER_CREATED
  *         content:
  *           application/json:
  *             schema:
@@ -186,9 +186,9 @@ export default register;
  *                       type: string
  *                       example: "John Doe"
  *       400:
- *         description: MISSING_REQUIRED_FIELDS
+ *         description: MISSING_NAME | MISSING_EMAIL | MISSING_PASSWORD
  *       403:
- *         description: INVALID_CREDENTIALS
+ *         description: INVALID_NAME | INVALID_EMAIL | INVALID_PASSWORD
  *       409:
  *         description: USER_ALREADY_REGISTERED
  *
