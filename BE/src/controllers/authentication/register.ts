@@ -26,19 +26,47 @@ const register = async (
     const EMAIL = email?.trim();
     const PASSWORD = password?.trim();
 
-    if (!name || !email || !password) {
+    if (!name) {
       response({
         res,
         statusCode: 400,
-        message: RESPONSE_MESSAGE[400],
+        message: RESPONSE_MESSAGE.SPECIAL_MESSAGES.MISSING_NAME,
       });
     }
 
-    if (
-      !isValidName(NAME) ||
-      !isValidEmail(EMAIL) ||
-      !isValidPassword(PASSWORD)
-    ) {
+    if (!email) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE.SPECIAL_MESSAGES.MISSING_EMAIL,
+      });
+    }
+
+    if (!password) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE.SPECIAL_MESSAGES.MISSING_PASSWORD,
+      });
+    }
+
+    if (!isValidName(NAME)) {
+      response({
+        res,
+        statusCode: 403,
+        message: RESPONSE_MESSAGE.SPECIAL_MESSAGES.INVALID_NAME,
+      });
+    }
+
+    if (!isValidEmail(EMAIL)) {
+      response({
+        res,
+        statusCode: 403,
+        message: RESPONSE_MESSAGE[403],
+      });
+    }
+
+    if (!isValidPassword(PASSWORD)) {
       response({
         res,
         statusCode: 403,
