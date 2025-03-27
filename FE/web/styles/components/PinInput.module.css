@@ -1,0 +1,16 @@
+.root {
+  .input {
+    padding: 0;
+    font-size: larger;
+    font-weight: 700;
+    height: fit-content;
+
+    &:selected {
+      border-color: var(--color-primary);
+    }
+
+    &::selection {
+      background-color: transparent;
+    }
+  }
+}
