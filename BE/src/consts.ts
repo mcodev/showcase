@@ -12,9 +12,9 @@ export const FE_URL = process.env.FE_URL || "http://localhost:3000";
 
 export const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || "secret";
 
-export const EMAIL_USER = process.env.EMAIL_USER;
+export const EMAIL_USER = process.env.EMAIL_USER || "email";
 
-export const EMAIL_PASS = process.env.EMAIL_PASS;
+export const EMAIL_PASS = process.env.EMAIL_PASS || "password";
 
 export const REFRESH_TOKEN_SECRET =
   process.env.REFRESH_TOKEN_SECRET || "secret";
