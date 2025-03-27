@@ -10,6 +10,8 @@ export const ENVIRONMENT = process.env.NODE_ENV || "development";
 
 export const FE_URL = process.env.FE_URL || "http://localhost:3000";
 
+export const BE_URL = process.env.BE_URL || "http://localhost:8000";
+
 export const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || "secret";
 
 export const EMAIL_USER = process.env.EMAIL_USER || "email";

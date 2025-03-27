@@ -13,7 +13,7 @@ import router from "./routes";
 import mongoSanitize from "express-mongo-sanitize";
 import helmet from "helmet";
 import path from "path";
-import { ENVIRONMENT, FE_URL, MONGO_URL, PORT } from "./consts";
+import { BE_URL, ENVIRONMENT, FE_URL, MONGO_URL, PORT } from "./consts";
 
 const xss = require("xss-clean");
 
@@ -26,7 +26,7 @@ app.use(compression());
 app.use(
   cors({
     credentials: false,
-    origin: [FE_URL, "http://localhost:8000"],
+    origin: [FE_URL, BE_URL],
   })
 );
 
