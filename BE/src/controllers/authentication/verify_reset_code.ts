@@ -1,3 +1,12 @@
+import express from "express";
+import { response } from "../../helpers/response";
+import { RESPONSE_MESSAGES } from "../../consts";
+import { isValidResetCode } from "../../helpers/validators";
+import { getUserByResetCode } from "../../models/Users";
+import { generateTempResetToken } from "../../helpers/tokens";
+
+const RESPONSE_MESSAGE = RESPONSE_MESSAGES.VERIFY_RESET_CODE;
+
 export const verify_reset_code = async (
   req: express.Request,
   res: express.Response
@@ -5,61 +14,105 @@ export const verify_reset_code = async (
   try {
     const { resetCode } = req.body;
 
-    // Validate input
     if (!resetCode) {
       response({
         res,
-        statusCode: 400,
-        // message: "Email/Phone and reset code are required",
-        route: ROUTES_NAMES.AUTH,
+        statusCode: 404,
+        message: RESPONSE_MESSAGE[404].RESET_CODE_NOT_FOUND,
       });
       return;
     }
 
-    // Hash the incoming reset code
-    const hashedResetCode = crypto
-      .createHash("sha256")
-      .update(resetCode)
-      .digest("hex");
+    if (!isValidResetCode(resetCode)) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE[400].INVALID_RESET_CODE,
+      });
+      return;
+    }
 
-    // Find user with matching reset code and check expiry
-    const user = await User.findOne({
-      $or: [{ email }, { phoneNumber }],
-      resetCode: hashedResetCode,
-      resetCodeExpiry: { $gt: new Date() },
-    });
+    const user = await getUserByResetCode(resetCode);
 
     if (!user) {
       response({
         res,
-        statusCode: 400,
-        // message: "Invalid or expired reset code",
-        route: ROUTES_NAMES.AUTH,
+        statusCode: 404,
+        message: RESPONSE_MESSAGE[404].USER_NOT_FOUND,
       });
       return;
     }
 
-    // Code is valid, generate a temporary token for password reset
-    const temporaryResetToken = crypto.randomBytes(32).toString("hex");
+    const expirationDate = new Date(user.resetCodeExpiry);
+    const now = new Date();
+
+    if (now > expirationDate) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE[400].RESET_CODE_EXPIRED,
+      });
+      return;
+    }
+
+    const temporaryResetToken = generateTempResetToken(user.email);
 
     user.temporaryResetToken = temporaryResetToken;
+    await user.save();
+
+    user.resetCode = null;
+    user.resetCodeExpiry = null;
     await user.save();
 
     response({
       res,
       statusCode: 200,
-      // message: "Reset code verified",
-      data: {
+      payload: {
         temporaryResetToken,
       },
-      route: ROUTES_NAMES.AUTH,
     });
   } catch (error) {
     console.error("Verify Reset Code Error:", error);
     response({
       res,
       statusCode: 500,
-      // message: "Internal server error",
     });
   }
 };
+
+/**
+ * @swagger
+ * /auth/verify_reset_code:
+ *   post:
+ *     summary: Verify reset code
+ *     description: Verifies the reset code and generates a temporary reset token for the user.
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               resetCode:
+ *                 type: string
+ *                 example: "your-reset-code"
+ *             required:
+ *               - resetCode
+ *     responses:
+ *       200:
+ *         description: Successfully verified reset code
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 temporaryResetToken:
+ *                   type: string
+ *                   example: "your-temporary-reset-token"
+ *       400:
+ *         description: INVALID_RESET_CODE , RESET_CODE_EXPIRED
+ *       404:
+ *         description: RESET_CODE_NOT_FOUND , USER_NOT_FOUND
+ */

@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     required: false,
   },
+  temporaryResetToken: {
+    type: String,
+    required: false,
+  },
 });
 
 const UserModel = mongoose.model("User", userSchema);
@@ -29,6 +33,14 @@ const UserModel = mongoose.model("User", userSchema);
 export const getUserByEmail = (email: string) => {
   try {
     return UserModel.findOne({ email });
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getUserByResetCode = (resetCode: string) => {
+  try {
+    return UserModel.findOne({ resetCode });
   } catch (error) {
     return null;
   }

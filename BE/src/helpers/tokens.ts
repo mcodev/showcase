@@ -5,6 +5,7 @@ import {
   ACCESS_TOKEN_SECRET,
   REFRESH_TOKEN_EXPIRATION,
   REFRESH_TOKEN_SECRET,
+  RESET_TOKEN_EXPIRATION,
 } from "../consts";
 
 export const generateAccessToken = (userId: string) => {
@@ -25,6 +26,12 @@ export const generateRefreshToken = async (userId: string) => {
   }
 
   return refreshToken;
+};
+
+export const generateTempResetToken = (email: string) => {
+  return jwt.sign({ email: email }, REFRESH_TOKEN_SECRET, {
+    expiresIn: RESET_TOKEN_EXPIRATION,
+  });
 };
 
 export const verifyRefreshToken = async (

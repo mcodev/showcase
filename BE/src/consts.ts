@@ -25,6 +25,8 @@ export const ACCESS_TOKEN_EXPIRATION = "12h";
 
 export const REFRESH_TOKEN_EXPIRATION = "7d";
 
+export const RESET_TOKEN_EXPIRATION = "30m";
+
 export const RESET_CODE_EXPIRY = 15 * 60 * 1000; // 15 minutes in milliseconds
 
 export const PASSWORD_ENCRYPTION_LEVEL = 10;
@@ -88,5 +90,15 @@ export const RESPONSE_MESSAGES = {
     400: "MISSING_EMAIL",
     403: "INVALID_EMAIL",
     404: "USER_NOT_FOUND",
+  },
+  VERIFY_RESET_CODE: {
+    400: {
+      INVALID_RESET_CODE: "INVALID_RESET_CODE",
+      RESET_CODE_EXPIRED: "RESET_CODE_EXPIRED",
+    },
+    404: {
+      RESET_CODE_NOT_FOUND: "RESET_CODE_NOT_FOUND",
+      USER_NOT_FOUND: "USER_NOT_FOUND",
+    },
   },
 } as const;
