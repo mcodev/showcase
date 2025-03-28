@@ -74,14 +74,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
       });
 
       const data = await response.json();
-      const statusCode = response.status;
-
-      // const errorMapping = Object.fromEntries(
-      //   SELECTED_SERVICE.errors.map(({ code, message }: { code: number; message: string }) => [
-      //     code,
-      //     message,
-      //   ])
-      // );
+      const statusCode = response.status as number;
 
       if (!response.ok) {
         if (data.error === 'TOKEN_EXPIRED' && retryCount < 2) {
@@ -116,7 +109,8 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
         }
 
         throw new Error(
-          SELECTED_SERVICE.errorCodes.includes(statusCode)
+          // TODO fix this
+          statusCode && SELECTED_SERVICE.errorCodes.includes(statusCode)
             ? data.error
             : GLOBAL_ERRORS.UNEXPECTED_ERROR
         );

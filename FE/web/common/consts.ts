@@ -21,3 +21,5 @@ export const NAVBAR_ROUTES = [
 ];
 
 export const REFRESH_TOKEN_KEY = 'rt';
+
+export const TEMPORARY_TOKEN_KEY = 'tt';

@@ -1,8 +1,10 @@
 import React from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import secureLocalStorage from 'react-secure-storage';
 import { Button, Flex, PinInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { TEMPORARY_TOKEN_KEY } from '@/common/consts';
 import notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
@@ -26,15 +28,21 @@ const CodeVerification = () => {
     mutationFn: (values: ResetCodeVerificationFormType) =>
       request({ service: SERVICE.RESET_CODE_VERIFICATION_SERVICE, payload: values }),
 
-    onSuccess: () => {
-      // handleAuthModalParam({ type: 'set', param: 'verifyResetCode' });
-      // changeSelectedComponent('verifyResetCode');
+    onSuccess: (res) => {
+      if (res.data?.refreshToken) {
+        // TODO save refresh token to localhost
+        secureLocalStorage.setItem(TEMPORARY_TOKEN_KEY, res.data.refreshToken);
+        handleAuthModalParam({ type: 'set', param: 'changePassword' });
+        changeSelectedComponent('changePassword');
+      }
     },
     onError: (error) => {
       notification({
         title: t('error'),
         message: t(error.message),
       });
+      changeSelectedComponent('forgotPassword');
+      handleAuthModalParam({ type: 'delete' });
     },
   });
 
