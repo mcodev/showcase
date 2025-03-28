@@ -15,7 +15,7 @@ type RequestPropsType = {
   service: ServicesSelectorType;
   payload?: unknown;
   newAccessToken?: string;
-  retryCount?: number; // Add retry counter
+  retryCount?: number;
 };
 
 export const ApiConnectionProvider = ({ children }: { children: React.ReactNode }) => {
@@ -56,7 +56,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
     service,
     payload,
     newAccessToken,
-    retryCount = 0, // Initialize retry counter
+    retryCount = 0,
   }: RequestPropsType): Promise<GlobalResponseDataType> => {
     const SELECTED_SERVICE = SERVICES[service];
 
@@ -78,7 +78,6 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
 
       if (!response.ok) {
         if (data.error === 'TOKEN_EXPIRED' && retryCount < 2) {
-          // Limit to 2 retries
           const newAccessToken = await refresh();
 
           if (newAccessToken) {
@@ -91,7 +90,6 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
                   }
                 : payload;
 
-            // Increment retry counter when making a recursive call
             return request({
               service,
               payload: newPayload,
@@ -101,9 +99,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
           }
         }
 
-        // If we've already retried twice, clear tokens and throw error
         if (retryCount >= 2) {
-          // Clear tokens if refresh fails
           clearTokens();
           throw new Error(GLOBAL_ERRORS.UNAUTHORIZED_ACCESS);
         }
