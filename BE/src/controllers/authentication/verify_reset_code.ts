@@ -1,7 +1,10 @@
 import express from "express";
 import { response } from "../../helpers/response";
 import { RESPONSE_MESSAGES } from "../../consts";
-import { isValidResetCode } from "../../helpers/validators";
+import {
+  isValidResetCode,
+  isVerificationCodeMatch,
+} from "../../helpers/validators";
 import { getUserByResetCode } from "../../models/Users";
 import { generateTempResetToken } from "../../helpers/tokens";
 
@@ -12,7 +15,7 @@ export const verify_reset_code = async (
   res: express.Response
 ): Promise<void> => {
   try {
-    const { resetCode } = req.body;
+    const { resetCode, email } = req.body;
 
     if (!resetCode) {
       response({
@@ -32,7 +35,16 @@ export const verify_reset_code = async (
       return;
     }
 
-    const user = await getUserByResetCode(resetCode);
+    if (!email) {
+      response({
+        res,
+        statusCode: 404,
+        message: RESPONSE_MESSAGE[404].MISSING_EMAIL,
+      });
+      return;
+    }
+
+    const user = await getUserByResetCode(email);
 
     if (!user) {
       response({
@@ -51,6 +63,15 @@ export const verify_reset_code = async (
         res,
         statusCode: 400,
         message: RESPONSE_MESSAGE[400].RESET_CODE_EXPIRED,
+      });
+      return;
+    }
+
+    if (!isVerificationCodeMatch(resetCode, user.resetCode)) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE[400].INVALID_RESET_CODE,
       });
       return;
     }
@@ -98,8 +119,13 @@ export const verify_reset_code = async (
  *               resetCode:
  *                 type: string
  *                 example: "your-reset-code"
+ *               email:
+ *                 type: string
+ *                 example: "user@example.com"
  *             required:
  *               - resetCode
+ *               - email
+ *
  *     responses:
  *       200:
  *         description: Successfully verified reset code
@@ -114,5 +140,5 @@ export const verify_reset_code = async (
  *       400:
  *         description: INVALID_RESET_CODE , RESET_CODE_EXPIRED
  *       404:
- *         description: RESET_CODE_NOT_FOUND , USER_NOT_FOUND
+ *         description: RESET_CODE_NOT_FOUND , USER_NOT_FOUND, MISSING_EMAIL
  */

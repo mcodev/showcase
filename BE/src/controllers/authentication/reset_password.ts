@@ -1,34 +1,47 @@
 import express from "express";
 import { response } from "../../helpers/response";
 import { RESPONSE_MESSAGES } from "../../consts";
+import { isValidPassword } from "../../helpers/validators";
 
-const RESPONSE_MESSAGE = RESPONSE_MESSAGES.REQUEST_PASSWORD_RESET;
+const RESPONSE_MESSAGE = RESPONSE_MESSAGES.RESET_PASSWORD;
 
 export const reset_password = async (
   req: express.Request,
   res: express.Response
 ): Promise<void> => {
   try {
-    const { code } = req.body;
+    const { password, temporaryResetToken } = req.body;
 
-    // if (!code) {
-    //   response({
-    //     res,
-    //     statusCode: 400,
-    //     // message: "All fields are required",
-    //   });
-    //   return;
-    // }
+    // TODO check how its stored the reset token and get the user accordingly
 
-    // if (!isValidPassword(password)) {
-    //   response({
-    //     res,
-    //     statusCode: 400,
-    //     // message: "Password does not meet requirements",
-    //     route: ROUTES_NAMES.AUTH,
-    //   });
-    //   return;
-    // }
+    if (!password) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE[400].MISSING_PASSWORD,
+      });
+      return;
+    }
+
+    if (!isValidPassword(password)) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE[400].INVALID_PASSWORD,
+      });
+      return;
+    }
+
+    if (!temporaryResetToken) {
+      response({
+        res,
+        statusCode: 400,
+        message: RESPONSE_MESSAGE[400].MISSING_TEMPORARY_RESET_TOKEN,
+      });
+      return;
+    }
+
+    // const user = await getUserByResetCode(temporaryResetToken);
 
     // // Find user with matching temporary reset token
     // const user = await User.findOne({
@@ -67,7 +80,6 @@ export const reset_password = async (
     response({
       res,
       statusCode: 500,
-      // message: "Internal server error",
     });
   }
 };

@@ -27,6 +27,13 @@ export const isUserPasswordMatch = async (
   return await bcrypt.compare(password, encryptedPassword);
 };
 
+export const isVerificationCodeMatch = async (
+  verificationCode: string,
+  encryptedVerificationCode: string
+) => {
+  return await bcrypt.compare(verificationCode, encryptedVerificationCode);
+};
+
 export const isValidResetCode = (resetCode: string) => {
   return resetCode.length === 5 && !isNaN(parseInt(resetCode));
 };
