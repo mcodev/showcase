@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import CustomModal from '@/components/CustomModal/CustomModal';
-import { useModulesContext } from '@/Providers/ModulesProvider';
+import { useModulesContext } from '@/providers/ModulesProvider';
 import CodeVerification from './components/CodeVerification';
 import ForgotPassword from './components/ForgotPassword';
 import PasswordChange from './components/PasswordChange';

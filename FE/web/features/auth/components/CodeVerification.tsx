@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Flex, PinInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import notification from '@/components/Notifications/notification';
-import { useApiConnection } from '@/Providers/ApiConnectionProvider';
+import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ResetCodeVerificationFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
