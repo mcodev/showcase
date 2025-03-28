@@ -9,6 +9,7 @@ import notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ResetCodeVerificationFormType } from '@/types/payloadTypes';
+import { ResetCodeVerificationDataType } from '@/types/responseTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const CodeVerification = () => {
@@ -24,13 +25,14 @@ const CodeVerification = () => {
   });
 
   const forgotPasswordMutation = useMutation({
-    // TODO add response types in all mutations
     mutationFn: (values: ResetCodeVerificationFormType) =>
-      request({ service: SERVICE.RESET_CODE_VERIFICATION_SERVICE, payload: values }),
+      request({
+        service: SERVICE.RESET_CODE_VERIFICATION_SERVICE,
+        payload: values,
+      }) as Promise<ResetCodeVerificationDataType | null>,
 
     onSuccess: (res) => {
-      if (res.data?.refreshToken) {
-        // TODO save refresh token to localhost
+      if (res?.data.refreshToken) {
         secureLocalStorage.setItem(TEMPORARY_TOKEN_KEY, res.data.refreshToken);
         handleAuthModalParam({ type: 'set', param: 'changePassword' });
         changeSelectedComponent('changePassword');
