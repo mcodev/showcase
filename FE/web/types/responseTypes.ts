@@ -15,3 +15,7 @@ export type AuthResponseDataType = GlobalResponseDataType & {
   refreshToken: string;
   user: UserDetailsType;
 };
+
+export type ResetCodeVerificationDataType = GlobalResponseDataType & {
+  temporaryResetToken: string;
+};

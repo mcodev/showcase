@@ -5,7 +5,7 @@ import { Button, Flex, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { isValidEmail } from '@/common/validators';
 import notification from '@/components/Notifications/notification';
-import { useApiConnection } from '@/providers/ApiConnectionProvider';
+import { useApiConnection } from '@/Providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ForgotPasswordFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';

@@ -13,6 +13,10 @@ export type ForgotPasswordFormType = {
   email: string;
 };
 
+export type ResetCodeVerificationFormType = {
+  resetCode: string;
+};
+
 export type ChangePasswordFormType = {
   password: string;
   repeatPassword: string;
