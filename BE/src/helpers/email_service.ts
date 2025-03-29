@@ -5,21 +5,26 @@ export const sendPasswordResetEmail = async (
   email: string,
   resetCode: string
 ): Promise<boolean> => {
+  console.log(RESEND_API_KEY);
+
   try {
     const transporter = nodemailer.createTransport({
       host: "smtp.resend.com",
-      port: 587,
-      secure: false,
+      port: 465,
+      secure: true,
       auth: {
-        user: RESEND_API_KEY,
-        pass: "",
+        user: "resend",
+        pass: RESEND_API_KEY,
       },
     });
 
     // Send according to user language TODO implement in FE
 
+    // https://www.youtube.com/watch?v=cqdAS49RthQ
+    // try to fix gmail
+
     const mailOptions = {
-      from: "Showcase App",
+      from: "onboarding@resend.dev",
       to: email,
       subject: "Password Reset Code",
       html: `<p>Your password reset code is: <strong>${resetCode}</strong>. This code will expire soon.</p>`,
