@@ -52,9 +52,30 @@ const request_password_reset = async (
 
     // TODO if code is sent to use and is not expired then don't send again and send to try again in 15 minutes
 
+    if (user.resetCodeExpiry && Date.now() < user.resetCodeExpiry.getTime()) {
+      response({
+        res,
+        statusCode: 429,
+        message: RESPONSE_MESSAGE[429],
+      });
+
+      return;
+    }
+
     const resetCode = generate5DigitResetCode();
 
     const hashedResetCode = await generateEncryptedPassword(resetCode);
+
+    const isEmailSent = await sendPasswordResetEmail(email, resetCode);
+
+    if (!isEmailSent) {
+      response({
+        res,
+        statusCode: 500,
+      });
+
+      return;
+    }
 
     const resetCodeExpiry = new Date(Date.now() + RESET_CODE_EXPIRY);
 
@@ -64,17 +85,6 @@ const request_password_reset = async (
     });
 
     if (!isUserUpdated) {
-      response({
-        res,
-        statusCode: 500,
-      });
-
-      return;
-    }
-
-    const isEmailSent = await sendPasswordResetEmail(email, resetCode);
-
-    if (!isEmailSent) {
       response({
         res,
         statusCode: 500,
@@ -127,4 +137,6 @@ export default request_password_reset;
  *         description: INVALID_EMAIL
  *       404:
  *         description: USER_NOT_FOUND
+ *       429:
+ *         description: PASSWORD_RESET_RATE_LIMIT_EXCEEDED
  */

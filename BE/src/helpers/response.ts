@@ -1,7 +1,7 @@
 import express from "express";
 import { UNIVERSAL_RESPONSE_MESSAGES } from "../consts";
 
-type StatusCodeType = 200 | 201 | 400 | 401 | 403 | 404 | 409 | 500;
+type StatusCodeType = 200 | 201 | 400 | 401 | 403 | 404 | 409 | 429 | 500;
 
 type UniversalCodesType = keyof typeof UNIVERSAL_RESPONSE_MESSAGES;
 

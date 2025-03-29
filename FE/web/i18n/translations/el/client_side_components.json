@@ -57,5 +57,6 @@
   "INVALID_TEMP_RESET_TOKEN": "Λανθασμένο reset token, προσπαθήστε ξανά",
   "MISSING_TEMPORARY_RESET_TOKEN": "Λείπει το temporary reset token, προσπαθήστε ξανά",
   "success": "Επιτυχία",
-  "password_changed": "Το κωδικός σας αλλάξει"
+  "password_changed": "Το κωδικός σας αλλάξει",
+  "PASSWORD_RESET_RATE_LIMIT_EXCEEDED": "Έχει ήδη αποσταλεί το pin επαναφοράς, παρακαλώ δοκιμάστε πάλι σε 15 λεπτά."
 }
