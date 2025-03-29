@@ -38,14 +38,6 @@ export const getUserByEmail = (email: string) => {
   }
 };
 
-export const getUserByResetCode = (resetCode: string) => {
-  try {
-    return UserModel.findOne({ resetCode });
-  } catch (error) {
-    return null;
-  }
-};
-
 export const createUser = async (values: Record<string, any>) => {
   try {
     const user = await new UserModel(values).save();

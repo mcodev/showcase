@@ -5,7 +5,7 @@ import {
   isValidResetCode,
   isVerificationCodeMatch,
 } from "../../helpers/validators";
-import { getUserByResetCode } from "../../models/Users";
+import { getUserByEmail } from "../../models/Users";
 import { generateTempResetToken } from "../../helpers/tokens";
 
 const RESPONSE_MESSAGE = RESPONSE_MESSAGES.VERIFY_RESET_CODE;
@@ -44,7 +44,7 @@ export const verify_reset_code = async (
       return;
     }
 
-    const user = await getUserByResetCode(email);
+    const user = await getUserByEmail(email);
 
     if (!user) {
       response({
