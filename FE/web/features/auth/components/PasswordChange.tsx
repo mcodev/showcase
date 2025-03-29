@@ -6,7 +6,7 @@ import { Button, Flex, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { TEMPORARY_TOKEN_KEY, USER_EMAIL_KEY } from '@/common/consts';
 import { isPasswordMatch, isValidPassword } from '@/common/validators';
-import notification from '@/components/Notifications/Notification';
+import showNotification from '@/components/ShowNotification/ShowNotification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ChangePasswordFormType } from '@/types/payloadTypes';
@@ -42,7 +42,7 @@ const PasswordChange = () => {
   const changePasswordMutation = useMutation({
     mutationFn: (values: ChangePasswordFormType) =>
       request({
-        service: SERVICE.RESET_CODE_VERIFICATION_SERVICE,
+        service: SERVICE.RESET_PASSWORD_SERVICE,
         payload: values,
       }),
 
@@ -51,7 +51,7 @@ const PasswordChange = () => {
       clearLocalStorage();
     },
     onError: (error) => {
-      notification({
+      showNotification({
         title: t('error'),
         message: t(error.message),
       });

@@ -27,3 +27,9 @@ export const RESET_CODE_VERIFICATION_SERVICE = {
   method: 'POST',
   errorCodes: [400, 404],
 };
+
+export const RESET_PASSWORD_SERVICE = {
+  path: 'auth/reset_password',
+  method: 'POST',
+  errorCodes: [400, 404],
+};

@@ -13,7 +13,7 @@ import {
   isValidName,
   isValidPassword,
 } from '@/common/validators';
-import notification from '@/components/Notifications/notification';
+import showNotification from '@/components/ShowNotification/ShowNotification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { useModulesContext } from '@/providers/ModulesProvider';
 import { SERVICE } from '@/services';
@@ -62,7 +62,7 @@ const SignUp = () => {
       closeAuthModal();
     },
     onError: (error) => {
-      notification({
+      showNotification({
         title: t('error'),
         message: t(error.message),
       });

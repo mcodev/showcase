@@ -6,7 +6,7 @@ import { Button, Flex, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { USER_EMAIL_KEY } from '@/common/consts';
 import { isValidEmail } from '@/common/validators';
-import notification from '@/components/Notifications/Notification';
+import showNotification from '@/components/ShowNotification/ShowNotification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ForgotPasswordFormType } from '@/types/payloadTypes';
@@ -40,7 +40,7 @@ const ForgotPassword = () => {
       changeSelectedComponent('verifyResetCode');
     },
     onError: (error) => {
-      notification({
+      showNotification({
         title: t('error'),
         message: t(error.message),
       });

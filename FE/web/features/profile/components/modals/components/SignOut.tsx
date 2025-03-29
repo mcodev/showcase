@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import secureLocalStorage from 'react-secure-storage';
 import { REFRESH_TOKEN_KEY } from '@/common/consts';
 import AlertModalContent from '@/components/CustomModal/templates/AlertModalContent';
-import notification from '@/components/Notifications/Notification';
+import showNotification from '@/components/ShowNotification/ShowNotification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 
@@ -27,7 +27,7 @@ const SignOut = ({ handleCloseModal }: SignOutModalProps) => {
       handleCloseModal();
     },
     onError: (error) => {
-      notification({
+      showNotification({
         title: t('error'),
         message: t(error.message),
       });

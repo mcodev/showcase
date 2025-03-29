@@ -1,21 +1,11 @@
-import {
-  FORGOT_PASSWORD_SERVICE,
-  LOGIN_SERVICE,
-  LOGOUT_SERVICE,
-  RESET_CODE_VERIFICATION_SERVICE,
-  SIGN_UP_SERVICE,
-} from './auth';
+import * as AUTH_SERVICES from './auth';
 
 type ServiceType = {
   [key in keyof typeof SERVICES]: ServicesSelectorType;
 };
 
 export const SERVICES = {
-  LOGIN_SERVICE,
-  SIGN_UP_SERVICE,
-  LOGOUT_SERVICE,
-  FORGOT_PASSWORD_SERVICE,
-  RESET_CODE_VERIFICATION_SERVICE,
+  ...AUTH_SERVICES,
 };
 
 export const SERVICE = Object.keys(SERVICES).reduce((acc, key) => {

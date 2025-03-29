@@ -5,7 +5,7 @@ import secureLocalStorage from 'react-secure-storage';
 import { Button, Flex, PinInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { TEMPORARY_TOKEN_KEY, USER_EMAIL_KEY } from '@/common/consts';
-import notification from '@/components/Notifications/Notification';
+import showNotification from '@/components/ShowNotification/ShowNotification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ResetCodeVerificationFormType } from '@/types/payloadTypes';
@@ -41,7 +41,7 @@ const CodeVerification = () => {
       }
     },
     onError: (error) => {
-      notification({
+      showNotification({
         title: t('error'),
         message: t(error.message),
       });
