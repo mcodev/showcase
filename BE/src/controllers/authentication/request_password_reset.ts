@@ -50,9 +50,11 @@ const request_password_reset = async (
       return;
     }
 
-    // TODO if code is sent to use and is not expired then don't send again and send to try again in 15 minutes
-
-    if (user.resetCodeExpiry && Date.now() < user.resetCodeExpiry.getTime()) {
+    if (
+      user.resetCode &&
+      user.resetCodeExpiry &&
+      Date.now() < user.resetCodeExpiry.getTime()
+    ) {
       response({
         res,
         statusCode: 429,
