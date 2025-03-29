@@ -30,7 +30,7 @@ const SignUp = () => {
   const form = useForm({
     mode: 'controlled',
     initialValues: {
-      name: '',
+      username: '',
       email: '',
       password: '',
       repeatPassword: '',
@@ -38,7 +38,7 @@ const SignUp = () => {
     },
 
     validate: {
-      name: (value) => isValidName(value),
+      username: (value) => isValidName(value),
       email: (value) => isValidEmail(value),
       password: (value) => isValidPassword(value),
       repeatPassword: (value, values) =>
@@ -52,7 +52,7 @@ const SignUp = () => {
       request({
         service: SERVICE.SIGN_UP_SERVICE,
         payload: {
-          name: values.name.trim(),
+          username: values.username.trim(),
           email: values.email,
           password: values.password,
         },
@@ -66,6 +66,10 @@ const SignUp = () => {
         title: t('error'),
         message: t(error.message),
       });
+
+      if (error.message === 'USERNAME_IN_NOT_UNIQUE') {
+        form.setFieldError('username', t('username_not_unique'));
+      }
     },
   });
 
@@ -73,14 +77,14 @@ const SignUp = () => {
     <form onSubmit={form.onSubmit((values) => signUpMutation.mutate(values))}>
       <Flex direction="column" mt="xl">
         <TextInput
-          label={t('name')}
-          placeholder={t('name')}
+          label={t('username')}
+          placeholder={t('username')}
           mb="lg"
           labelProps={{ mb: '4px' }}
-          value={form.values.name}
-          onChange={(event) => form.setFieldValue('name', event.target.value)}
-          key={form.key('name')}
-          error={t(form.errors.name as string)}
+          value={form.values.username}
+          onChange={(event) => form.setFieldValue('username', event.target.value)}
+          key={form.key('username')}
+          error={t(form.errors.username as string)}
           required
         />
 

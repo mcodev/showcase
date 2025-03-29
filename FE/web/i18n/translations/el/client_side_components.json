@@ -10,11 +10,11 @@
   "dont_have_an_account": "Δεν έχετε λογαριασμό;",
   "already_have_an_account": "Έχετε ηδη λογαριασμό;",
   "send_reset_code": "Αποστολή κωδικού επαναφοράς",
-  "name": "Όνομα",
+  "username": "Όνομα",
   "repeat_password": "Επανάληψη κωδικού",
   "i_agree_with_the": "Συμφωνώ με τους",
   "terms_and_conditions": "όρους χρήσης",
-  "invalid_name": "Το όνομα πρέπει να έχει τουλάχιστον 3 εως 15 χαρακτήρες και να περιέχει μόνο γράμματα.",
+  "invalid_username": "Το όνομα χρήστη πρέπει να έχει τουλάχιστον 3 εως 15 χαρακτήρες και να περιέχει μόνο γράμματα.",
   "invalid_email": "Λανθασμένο Email",
   "invalid_password": "Ο κωδικός πρέπει να έχει τουλάχιστον 8 χαρακτήρες, να περιέχει τουλάχιστον ένα κεφαλαίο γράμμα, έναν αριθμό και ένα ειδικό χαρακτήρα.",
   "passwords_do_not_match": "Οι κωδικοί δεν ταιριάζουν",
@@ -49,8 +49,8 @@
   "MISSING_PASSWORD": "Λείπει το κωδικός",
   "INVALID_EMAIL": " Άκυρο email",
   "INVALID_PASSWORD": "Άκυρος κωδικός",
-  "MISSING_NAME": "Λείπει το όνομα",
-  "INVALID_NAME": "Άκυρο όνομα",
+  "MISSING_USERNAME": "Λείπει το όνομα χρήστη",
+  "INVALID_USERNAME": "Άκυρο όνομα χρήστη",
   "INVALID_RESET_CODE": "Λανθασμένο pin, προσπαθήστε ξανά",
   "RESET_CODE_NOT_FOUND": "Δεν βρέθηκε το pin επαναφοράς",
   "RESET_CODE_EXPIRED": "Το pin έχει λήξει, προσπαθήστε ξανά",
@@ -58,5 +58,7 @@
   "MISSING_TEMPORARY_RESET_TOKEN": "Λείπει το temporary reset token, προσπαθήστε ξανά",
   "success": "Επιτυχία",
   "password_changed": "Το κωδικός σας αλλάξει",
-  "PASSWORD_RESET_RATE_LIMIT_EXCEEDED": "Έχει ήδη αποσταλεί το pin επαναφοράς, παρακαλώ δοκιμάστε πάλι σε 15 λεπτά."
+  "PASSWORD_RESET_RATE_LIMIT_EXCEEDED": "Έχει ήδη αποσταλεί το pin επαναφοράς, παρακαλώ δοκιμάστε πάλι σε 15 λεπτά.",
+  "USERNAME_IN_NOT_UNIQUE": "Αυτό το όνομα χρήστη υπάρχει ηδη",
+  "username_not_unique": "Το όνομα χρήστη υπάρχει ηδη"
 }

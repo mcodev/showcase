@@ -1,5 +1,9 @@
 import express from "express";
-import { createUser, getUserByEmail } from "../../models/Users";
+import {
+  createUser,
+  getUserByEmail,
+  getUserByUserName,
+} from "../../models/Users";
 import { generateEncryptedPassword } from "../../helpers/generators";
 import { response } from "../../helpers/response";
 import { RESPONSE_MESSAGES } from "../../consts";
@@ -20,17 +24,29 @@ const register = async (
   res: express.Response
 ): Promise<any> => {
   try {
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
 
-    const NAME = name?.trim();
+    const USERNAME = username?.trim();
     const EMAIL = email?.trim();
     const PASSWORD = password?.trim();
 
-    if (!name) {
+    if (!username) {
       response({
         res,
         statusCode: 400,
-        message: RESPONSE_MESSAGE[400].MISSING_NAME,
+        message: RESPONSE_MESSAGE[400].MISSING_USERNAME,
+      });
+
+      return;
+    }
+
+    const existingUserName = getUserByUserName(USERNAME);
+
+    if (existingUserName) {
+      response({
+        res,
+        statusCode: 409,
+        message: RESPONSE_MESSAGE[409].USERNAME_IN_NOT_UNIQUE,
       });
 
       return;
@@ -56,11 +72,11 @@ const register = async (
       return;
     }
 
-    if (!isValidName(NAME)) {
+    if (!isValidName(USERNAME)) {
       response({
         res,
         statusCode: 403,
-        message: RESPONSE_MESSAGE[403].INVALID_NAME,
+        message: RESPONSE_MESSAGE[403].INVALID_USERNAME,
       });
 
       return;
@@ -94,7 +110,7 @@ const register = async (
       response({
         res,
         statusCode: 409,
-        message: RESPONSE_MESSAGE[409],
+        message: RESPONSE_MESSAGE[409].USER_ALREADY_REGISTERED,
       });
 
       return;
@@ -103,7 +119,7 @@ const register = async (
     const encryptedPassword = await generateEncryptedPassword(PASSWORD);
 
     const user = await createUser({
-      name: NAME,
+      username: USERNAME,
       email: EMAIL,
       password: encryptedPassword,
     });
@@ -136,7 +152,7 @@ const register = async (
       payload: {
         accessToken,
         refreshToken,
-        user: { _id: user._id, name: user.name },
+        user: { _id: user._id, name: user.username },
       },
     }).end();
   } catch (error) {
@@ -165,11 +181,11 @@ export default register;
  *           schema:
  *             type: object
  *             required:
- *               - name
+ *               - username
  *               - email
  *               - password
  *             properties:
- *               name:
+ *               username:
  *                 type: string
  *                 example: "John Doe"
  *               email:
@@ -203,10 +219,10 @@ export default register;
  *                       type: string
  *                       example: "John Doe"
  *       400:
- *         description: MISSING_NAME , MISSING_EMAIL , MISSING_PASSWORD
+ *         description: MISSING_USERNAME , MISSING_EMAIL , MISSING_PASSWORD
  *       403:
- *         description: INVALID_NAME , INVALID_EMAIL , INVALID_PASSWORD
+ *         description: INVALID_USERNAME , INVALID_EMAIL , INVALID_PASSWORD
  *       409:
- *         description: USER_ALREADY_REGISTERED
+ *         description: USER_ALREADY_REGISTERED, USERNAME_IN_NOT_UNIQUE
  *
  */

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: true,
   },
@@ -33,6 +33,14 @@ const UserModel = mongoose.model("User", userSchema);
 export const getUserByEmail = (email: string) => {
   try {
     return UserModel.findOne({ email });
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getUserByUserName = (username: string) => {
+  try {
+    return UserModel.findOne({ username });
   } catch (error) {
     return null;
   }

@@ -6,7 +6,7 @@ export const isValidName = (name: string) => {
     return null;
   }
 
-  return 'invalid_name';
+  return 'invalid_username';
 };
 
 export const isValidEmail = (email: string) => {
