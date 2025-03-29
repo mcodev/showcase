@@ -7,34 +7,35 @@ export const sendPasswordResetEmail = async (
 ): Promise<boolean> => {
   try {
     const transporter = nodemailer.createTransport({
-      port: 465,
-      host: "smtp.gmail.com",
-      secure: true,
+      host: "send.smtp.gmail.com",
+      // port: 465,
+      // secure: true,
+      port: 587,
+      secure: false,
       auth: {
         user: EMAIL_USER,
         pass: EMAIL_PASS,
       },
     });
 
+    // Send according to user language TODO implement in FE
+
     const mailOptions = {
-      from: EMAIL_USER,
+      from: "Showcase App",
       to: email,
-      subject: "Password Reset Request",
-      text: `Your password reset code is: ${resetCode}. This code will expire soon.`,
+      subject: "Password Reset Code",
       html: `<p>Your password reset code is: <strong>${resetCode}</strong>. This code will expire soon.</p>`,
     };
 
-    console.log("Sending password reset email to:", email);
+    const info = await transporter.sendMail(mailOptions);
 
-    await transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error("Error sending password reset email:", error);
-        return false;
-      }
-    });
+    if (!info?.messageId) {
+      return false;
+    }
 
     return true;
   } catch (error) {
     console.error("Error sending password reset email:", error);
+    return false;
   }
 };

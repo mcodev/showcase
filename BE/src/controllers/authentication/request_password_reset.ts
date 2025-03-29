@@ -50,6 +50,8 @@ const request_password_reset = async (
       return;
     }
 
+    // TODO if code is sent to use and is not expired then don't send again and send to try again in 15 minutes
+
     const resetCode = generate5DigitResetCode();
 
     const hashedResetCode = await generateEncryptedPassword(resetCode);
@@ -70,19 +72,16 @@ const request_password_reset = async (
       return;
     }
 
-    console.log("Password reset code:", resetCode);
+    const isEmailSent = await sendPasswordResetEmail(email, resetCode);
 
-    //TODO enable after testing
-    // const isEmailSent = await sendPasswordResetEmail(email, resetCode);
+    if (!isEmailSent) {
+      response({
+        res,
+        statusCode: 500,
+      });
 
-    // if (!isEmailSent) {
-    //   response({
-    //     res,
-    //     statusCode: 500,
-    //   });
-
-    //   return;
-    // }
+      return;
+    }
 
     response({
       res,
