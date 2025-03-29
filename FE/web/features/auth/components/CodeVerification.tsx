@@ -4,13 +4,15 @@ import { useTranslation } from 'react-i18next';
 import secureLocalStorage from 'react-secure-storage';
 import { Button, Flex, PinInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { TEMPORARY_TOKEN_KEY } from '@/common/consts';
+import { TEMPORARY_TOKEN_KEY, USER_EMAIL_KEY } from '@/common/consts';
 import notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ResetCodeVerificationFormType } from '@/types/payloadTypes';
 import { ResetCodeVerificationDataType } from '@/types/responseTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
+
+const userEmail = secureLocalStorage.getItem(USER_EMAIL_KEY) as string;
 
 const CodeVerification = () => {
   const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
@@ -24,7 +26,7 @@ const CodeVerification = () => {
     },
   });
 
-  const forgotPasswordMutation = useMutation({
+  const resetCodeVerificationMutation = useMutation({
     mutationFn: (values: ResetCodeVerificationFormType) =>
       request({
         service: SERVICE.RESET_CODE_VERIFICATION_SERVICE,
@@ -51,7 +53,7 @@ const CodeVerification = () => {
   return (
     <form
       onSubmit={form.onSubmit((values) => {
-        forgotPasswordMutation.mutate(values);
+        resetCodeVerificationMutation.mutate({ ...values, email: userEmail || '' });
       })}
     >
       <Flex direction="column" mt="xl">

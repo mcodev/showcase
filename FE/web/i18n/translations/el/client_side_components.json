@@ -53,5 +53,7 @@
   "INVALID_NAME": "Άκυρο όνομα",
   "INVALID_RESET_CODE": "Λανθασμένο pin",
   "RESET_CODE_NOT_FOUND": "Δεν βρέθηκε το pin",
-  "RESET_CODE_EXPIRED": "Το pin έχει λήξει, προσπαθήστε ξανά"
+  "RESET_CODE_EXPIRED": "Το pin έχει λήξει, προσπαθήστε ξανά",
+  "INVALID_TEMP_RESET_TOKEN": "Λανθασμένο refresh token",
+  "MISSING_TEMPORARY_RESET_TOKEN": "Λείπει το temporary refresh token"
 }

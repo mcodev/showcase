@@ -1,8 +1,10 @@
 import React from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import secureLocalStorage from 'react-secure-storage';
 import { Button, Flex, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { USER_EMAIL_KEY } from '@/common/consts';
 import { isValidEmail } from '@/common/validators';
 import notification from '@/components/Notifications/Notification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
@@ -31,6 +33,8 @@ const ForgotPassword = () => {
       request({ service: SERVICE.FORGOT_PASSWORD_SERVICE, payload: values }),
 
     onSuccess: () => {
+      secureLocalStorage.setItem(USER_EMAIL_KEY, form.values.email);
+
       handleAuthModalParam({ type: 'set', param: 'verifyResetCode' });
 
       changeSelectedComponent('verifyResetCode');

@@ -23,7 +23,7 @@ export const FORGOT_PASSWORD_SERVICE = {
 };
 
 export const RESET_CODE_VERIFICATION_SERVICE = {
-  path: 'auth/verify_code',
+  path: 'auth/verify_reset_code',
   method: 'POST',
-  errorCodes: [400, 403, 404],
+  errorCodes: [400, 404],
 };

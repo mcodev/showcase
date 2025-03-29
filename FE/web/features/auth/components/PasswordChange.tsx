@@ -1,12 +1,28 @@
 import React from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import secureLocalStorage from 'react-secure-storage';
 import { Button, Flex, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { TEMPORARY_TOKEN_KEY, USER_EMAIL_KEY } from '@/common/consts';
 import { isPasswordMatch, isValidPassword } from '@/common/validators';
+import notification from '@/components/Notifications/Notification';
+import { useApiConnection } from '@/providers/ApiConnectionProvider';
+import { SERVICE } from '@/services';
+import { ChangePasswordFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
+
+const userEmail = secureLocalStorage.getItem(USER_EMAIL_KEY) as string;
+const tempResetToken = secureLocalStorage.getItem(TEMPORARY_TOKEN_KEY) as string;
+
+const clearLocalStorage = () => {
+  secureLocalStorage.removeItem(USER_EMAIL_KEY);
+  secureLocalStorage.removeItem(TEMPORARY_TOKEN_KEY);
+};
 
 const PasswordChange = () => {
   const { t } = useTranslation();
+  const { request } = useApiConnection();
   const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
 
   const form = useForm({
@@ -22,8 +38,39 @@ const PasswordChange = () => {
         isPasswordMatch(value, values.password ? values.password : ''),
     },
   });
+
+  const changePasswordMutation = useMutation({
+    mutationFn: (values: ChangePasswordFormType) =>
+      request({
+        service: SERVICE.RESET_CODE_VERIFICATION_SERVICE,
+        payload: values,
+      }),
+
+    onSuccess: () => {
+      changeSelectedComponent('signIn');
+      clearLocalStorage();
+    },
+    onError: (error) => {
+      notification({
+        title: t('error'),
+        message: t(error.message),
+      });
+      clearLocalStorage();
+      changeSelectedComponent('forgotPassword');
+      handleAuthModalParam({ type: 'delete' });
+    },
+  });
+
   return (
-    <form onSubmit={form.onSubmit((values) => {})}>
+    <form
+      onSubmit={form.onSubmit((values) =>
+        changePasswordMutation.mutate({
+          password: values.password.trim(),
+          email: userEmail,
+          temporaryResetToken: tempResetToken,
+        })
+      )}
+    >
       <Flex direction="column" mt="xl">
         <PasswordInput
           label={t('new_password')}

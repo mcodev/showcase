@@ -15,9 +15,11 @@ export type ForgotPasswordFormType = {
 
 export type ResetCodeVerificationFormType = {
   resetCode: string;
+  email: string;
 };
 
 export type ChangePasswordFormType = {
+  email: string;
+  temporaryResetToken: string;
   password: string;
-  repeatPassword: string;
 };

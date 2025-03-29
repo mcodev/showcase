@@ -14,23 +14,23 @@ import { SelectedComponentType } from './types';
 
 const components = {
   signUp: {
-    titleKey: 'sign_up',
+    titleTranslationKey: 'sign_up',
     component: <SignUp />,
   },
   signIn: {
-    titleKey: 'sign_in',
+    titleTranslationKey: 'sign_in',
     component: <SignIn />,
   },
   forgotPassword: {
-    titleKey: 'forgot_password',
+    titleTranslationKey: 'forgot_password',
     component: <ForgotPassword />,
   },
   verifyResetCode: {
-    titleKey: 'verify_reset_code',
+    titleTranslationKey: 'verify_reset_code',
     component: <CodeVerification />,
   },
   changePassword: {
-    titleKey: 'change_password',
+    titleTranslationKey: 'change_password',
     component: <PasswordChange />,
   },
 };
@@ -85,7 +85,7 @@ const AuthComponentsDisplay = () => {
     <CustomModal
       isVisible={isModalVisible}
       onClose={handleCloseModal}
-      title={components[selectedComponent].titleKey}
+      title={components[selectedComponent].titleTranslationKey}
       size="md"
     >
       <AuthSelectionProvider
