@@ -1,8 +1,8 @@
-import { SUPPORTED_LANGUAGES } from './consts';
+import { DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES } from './consts';
 
 const i18nConfig = {
   locales: SUPPORTED_LANGUAGES.map((lang) => lang.name),
-  defaultLocale: SUPPORTED_LANGUAGES[0].name,
+  defaultLocale: DEFAULT_LANGUAGE,
 };
 
 export default i18nConfig;

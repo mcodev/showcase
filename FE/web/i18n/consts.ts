@@ -1,3 +1,5 @@
+export const DEFAULT_LANGUAGE = 'el';
+
 export const SUPPORTED_LANGUAGES = [
   {
     name: 'el',

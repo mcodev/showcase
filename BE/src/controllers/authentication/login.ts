@@ -85,7 +85,7 @@ const login = async (
       payload: {
         accessToken,
         refreshToken,
-        user: { _id: user._id, name: user.name },
+        user: { _id: user._id, username: user.username },
       },
     }).end();
   } catch (error) {
@@ -145,7 +145,7 @@ export default login;
  *                     _id:
  *                       type: string
  *                       example: "user123"
- *                     name:
+ *                     username:
  *                       type: string
  *                       example: "John Doe"
  *       400:

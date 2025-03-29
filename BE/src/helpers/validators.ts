@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 
-export const isValidName = (name: string) => {
+export const isValidName = (username: string) => {
   const re = /^[A-Za-z ]{3,15}$/;
 
-  return re.test(name.trim());
+  return re.test(username.trim());
 };
 
 export const isValidEmail = (email: string) => {

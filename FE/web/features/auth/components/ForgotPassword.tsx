@@ -1,4 +1,5 @@
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import secureLocalStorage from 'react-secure-storage';
@@ -7,6 +8,7 @@ import { useForm } from '@mantine/form';
 import { USER_EMAIL_KEY } from '@/common/consts';
 import { isValidEmail } from '@/common/validators';
 import showNotification from '@/components/ShowNotification/ShowNotification';
+import { DEFAULT_LANGUAGE } from '@/i18n/consts';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ForgotPasswordFormType } from '@/types/payloadTypes';
@@ -16,6 +18,8 @@ const ForgotPassword = () => {
   const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
   const { t } = useTranslation();
   const { request } = useApiConnection();
+  const pathname = usePathname();
+  const language = pathname.split('/')[1] || DEFAULT_LANGUAGE;
 
   const form = useForm({
     mode: 'controlled',
@@ -30,7 +34,10 @@ const ForgotPassword = () => {
 
   const forgotPasswordMutation = useMutation({
     mutationFn: (values: ForgotPasswordFormType) =>
-      request({ service: SERVICE.FORGOT_PASSWORD_SERVICE, payload: values }),
+      request({
+        service: SERVICE.FORGOT_PASSWORD_SERVICE,
+        payload: { ...values, language: language || DEFAULT_LANGUAGE },
+      }),
 
     onSuccess: () => {
       secureLocalStorage.setItem(USER_EMAIL_KEY, form.values.email);

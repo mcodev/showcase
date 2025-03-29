@@ -16,7 +16,7 @@ const request_password_reset = async (
   res: express.Response
 ): Promise<void> => {
   try {
-    const { email } = req.body;
+    const { email, language } = req.body;
 
     if (!email) {
       response({
@@ -68,7 +68,11 @@ const request_password_reset = async (
 
     const hashedResetCode = await generateEncryptedPassword(resetCode);
 
-    const isEmailSent = await sendPasswordResetEmail(email, resetCode);
+    const isEmailSent = await sendPasswordResetEmail(
+      email,
+      resetCode,
+      language
+    );
 
     if (!isEmailSent) {
       response({
@@ -128,6 +132,9 @@ export default request_password_reset;
  *                 type: string
  *                 format: email
  *                 example: "user@example.com"
+ *             language:
+ *                 type: string
+ *                 example: "en"
  *             required:
  *               - email
  *     responses:

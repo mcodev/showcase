@@ -152,7 +152,7 @@ const register = async (
       payload: {
         accessToken,
         refreshToken,
-        user: { _id: user._id, name: user.username },
+        user: { _id: user._id, username: user.username },
       },
     }).end();
   } catch (error) {
@@ -215,7 +215,7 @@ export default register;
  *                     _id:
  *                       type: string
  *                       example: "user123"
- *                     name:
+ *                     username:
  *                       type: string
  *                       example: "John Doe"
  *       400:
