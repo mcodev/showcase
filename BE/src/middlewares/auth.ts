@@ -1,10 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import { response } from "../helpers/response";
 import { ACCESS_TOKEN_SECRET } from "../consts";
-
-dotenv.config();
 
 export const isAuthenticated = (
   req: express.Request,

@@ -64,25 +64,11 @@ if (ENVIRONMENT === "development") {
           },
         },
         apis: [path.join(__dirname, "./controllers/**/*.ts")],
-        // components: {
-        //   securitySchemes: {
-        //     BearerAuth: {
-        //       type: "http",
-        //       scheme: "bearer",
-        //       bearerFormat: "JWT",
-        //     },
-        //   },
-        // },
-        // security: [
-        //   {
-        //     BearerAuth: [],
-        //   },
-        // ],
       }),
       {
         customCss:
           (theme.getBuffer(SwaggerThemeNameEnum.DARK) || "") +
-          ".auth-wrapper { display: none !important; } .scheme-container { display: none !important; }", // Hides "Authorize" button
+          ".auth-wrapper { display: none !important; } .scheme-container { display: none !important; }", // Hide "Authorize" button
       }
     )
   );
