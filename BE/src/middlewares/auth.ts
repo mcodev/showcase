@@ -2,6 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { response } from "../helpers/response";
+import { ACCESS_TOKEN_SECRET } from "../consts";
 
 dotenv.config();
 
@@ -21,18 +22,14 @@ export const isAuthenticated = (
 
   const token = authHeader.split(" ")[1];
 
-  jwt.verify(
-    token,
-    process.env.ACCESS_TOKEN_SECRET as string,
-    (err, decoded) => {
-      if (err) {
-        response({
-          res,
-          statusCode: 403,
-        });
-      } else {
-        next();
-      }
+  jwt.verify(token, ACCESS_TOKEN_SECRET, (err) => {
+    if (err) {
+      response({
+        res,
+        statusCode: 403,
+      });
+    } else {
+      next();
     }
-  );
+  });
 };

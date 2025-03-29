@@ -51,9 +51,11 @@
   "INVALID_PASSWORD": "Άκυρος κωδικός",
   "MISSING_NAME": "Λείπει το όνομα",
   "INVALID_NAME": "Άκυρο όνομα",
-  "INVALID_RESET_CODE": "Λανθασμένο pin",
-  "RESET_CODE_NOT_FOUND": "Δεν βρέθηκε το pin",
+  "INVALID_RESET_CODE": "Λανθασμένο pin, προσπαθήστε ξανά",
+  "RESET_CODE_NOT_FOUND": "Δεν βρέθηκε το pin επαναφοράς",
   "RESET_CODE_EXPIRED": "Το pin έχει λήξει, προσπαθήστε ξανά",
-  "INVALID_TEMP_RESET_TOKEN": "Λανθασμένο refresh token",
-  "MISSING_TEMPORARY_RESET_TOKEN": "Λείπει το temporary refresh token"
+  "INVALID_TEMP_RESET_TOKEN": "Λανθασμένο reset token, προσπαθήστε ξανά",
+  "MISSING_TEMPORARY_RESET_TOKEN": "Λείπει το temporary reset token, προσπαθήστε ξανά",
+  "success": "Επιτυχία",
+  "password_changed": "Το κωδικός σας αλλάξει"
 }

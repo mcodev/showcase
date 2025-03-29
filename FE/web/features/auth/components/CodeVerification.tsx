@@ -12,12 +12,12 @@ import { ResetCodeVerificationFormType } from '@/types/payloadTypes';
 import { ResetCodeVerificationDataType } from '@/types/responseTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
-const userEmail = secureLocalStorage.getItem(USER_EMAIL_KEY) as string;
-
 const CodeVerification = () => {
   const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
   const { t } = useTranslation();
   const { request } = useApiConnection();
+
+  const userEmail = secureLocalStorage.getItem(USER_EMAIL_KEY) as string;
 
   const form = useForm({
     mode: 'controlled',
@@ -34,8 +34,8 @@ const CodeVerification = () => {
       }) as Promise<ResetCodeVerificationDataType | null>,
 
     onSuccess: (res) => {
-      if (res?.data.refreshToken) {
-        secureLocalStorage.setItem(TEMPORARY_TOKEN_KEY, res.data.refreshToken);
+      if (res?.data.temporaryResetToken) {
+        secureLocalStorage.setItem(TEMPORARY_TOKEN_KEY, res.data.temporaryResetToken);
         handleAuthModalParam({ type: 'set', param: 'changePassword' });
         changeSelectedComponent('changePassword');
       }
@@ -45,8 +45,11 @@ const CodeVerification = () => {
         title: t('error'),
         message: t(error.message),
       });
-      changeSelectedComponent('forgotPassword');
-      handleAuthModalParam({ type: 'delete' });
+
+      if (error.message !== 'INVALID_RESET_CODE') {
+        changeSelectedComponent('forgotPassword');
+        handleAuthModalParam({ type: 'delete' });
+      }
     },
   });
 

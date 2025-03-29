@@ -12,9 +12,6 @@ import { SERVICE } from '@/services';
 import { ChangePasswordFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
-const userEmail = secureLocalStorage.getItem(USER_EMAIL_KEY) as string;
-const tempResetToken = secureLocalStorage.getItem(TEMPORARY_TOKEN_KEY) as string;
-
 const clearLocalStorage = () => {
   secureLocalStorage.removeItem(USER_EMAIL_KEY);
   secureLocalStorage.removeItem(TEMPORARY_TOKEN_KEY);
@@ -24,6 +21,9 @@ const PasswordChange = () => {
   const { t } = useTranslation();
   const { request } = useApiConnection();
   const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
+
+  const userEmail = secureLocalStorage.getItem(USER_EMAIL_KEY) as string;
+  const tempResetToken = secureLocalStorage.getItem(TEMPORARY_TOKEN_KEY) as string;
 
   const form = useForm({
     mode: 'controlled',
@@ -47,8 +47,13 @@ const PasswordChange = () => {
       }),
 
     onSuccess: () => {
+      showNotification({
+        title: t('success'),
+        message: t('password_changed'),
+      });
       changeSelectedComponent('signIn');
       clearLocalStorage();
+      handleAuthModalParam({ type: 'delete' });
     },
     onError: (error) => {
       showNotification({

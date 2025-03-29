@@ -1,6 +1,6 @@
 import express from "express";
 import { response } from "../../helpers/response";
-import { RESPONSE_MESSAGES } from "../../consts";
+import { REFRESH_TOKEN_SECRET, RESPONSE_MESSAGES } from "../../consts";
 import { isValidEmail, isValidPassword } from "../../helpers/validators";
 import { getUserByEmail, updateUser } from "../../models/Users";
 import jwt from "jsonwebtoken";
@@ -61,21 +61,17 @@ export const reset_password = async (
 
     const user = await getUserByEmail(email);
 
-    jwt.verify(
-      user.temporaryResetToken,
-      process.env.ACCESS_TOKEN_SECRET as string,
-      (err) => {
-        if (err) {
-          response({
-            res,
-            statusCode: 400,
-            message: RESPONSE_MESSAGE[400].INVALID_TEMP_RESET_TOKEN,
-          });
+    jwt.verify(user.temporaryResetToken, REFRESH_TOKEN_SECRET, (err) => {
+      if (err) {
+        response({
+          res,
+          statusCode: 400,
+          message: RESPONSE_MESSAGE[400].INVALID_TEMP_RESET_TOKEN,
+        });
 
-          return;
-        }
+        return;
       }
-    );
+    });
 
     await updateUser(String(user._id), {
       password,
