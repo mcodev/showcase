@@ -12,11 +12,6 @@ import { SERVICE } from '@/services';
 import { ChangePasswordFormType } from '@/types/payloadTypes';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
-const clearLocalStorage = () => {
-  secureLocalStorage.removeItem(USER_EMAIL_KEY);
-  secureLocalStorage.removeItem(TEMPORARY_TOKEN_KEY);
-};
-
 const PasswordChange = () => {
   const { t } = useTranslation();
   const { request } = useApiConnection();
@@ -24,6 +19,12 @@ const PasswordChange = () => {
 
   const userEmail = secureLocalStorage.getItem(USER_EMAIL_KEY) as string;
   const tempResetToken = secureLocalStorage.getItem(TEMPORARY_TOKEN_KEY) as string;
+
+  const clearStoredHelperVars = () => {
+    secureLocalStorage.removeItem(USER_EMAIL_KEY);
+    secureLocalStorage.removeItem(TEMPORARY_TOKEN_KEY);
+    handleAuthModalParam({ type: 'delete' });
+  };
 
   const form = useForm({
     mode: 'controlled',
@@ -51,18 +52,16 @@ const PasswordChange = () => {
         title: t('success'),
         message: t('password_changed'),
       });
+      clearStoredHelperVars();
       changeSelectedComponent('signIn');
-      clearLocalStorage();
-      handleAuthModalParam({ type: 'delete' });
     },
     onError: (error) => {
       showNotification({
         title: t('error'),
         message: t(error.message),
       });
-      clearLocalStorage();
+      clearStoredHelperVars();
       changeSelectedComponent('forgotPassword');
-      handleAuthModalParam({ type: 'delete' });
     },
   });
 
@@ -102,7 +101,7 @@ const PasswordChange = () => {
         />
       </Flex>
 
-      <Button w="100%" mt="xl" type="submit">
+      <Button w="100%" mt="xl" type="submit" loading={changePasswordMutation.isPending}>
         {t('change')}
       </Button>
     </form>

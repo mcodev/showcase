@@ -71,7 +71,13 @@ const CodeVerification = () => {
           />
         </Flex>
 
-        <Button w="100%" mt="xl" type="submit" disabled={form.values.resetCode.length !== 5}>
+        <Button
+          w="100%"
+          mt="xl"
+          type="submit"
+          disabled={form.values.resetCode.length !== 5}
+          loading={resetCodeVerificationMutation.isPending}
+        >
           {t('send')}
         </Button>
       </Flex>
