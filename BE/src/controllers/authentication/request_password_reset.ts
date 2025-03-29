@@ -50,19 +50,19 @@ const request_password_reset = async (
       return;
     }
 
-    if (
-      user.resetCode &&
-      user.resetCodeExpiry &&
-      Date.now() < user.resetCodeExpiry.getTime()
-    ) {
-      response({
-        res,
-        statusCode: 429,
-        message: RESPONSE_MESSAGE[429],
-      });
+    // if (
+    //   user.resetCode &&
+    //   user.resetCodeExpiry &&
+    //   Date.now() < user.resetCodeExpiry.getTime()
+    // ) {
+    //   response({
+    //     res,
+    //     statusCode: 429,
+    //     message: RESPONSE_MESSAGE[429],
+    //   });
 
-      return;
-    }
+    //   return;
+    // }
 
     const resetCode = generate5DigitResetCode();
 

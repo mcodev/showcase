@@ -14,9 +14,7 @@ export const BE_URL = process.env.BE_URL || "http://localhost:8000";
 
 export const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || "secret";
 
-export const EMAIL_USER = process.env.EMAIL_USER || "email";
-
-export const EMAIL_PASS = process.env.EMAIL_PASS || "password";
+export const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
 
 export const REFRESH_TOKEN_SECRET =
   process.env.REFRESH_TOKEN_SECRET || "secret";

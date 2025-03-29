@@ -1,4 +1,4 @@
-import { EMAIL_PASS, EMAIL_USER } from "../consts";
+import { RESEND_API_KEY } from "../consts";
 import nodemailer from "nodemailer";
 
 export const sendPasswordResetEmail = async (
@@ -7,14 +7,12 @@ export const sendPasswordResetEmail = async (
 ): Promise<boolean> => {
   try {
     const transporter = nodemailer.createTransport({
-      host: "send.smtp.gmail.com",
-      // port: 465,
-      // secure: true,
+      host: "smtp.resend.com",
       port: 587,
       secure: false,
       auth: {
-        user: EMAIL_USER,
-        pass: EMAIL_PASS,
+        user: RESEND_API_KEY,
+        pass: "",
       },
     });
 
