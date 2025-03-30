@@ -117,7 +117,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
 
           return { statusCode, success: data.success, data: null };
         }
-        throw new Error('Unexpected error');
+        throw new Error('SOMETHING_WENT_WRONG');
       }
 
       return { statusCode, success: data.success, data: data.data };

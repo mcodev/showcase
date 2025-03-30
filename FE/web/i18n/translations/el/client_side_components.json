@@ -60,5 +60,6 @@
   "password_changed": "Το κωδικός σας αλλάξει",
   "PASSWORD_RESET_RATE_LIMIT_EXCEEDED": "Έχει ήδη αποσταλεί το pin επαναφοράς, παρακαλώ δοκιμάστε πάλι σε 15 λεπτά.",
   "USERNAME_IN_NOT_UNIQUE": "Αυτό το όνομα χρήστη υπάρχει ηδη",
-  "username_not_unique": "Το όνομα χρήστη υπάρχει ηδη"
+  "username_not_unique": "Το όνομα χρήστη υπάρχει ηδη",
+  "SOMETHING_WENT_WRONG": "Κάτι πήγε στραβά, προσπαθήστε ξανά"
 }
