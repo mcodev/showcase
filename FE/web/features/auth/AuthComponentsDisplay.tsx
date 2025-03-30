@@ -64,11 +64,11 @@ const AuthComponentsDisplay = () => {
     authModal || AUTH_COMPONENTS.SIGN_IN
   );
 
+  const isModalVisible = isAuthModalOpen || Boolean(authModal);
+
   const changeSelectedComponent = (component: SelectedComponentType) => {
     setSelectedComponent(component);
   };
-
-  const isModalVisible = isAuthModalOpen || Boolean(authModal);
 
   const handleCloseModal = () => {
     closeAuthModal();
