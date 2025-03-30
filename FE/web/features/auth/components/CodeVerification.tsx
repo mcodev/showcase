@@ -11,7 +11,6 @@ import showNotification from '@/components/ShowNotification/ShowNotification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ResetCodeVerificationFormType } from '@/types/payloadTypes';
-import { ResetCodeVerificationDataType } from '@/types/responseTypes';
 import { AUTH_COMPONENTS } from '../consts';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
@@ -34,7 +33,7 @@ const CodeVerification = () => {
       request({
         service: SERVICE.RESET_CODE_VERIFICATION_SERVICE,
         payload: values,
-      }) as Promise<ResetCodeVerificationDataType | null>,
+      }),
 
     onSuccess: (res) => {
       if (res?.data.temporaryResetToken) {

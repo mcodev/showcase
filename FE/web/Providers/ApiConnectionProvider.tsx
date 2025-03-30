@@ -6,13 +6,17 @@ import { REFRESH_TOKEN_KEY } from '@/common/consts';
 import useRefresh from '@/hooks/useRefresh';
 import { PROTECTED_ROUTES, SERVICE, SERVICES, ServicesSelectorType } from '@/services';
 import { GLOBAL_ERRORS } from '@/services/errors';
-import { AuthResponseDataType, GlobalResponseDataType } from '@/types/responseTypes';
+import {
+  AuthResponseDataType,
+  GlobalResponseDataType,
+  ServiceResponseTypeMap,
+} from '@/types/responseTypes';
 import { useUserContext } from './UserProvider';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
-type RequestPropsType = {
-  service: ServicesSelectorType;
+type RequestPropsType<S extends ServicesSelectorType> = {
+  service: S;
   payload?: unknown;
   newAccessToken?: string;
   retryCount?: number;
@@ -52,12 +56,14 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
     secureLocalStorage.removeItem(REFRESH_TOKEN_KEY);
   };
 
-  const request = async ({
+  const request = async <S extends ServicesSelectorType>({
     service,
     payload,
     newAccessToken,
     retryCount = 0,
-  }: RequestPropsType): Promise<GlobalResponseDataType> => {
+  }: RequestPropsType<S>): Promise<
+    GlobalResponseDataType<S extends keyof ServiceResponseTypeMap ? ServiceResponseTypeMap[S] : any>
+  > => {
     const SELECTED_SERVICE = SERVICES[service];
 
     try {
@@ -139,8 +145,12 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
 
 const ApiConnectionContext = createContext({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  request: ({ service, payload }: RequestPropsType) =>
-    Promise.resolve({ success: false, data: null, statusCode: 500 }),
+  request: <S extends ServicesSelectorType>({ service, payload }: RequestPropsType<S>) =>
+    Promise.resolve({
+      success: false,
+      data: null,
+      statusCode: 500,
+    } as GlobalResponseDataType<any>),
   accessToken: null as string | null,
   clearTokens: () => {},
 });
