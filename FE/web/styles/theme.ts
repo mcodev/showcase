@@ -27,7 +27,4 @@ export const theme = createTheme({
       classNames: pinInputStyles,
     }),
   },
-  // other: {
-  // ...baseTheme,
-  // },
 });

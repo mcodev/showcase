@@ -13,7 +13,7 @@ export const SIGN_UP_SERVICE = {
 export const LOGOUT_SERVICE = {
   path: 'auth/logout',
   method: 'POST',
-  errorCodes: [],
+  errorCodes: [400, 404],
 };
 
 export const FORGOT_PASSWORD_SERVICE = {
