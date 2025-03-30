@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react';
+import { AUTH_COMPONENTS } from '../consts';
 import { SelectedComponentType } from '../types';
 
 type DefaultContextDataType = {
@@ -14,7 +15,7 @@ type AuthSelectionProviderProps = {
 };
 
 const defaultContextData: DefaultContextDataType = {
-  selectedComponent: 'signIn',
+  selectedComponent: AUTH_COMPONENTS.SIGN_IN,
   changeSelectedComponent: () => {},
   handleAuthModalParam: () => {},
 };
