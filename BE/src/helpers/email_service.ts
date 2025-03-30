@@ -1,5 +1,6 @@
 import { RESEND_API_KEY } from "../consts";
 import nodemailer from "nodemailer";
+import { getEmailTemplate } from "./email_template";
 
 type LanguageType = "el" | "en";
 
@@ -7,18 +8,15 @@ const DEFAULT_LANGUAGE = "el";
 
 const getEmailData = (resetCode: string, language: LanguageType) => {
   const subject = {
-    el: "Κωδικός Αλλαγής Κωδικού",
+    el: "Pin Αλλαγής Κωδικού",
     en: "Password Reset Code",
   };
 
-  const html = {
-    el: `<p>Κωδικός αλλαγής κωδικού: <strong>${resetCode}</strong>. Αυτός ο κωδικός θα λήξει σύντομα.</p>`,
-    en: `<p>Your password reset code is: <strong>${resetCode}</strong>. This code will expire soon.</p>`,
-  };
+  const html = getEmailTemplate(language, resetCode);
 
   return {
     subject: subject[language || DEFAULT_LANGUAGE],
-    html: html[language || DEFAULT_LANGUAGE],
+    html: html,
   };
 };
 

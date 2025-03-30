@@ -1,4 +1,18 @@
-<!DOCTYPE html>
+type LanguageType = "el" | "en";
+
+export const getEmailTemplate = (language: LanguageType, resetCode: string) => {
+  const translations = {
+    el: {
+      heading: "Ο 5 ψήφιος κωδικός επαλήθευσης",
+      button: "Αντιγραφή",
+    },
+    en: {
+      heading: "Your 5 digit verification code",
+      button: "Copy",
+    },
+  };
+
+  return `<!DOCTYPE html>
 <html>
 
 <head>
@@ -143,14 +157,14 @@
                             <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td class="content-cell">
-                                        <h1>Your 5 digit verification code</h1>
-                                        <h2>12345</h2>
+                                        <h1>${translations[language].heading}</h1>
+                                        <h2>${resetCode}</h2>
                                         <table class="body-action" align="center" width="100%" cellpadding="0"
                                             cellspacing="0">
                                             <tr>
                                                 <td align="center">
                                                     <button class="button"
-                                                        onclick="copyToClipboard('12345')">Copy</button>
+                                                        onclick="copyToClipboard('${resetCode}')">${translations[language].button}</button>
                                                 </td>
                                             </tr>
                                         </table>
@@ -165,4 +179,5 @@
     </table>
 </body>
 
-</html>
+</html>`;
+};
