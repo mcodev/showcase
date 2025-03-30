@@ -10,6 +10,7 @@ import showNotification from '@/components/ShowNotification/ShowNotification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ChangePasswordFormType } from '@/types/payloadTypes';
+import { AUTH_COMPONENTS } from '../consts';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const PasswordChange = () => {
@@ -53,7 +54,7 @@ const PasswordChange = () => {
         message: t('password_changed'),
       });
       clearStoredHelperVars();
-      changeSelectedComponent('signIn');
+      changeSelectedComponent(AUTH_COMPONENTS.SIGN_IN);
     },
     onError: (error) => {
       showNotification({
@@ -61,7 +62,7 @@ const PasswordChange = () => {
         message: t(error.message),
       });
       clearStoredHelperVars();
-      changeSelectedComponent('forgotPassword');
+      changeSelectedComponent(AUTH_COMPONENTS.FORGOT_PASSWORD);
     },
   });
 

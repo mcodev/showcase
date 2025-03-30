@@ -9,6 +9,7 @@ import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { useModulesContext } from '@/providers/ModulesProvider';
 import { SERVICE } from '@/services';
 import { LoginFormType } from '@/types/payloadTypes';
+import { AUTH_COMPONENTS } from '../consts';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const SignIn = () => {
@@ -87,7 +88,7 @@ const SignIn = () => {
             {t('dont_have_an_account')}
           </Text>
           <Text
-            onClick={() => changeSelectedComponent('signUp')}
+            onClick={() => changeSelectedComponent(AUTH_COMPONENTS.SIGN_UP)}
             className="cursor_pointer hover_color"
             fw={400}
             size="sm"

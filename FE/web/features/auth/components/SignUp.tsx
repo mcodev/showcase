@@ -18,6 +18,7 @@ import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { useModulesContext } from '@/providers/ModulesProvider';
 import { SERVICE } from '@/services';
 import { RegisterFormType } from '@/types/payloadTypes';
+import { AUTH_COMPONENTS } from '../consts';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const SignUp = () => {
@@ -156,7 +157,7 @@ const SignUp = () => {
           </Text>
 
           <Text
-            onClick={() => changeSelectedComponent('signIn')}
+            onClick={() => changeSelectedComponent(AUTH_COMPONENTS.SIGN_IN)}
             className="cursor_pointer hover_color"
             fw={400}
             size="sm"

@@ -12,6 +12,7 @@ import { DEFAULT_LANGUAGE } from '@/i18n/consts';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ForgotPasswordFormType } from '@/types/payloadTypes';
+import { AUTH_COMPONENTS } from '../consts';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const ForgotPassword = () => {
@@ -42,9 +43,9 @@ const ForgotPassword = () => {
     onSuccess: () => {
       secureLocalStorage.setItem(USER_EMAIL_KEY, form.values.email);
 
-      handleAuthModalParam({ type: 'set', param: 'verifyResetCode' });
+      handleAuthModalParam({ type: 'set', param: AUTH_COMPONENTS.VERIFY_RESET_CODE });
 
-      changeSelectedComponent('verifyResetCode');
+      changeSelectedComponent(AUTH_COMPONENTS.VERIFY_RESET_CODE);
     },
     onError: (error) => {
       showNotification({
@@ -77,7 +78,7 @@ const ForgotPassword = () => {
           </Text>
 
           <Text
-            onClick={() => changeSelectedComponent('signIn')}
+            onClick={() => changeSelectedComponent(AUTH_COMPONENTS.SIGN_IN)}
             className="cursor_pointer hover_color"
             fw={400}
             size="sm"

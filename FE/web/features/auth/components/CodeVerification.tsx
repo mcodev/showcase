@@ -10,6 +10,7 @@ import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
 import { ResetCodeVerificationFormType } from '@/types/payloadTypes';
 import { ResetCodeVerificationDataType } from '@/types/responseTypes';
+import { AUTH_COMPONENTS } from '../consts';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const CodeVerification = () => {
@@ -36,8 +37,8 @@ const CodeVerification = () => {
     onSuccess: (res) => {
       if (res?.data.temporaryResetToken) {
         secureLocalStorage.setItem(TEMPORARY_TOKEN_KEY, res.data.temporaryResetToken);
-        handleAuthModalParam({ type: 'set', param: 'changePassword' });
-        changeSelectedComponent('changePassword');
+        handleAuthModalParam({ type: 'set', param: AUTH_COMPONENTS.CHANGE_PASSWORD });
+        changeSelectedComponent(AUTH_COMPONENTS.CHANGE_PASSWORD);
       }
     },
     onError: (error) => {
@@ -47,7 +48,7 @@ const CodeVerification = () => {
       });
 
       if (error.message !== 'INVALID_RESET_CODE') {
-        changeSelectedComponent('forgotPassword');
+        changeSelectedComponent(AUTH_COMPONENTS.FORGOT_PASSWORD);
         handleAuthModalParam({ type: 'delete' });
       }
     },

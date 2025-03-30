@@ -9,6 +9,7 @@ import ForgotPassword from './components/ForgotPassword';
 import PasswordChange from './components/PasswordChange';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import { AUTH_COMPONENTS } from './consts';
 import { AuthSelectionProvider } from './context/AuthSelectionProvider';
 import { SelectedComponentType } from './types';
 
@@ -45,7 +46,7 @@ const handleAuthModalParam = ({
   const url = new URL(window.location.href);
 
   if (type === 'set') {
-    url.searchParams.set('authModal', param || 'signIn');
+    url.searchParams.set('authModal', param || AUTH_COMPONENTS.SIGN_IN);
   } else if (type === 'delete') {
     url.searchParams.delete('authModal');
   }
@@ -60,7 +61,7 @@ const AuthComponentsDisplay = () => {
   const authModal = searchParams.get('authModal') as SelectedComponentType;
 
   const [selectedComponent, setSelectedComponent] = useState<SelectedComponentType>(
-    authModal || 'signIn'
+    authModal || AUTH_COMPONENTS.SIGN_IN
   );
 
   const changeSelectedComponent = (component: SelectedComponentType) => {
@@ -77,7 +78,7 @@ const AuthComponentsDisplay = () => {
     }
 
     setTimeout(() => {
-      setSelectedComponent('signIn');
+      setSelectedComponent(AUTH_COMPONENTS.SIGN_IN);
     }, 500);
   };
 
