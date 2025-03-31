@@ -5,7 +5,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Button, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { isValidEmail } from '@/common/validators';
+import { isValidValue } from '@/common/helpers';
+import { EmailSchema, PasswordSchema } from '@/common/zodValidators';
 import showNotification from '@/components/ShowNotification/ShowNotification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { useModulesContext } from '@/providers/ModulesProvider';
@@ -28,7 +29,8 @@ const SignIn = () => {
     },
 
     validate: {
-      email: (value) => isValidEmail(value),
+      email: (value) => isValidValue(EmailSchema, value),
+      password: (value) => isValidValue(PasswordSchema, value),
     },
   });
 
@@ -59,7 +61,7 @@ const SignIn = () => {
           value={form.values.email.trim()}
           onChange={(event) => form.setFieldValue('email', event.target.value)}
           error={t(form.errors.email as string)}
-          required
+          maxLength={60}
         />
 
         <PasswordInput
@@ -69,7 +71,8 @@ const SignIn = () => {
           mb="lg"
           value={form.values.password.trim()}
           onChange={(event) => form.setFieldValue('password', event.target.value)}
-          required
+          error={t(form.errors.password as string)}
+          maxLength={60}
         />
 
         <Text
