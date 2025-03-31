@@ -26,9 +26,9 @@ const register = async (
   try {
     const { username, email, password } = req.body;
 
-    const USERNAME = username?.trim() || "";
-    const EMAIL = email?.trim() || "";
-    const PASSWORD = password?.trim() || "";
+    const USERNAME = username?.trim();
+    const EMAIL = email?.trim();
+    const PASSWORD = password?.trim();
 
     if (!username) {
       response({
