@@ -1,23 +1,28 @@
 import bcrypt from "bcrypt";
+import { z } from "zod";
+import {
+  UsernameSchema,
+  EmailSchema,
+  PasswordSchema,
+  VerificationCodeSchema,
+} from "zodValidationSchemas";
 
-export const isValidName = (username: string) => {
-  const re = /^[A-Za-z ]{3,15}$/;
+const isValidValue = (schema: z.ZodSchema, value: unknown) => {
+  const result = schema.safeParse(value);
 
-  return re.test(username.trim());
+  return result.success;
+};
+
+export const isValidUsername = (username: string) => {
+  return isValidValue(UsernameSchema, username);
 };
 
 export const isValidEmail = (email: string) => {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  return re.test(String(email).toLowerCase().trim());
+  return isValidValue(EmailSchema, email);
 };
 
 export const isValidPassword = (password: string) => {
-  const re =
-    /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,}$/;
-
-  return re.test(password.trim());
+  return isValidValue(PasswordSchema, password);
 };
 
 export const isUserPasswordMatch = async (
@@ -35,5 +40,5 @@ export const isVerificationCodeMatch = async (
 };
 
 export const isValidResetCode = (resetCode: string) => {
-  return resetCode.length === 5 && !isNaN(parseInt(resetCode));
+  return isValidValue(VerificationCodeSchema, resetCode);
 };

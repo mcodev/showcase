@@ -7,7 +7,8 @@ import secureLocalStorage from 'react-secure-storage';
 import { Button, Flex, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { TEMPORARY_TOKEN_KEY, USER_EMAIL_KEY } from '@/common/consts';
-import { isPasswordMatch, isValidPassword } from '@/common/validators';
+import { isValidValue } from '@/common/helpers';
+import { PasswordSchema } from '@/common/zodValidators';
 import showNotification from '@/components/ShowNotification/ShowNotification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { SERVICE } from '@/services';
@@ -37,9 +38,9 @@ const PasswordChange = () => {
     },
 
     validate: {
-      password: (value) => isValidPassword(value),
+      password: (value) => isValidValue(PasswordSchema, value),
       repeatPassword: (value, values) =>
-        isPasswordMatch(value, values.password ? values.password : ''),
+        value === values.password ? null : 'passwords_do_not_match',
     },
   });
 
@@ -88,7 +89,6 @@ const PasswordChange = () => {
           value={form.values.password}
           onChange={(event) => form.setFieldValue('password', event.target.value.trim())}
           error={t(form.errors.password as string)}
-          required
         />
 
         <PasswordInput
@@ -100,7 +100,6 @@ const PasswordChange = () => {
           value={form.values.repeatPassword}
           onChange={(event) => form.setFieldValue('repeatPassword', event.target.value.trim())}
           error={t(form.errors.repeatPassword as string)}
-          required
         />
       </Flex>
 

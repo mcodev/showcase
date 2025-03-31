@@ -13,7 +13,7 @@ import {
 } from "../../helpers/tokens";
 import {
   isValidEmail,
-  isValidName,
+  isValidUsername,
   isValidPassword,
 } from "../../helpers/validators";
 
@@ -72,7 +72,7 @@ const register = async (
       return;
     }
 
-    if (!isValidName(USERNAME)) {
+    if (!isValidUsername(USERNAME)) {
       response({
         res,
         statusCode: 403,

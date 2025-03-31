@@ -6,13 +6,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Button, Checkbox, Flex, PasswordInput, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import {
-  isPasswordMatch,
-  isTermsOfServiceAccepted,
-  isValidEmail,
-  isValidName,
-  isValidPassword,
-} from '@/common/validators';
+import { isValidValue } from '@/common/helpers';
+import { EmailSchema, PasswordSchema, UsernameSchema } from '@/common/zodValidators';
 import showNotification from '@/components/ShowNotification/ShowNotification';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { useModulesContext } from '@/providers/ModulesProvider';
@@ -39,12 +34,12 @@ const SignUp = () => {
     },
 
     validate: {
-      username: (value) => isValidName(value),
-      email: (value) => isValidEmail(value),
-      password: (value) => isValidPassword(value),
+      username: (value) => isValidValue(UsernameSchema, value),
+      email: (value) => isValidValue(EmailSchema, value),
+      password: (value) => isValidValue(PasswordSchema, value),
       repeatPassword: (value, values) =>
-        isPasswordMatch(value, values.password ? values.password : ''),
-      termsOfService: (value) => isTermsOfServiceAccepted(value),
+        value === values.password ? null : 'passwords_do_not_match',
+      termsOfService: (value) => (value ? null : 'must_accept_terms'),
     },
   });
 
@@ -86,7 +81,6 @@ const SignUp = () => {
           onChange={(event) => form.setFieldValue('username', event.target.value)}
           key={form.key('username')}
           error={t(form.errors.username as string)}
-          required
         />
 
         <TextInput
@@ -98,7 +92,6 @@ const SignUp = () => {
           value={form.values.email}
           onChange={(event) => form.setFieldValue('email', event.target.value.trim())}
           error={t(form.errors.email as string)}
-          required
         />
 
         <PasswordInput
@@ -110,7 +103,6 @@ const SignUp = () => {
           value={form.values.password}
           onChange={(event) => form.setFieldValue('password', event.target.value.trim())}
           error={t(form.errors.password as string)}
-          required
         />
 
         <PasswordInput
@@ -122,7 +114,6 @@ const SignUp = () => {
           value={form.values.repeatPassword}
           onChange={(event) => form.setFieldValue('repeatPassword', event.target.value.trim())}
           error={t(form.errors.repeatPassword as string)}
-          required
         />
 
         <Flex mt="lg">

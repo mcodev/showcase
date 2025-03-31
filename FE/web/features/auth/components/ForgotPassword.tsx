@@ -8,7 +8,8 @@ import secureLocalStorage from 'react-secure-storage';
 import { Button, Flex, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { USER_EMAIL_KEY } from '@/common/consts';
-import { isValidEmail } from '@/common/validators';
+import { isValidValue } from '@/common/helpers';
+import { EmailSchema } from '@/common/zodValidators';
 import showNotification from '@/components/ShowNotification/ShowNotification';
 import { DEFAULT_LANGUAGE } from '@/i18n/consts';
 import { useApiConnection } from '@/providers/ApiConnectionProvider';
@@ -31,7 +32,7 @@ const ForgotPassword = () => {
     },
 
     validate: {
-      email: (value) => isValidEmail(value),
+      email: (value) => isValidValue(EmailSchema, value),
     },
   });
 
@@ -67,7 +68,6 @@ const ForgotPassword = () => {
           value={form.values.email}
           onChange={(event) => form.setFieldValue('email', event.target.value)}
           error={t(form.errors.email as string)}
-          required
         />
 
         <Button w="100%" mt="xl" type="submit" loading={forgotPasswordMutation.isPending}>
