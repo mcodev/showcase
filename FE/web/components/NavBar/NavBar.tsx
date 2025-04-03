@@ -21,7 +21,7 @@ const NavBar = ({ t, locale }: NavBarProps) => {
           <Link href="/" className={styles.logo}>
             <Image src="/logo.png" alt="logo" width={32} height={32} />
 
-            <p className={styles.site_name}>Riderz</p>
+            <p className={styles.site_name}>Showcase</p>
           </Link>
         </Flex>
 
