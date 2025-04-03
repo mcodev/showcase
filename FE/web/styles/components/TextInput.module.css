@@ -7,7 +7,6 @@
   border-radius: var(--border-radius-md);
   color: var(--color-text);
   height: 100%;
-  margin: 0;
   height: 46px;
 
   transition: all 0.3 ease;
@@ -39,6 +38,14 @@
   }
 }
 
-.wrapper {
-  margin: 0;
+.root {
+  position: relative;
+  overflow: visible;
+}
+
+.error {
+  position: absolute;
+  bottom: -18px;
+  left: var(--spacing-xs);
+  color: var(--color-error);
 }
