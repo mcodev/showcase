@@ -49,9 +49,9 @@
 html[data-mantine-color-scheme='dark'] {
   /* COLORS DARK THEME */
 
-  --color-background: #242424;
+  --color-background: #1e1e1e;
 
-  --color-text: #c8c6c6;
+  --color-text: #d8d6d6;
   --color-white: #dfdcdc;
 }
 
