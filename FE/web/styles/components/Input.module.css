@@ -1,105 +1,39 @@
 .input {
-  &[data-variant='primary'] {
-    height: var(--interactive-elements-size);
-    border: 1px solid var(--color-gray600);
-    padding: 0 var(--spacing-md);
-    font-size: 14px;
-    font-weight: 400;
-    border-radius: var(--border-radius-md);
-    color: var(--color-text);
+  height: var(--interactive-elements-size);
+  border: 1px solid var(--color-gray600);
+  padding: 0 var(--spacing-md);
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: var(--border-radius-md);
+  color: var(--color-text);
+  height: 100%;
+  height: 46px;
 
-    transition: all 0.3 ease;
+  transition: all 0.3 ease;
+
+  margin: var(--spacing-xs) 0;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+
+  &:focus-within {
+    border-color: var(--color-primary);
+  }
+
+  &[data-error] {
+    border-color: var(--color-error);
 
     &:focus {
-      border-color: var(--color-primary);
+      border: 1px solid var(--color-primary);
     }
 
     &:focus-within {
-      border-color: var(--color-primary);
-    }
-
-    &[data-error] {
-      border-color: var(--color-error);
-
-      &:focus {
-        border: 1px solid var(--color-primary);
-      }
-
-      &:focus-within {
-        border: 1px solid var(--color-primary);
-      }
-    }
-
-    &[data-disabled] {
-      background-color: var(--color-bg3);
+      border: 1px solid var(--color-primary);
     }
   }
 
-  &[data-variant='filled'] {
-    height: 42px;
-    padding: 0 var(--spacing-md);
-
-    padding-right: 60px;
-
-    font-size: 14px;
-    font-weight: 400;
-    border-radius: 5px;
-
-    width: 387px;
-
+  &[data-disabled] {
     background-color: var(--color-bg3);
-
-    &:focus {
-      border-color: var(--color-blue);
-    }
-
-    &:focus-within {
-      border-color: var(--color-blue);
-    }
-
-    &[data-error] {
-      border-color: var(--color-error);
-
-      &:focus {
-        border: 1px solid var(--color-red);
-      }
-
-      &:focus-within {
-        border: 1px solid var(--color-red);
-      }
-    }
-  }
-
-  &[data-variant='simple'] {
-    height: 42px;
-    padding: 0 var(--spacing-md);
-
-    padding-right: 60px;
-
-    font-size: 14px;
-    font-weight: 400;
-    border-radius: 5px;
-
-    width: 387px;
-
-    &:focus {
-      border-color: var(--color-blue);
-    }
-
-    &:focus-within {
-      border-color: var(--color-blue);
-    }
-
-    &[data-error] {
-      border-color: var(--color-error);
-
-      &:focus {
-        border: 1px solid var(--color-red);
-      }
-
-      &:focus-within {
-        border: 1px solid var(--color-red);
-      }
-    }
   }
 }

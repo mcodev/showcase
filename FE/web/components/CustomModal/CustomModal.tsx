@@ -2,15 +2,14 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CloseButton, Flex, Modal, Title } from '@mantine/core';
+import { CloseButton, Flex, MantineSize, Modal, Title } from '@mantine/core';
 
 type CustomModalProps = {
   isVisible: boolean;
   onClose: () => void;
   title?: string;
   titleColor?: string;
-  // TODO fix this
-  size?: any;
+  size?: number | MantineSize | (string & {}) | undefined;
   children: React.ReactNode;
   withTopCloseButton?: boolean;
 };
