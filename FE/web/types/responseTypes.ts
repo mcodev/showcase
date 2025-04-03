@@ -13,7 +13,6 @@ export type UserDetailsType = {
 };
 
 export type AuthResponseDataType = BasicResponseType & {
-  success: boolean;
   accessToken: string;
   refreshToken: string;
   user: UserDetailsType;
