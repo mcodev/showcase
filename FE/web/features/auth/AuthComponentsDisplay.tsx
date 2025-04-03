@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import CustomModal from '@/components/CustomModal/CustomModal';
 import { useModulesContext } from '@/providers/ModulesProvider';
-import CodeVerification from './components/CodeVerification';
 import ForgotPassword from './components/ForgotPassword';
 import PasswordChange from './components/PasswordChange';
+import PinCodeVerification from './components/PinCodeVerification';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import { AUTH_COMPONENTS } from './consts';
@@ -28,7 +28,7 @@ const components = {
   },
   verifyResetCode: {
     titleTranslationKey: 'verify_reset_code',
-    component: <CodeVerification />,
+    component: <PinCodeVerification />,
   },
   changePassword: {
     titleTranslationKey: 'change_password',

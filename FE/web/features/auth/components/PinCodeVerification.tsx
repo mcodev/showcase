@@ -15,7 +15,7 @@ import { ResetCodeVerificationDataType } from '@/types/responseTypes';
 import { AUTH_COMPONENTS } from '../consts';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
-const CodeVerification = () => {
+const PinCodeVerification = () => {
   const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
   const { t } = useTranslation();
   const { request } = useApiConnection();
@@ -88,4 +88,4 @@ const CodeVerification = () => {
   );
 };
 
-export default CodeVerification;
+export default PinCodeVerification;
