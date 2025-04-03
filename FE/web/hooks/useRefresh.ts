@@ -39,11 +39,9 @@ const useRefresh = () => {
 
       return data.accessToken;
     } catch (error) {
-      console.error('Token refresh error:', error);
-
       secureLocalStorage.removeItem(REFRESH_TOKEN_KEY);
 
-      return null;
+      throw new Error('SOMETHING_WENT_WRONG');
     }
   };
 
