@@ -31,7 +31,7 @@ export const metadata = {
   description: 'Riderz',
 };
 
-// statically generates pages for each of our languages
+// statically generates pages for each of supported languages
 export function generateStaticParams() {
   return i18nConfig.locales.map((locale) => ({ locale }));
 }

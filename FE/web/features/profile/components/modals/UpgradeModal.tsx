@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import CustomModal from '@/components/CustomModal/CustomModal';
-import Upgrade from './components/Upgrade';
 
 type ProfileEventsModalProps = {
   isVisible: boolean;
@@ -18,7 +17,7 @@ const UpgradeModal = ({ isVisible, handleCloseModal }: ProfileEventsModalProps) 
       size="xl"
       withTopCloseButton
     >
-      <Upgrade />
+      <div>Upgrade</div>
     </CustomModal>
   );
 };
