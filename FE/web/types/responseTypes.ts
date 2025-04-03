@@ -1,12 +1,10 @@
-export type GlobalResponseDataType = {
+export type BasicResponseType = {
   success: boolean;
   statusCode: number;
-  data: any | null;
 };
 
-type BasicResponseType = {
-  success: boolean;
-  statusCode: number;
+export type GlobalResponseDataType<T = any | null> = BasicResponseType & {
+  data: T;
 };
 
 export type UserDetailsType = {
