@@ -4,18 +4,23 @@ export type GlobalResponseDataType = {
   data: any | null;
 };
 
+type BasicResponseType = {
+  success: boolean;
+  statusCode: number;
+};
+
 export type UserDetailsType = {
   _id: string;
   name: string;
 };
 
-export type AuthResponseDataType = GlobalResponseDataType & {
+export type AuthResponseDataType = BasicResponseType & {
   success: boolean;
   accessToken: string;
   refreshToken: string;
   user: UserDetailsType;
 };
 
-export type ResetCodeVerificationDataType = GlobalResponseDataType & {
-  temporaryResetToken: string;
+export type ResetCodeVerificationDataType = BasicResponseType & {
+  data: { temporaryResetToken: string };
 };

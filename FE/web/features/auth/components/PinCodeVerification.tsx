@@ -34,7 +34,7 @@ const PinCodeVerification = () => {
       request({
         service: SERVICE.RESET_CODE_VERIFICATION_SERVICE,
         payload: values,
-      }) as Promise<ResetCodeVerificationDataType | null>,
+      }) as unknown as Promise<ResetCodeVerificationDataType | null>,
 
     onSuccess: (res) => {
       if (res?.data.temporaryResetToken) {
