@@ -13,10 +13,9 @@ export default async function HomePage({ params }: ParamsType) {
   return (
     <>
       <Welcome t={t} />
-      <p>
+      {/* <p>
         {t('home')}
-        {/* {t('common:back')} */}
-      </p>
+      </p> */}
     </>
   );
 }
