@@ -5,7 +5,7 @@ import {
   EmailSchema,
   PasswordSchema,
   VerificationCodeSchema,
-} from "zodValidationSchemas";
+} from "../zodValidationSchemas";
 
 const isValidValue = (schema: z.ZodSchema, value: unknown) => {
   const result = schema.safeParse(value);
