@@ -98,7 +98,7 @@ const SignUp = () => {
           label={t('password')}
           placeholder={t('password')}
           labelProps={{ mb: '4px' }}
-          mb="xs"
+          mb="lg"
           key={form.key('password')}
           value={form.values.password}
           onChange={(event) => form.setFieldValue('password', event.target.value.trim())}

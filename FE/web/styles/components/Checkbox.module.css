@@ -11,5 +11,13 @@
       background-color: transparent;
       border-color: lightGray;
     }
+
+    &[data-error] {
+      border-color: var(--color-error);
+    }
+  }
+
+  .error {
+    color: var(--color-error);
   }
 }
