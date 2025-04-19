@@ -27,8 +27,8 @@ type LayoutProps = {
 } & ParamsType;
 
 export const metadata = {
-  title: 'Riderz',
-  description: 'Riderz',
+  title: 'Showcase',
+  description: 'Showcase',
 };
 
 // statically generates pages for each of supported languages
