@@ -40,7 +40,7 @@ const register = async (
       return;
     }
 
-    const existingUserName = getUserByUserName(USERNAME);
+    const existingUserName = await getUserByUserName(USERNAME);
 
     if (existingUserName) {
       response({
