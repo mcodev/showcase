@@ -71,7 +71,7 @@ const SignUp = () => {
 
   return (
     <form onSubmit={form.onSubmit((values) => signUpMutation.mutate(values))}>
-      <Flex direction="column" mt="xl">
+      <Flex direction="column">
         <TextInput
           label={t('username')}
           placeholder={t('username')}

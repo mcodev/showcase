@@ -60,7 +60,7 @@ const ForgotPassword = () => {
 
   return (
     <form onSubmit={form.onSubmit((values) => forgotPasswordMutation.mutate(values))}>
-      <Flex direction="column" mt="xl">
+      <Flex direction="column">
         <TextInput
           label="Email"
           placeholder="email"

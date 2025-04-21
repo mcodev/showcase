@@ -62,7 +62,7 @@ const PinCodeVerification = () => {
         resetCodeVerificationMutation.mutate({ ...values, email: userEmail || '' });
       })}
     >
-      <Flex direction="column" mt="xl">
+      <Flex direction="column">
         <Flex w="100%" justify="center" mt="lg" mb="lg">
           <PinInput
             length={5}

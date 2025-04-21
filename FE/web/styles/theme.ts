@@ -1,8 +1,17 @@
 'use client';
 
-import { Button, Checkbox, createTheme, PasswordInput, PinInput, TextInput } from '@mantine/core';
+import {
+  Button,
+  Checkbox,
+  createTheme,
+  Modal,
+  PasswordInput,
+  PinInput,
+  TextInput,
+} from '@mantine/core';
 import buttonStyles from './components/Button.module.css';
 import checkboxStyles from './components/Checkbox.module.css';
+import modalStyles from './components/Modal.module.css';
 import passwordInput from './components/PasswordInput.module.css';
 import pinInputStyles from './components/PinInput.module.css';
 import textInputStyles from './components/TextInput.module.css';
@@ -32,6 +41,9 @@ export const theme = createTheme({
     }),
     PinInput: PinInput.extend({
       classNames: pinInputStyles,
+    }),
+    Modal: Modal.extend({
+      classNames: modalStyles,
     }),
   },
 });

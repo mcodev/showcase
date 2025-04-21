@@ -51,12 +51,11 @@ const SignIn = () => {
 
   return (
     <form onSubmit={form.onSubmit((values) => signInMutation.mutate(values))}>
-      <Flex mt="xl" direction="column">
+      <Flex direction="column">
         <TextInput
           label="Email"
           placeholder="email"
           mb="lg"
-          mt="lg"
           labelProps={{ mb: '4px' }}
           value={form.values.email.trim()}
           onChange={(event) => form.setFieldValue('email', event.target.value)}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { CloseButton, Flex, MantineSize, Modal, Title } from '@mantine/core';
+import { Flex, MantineSize, Modal, Text } from '@mantine/core';
 
 type CustomModalProps = {
   isVisible: boolean;
@@ -30,33 +30,24 @@ const CustomModal = ({
       opened={isVisible}
       onClose={onClose}
       autoFocus={false}
-      withCloseButton={false}
+      withCloseButton={withTopCloseButton}
       trapFocus={false}
-      centered
       size={size}
       transitionProps={{ transition: 'fade', duration: 200 }}
       closeOnClickOutside={false}
       radius="md"
       shadow="xs"
       padding="xl"
-      overlayProps={{
-        style: {
-          background: 'rgba(150, 150, 150, 0.2)',
-          backdropFilter: 'blur(4px)',
-        },
-      }}
+      centered
+      title={
+        <Text fw={600} size="xl" c={`var(--color-${titleColor})`}>
+          {t(title || '')}
+        </Text>
+      }
     >
-      {(title || withTopCloseButton) && (
-        <Flex justify="space-between" align="center">
-          <Title order={2} lineClamp={1} c={titleColor}>
-            {title && t(title || '')}
-          </Title>
-
-          {withTopCloseButton && <CloseButton onClick={onClose} />}
-        </Flex>
-      )}
-
-      <Flex direction="column">{children}</Flex>
+      <Flex direction="column" m={0}>
+        {children}
+      </Flex>
     </Modal>
   );
 };

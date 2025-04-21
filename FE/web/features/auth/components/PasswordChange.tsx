@@ -79,7 +79,7 @@ const PasswordChange = () => {
         })
       )}
     >
-      <Flex direction="column" mt="xl">
+      <Flex direction="column">
         <PasswordInput
           label={t('new_password')}
           placeholder={t('password')}
