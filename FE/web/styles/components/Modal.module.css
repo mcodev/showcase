@@ -1,29 +1,4 @@
-.root {
-}
-
 .overlay {
   background-color: rgba(150, 150, 150, 0.2);
   backdrop-filter: blur(4px);
-}
-
-.body {
-}
-
-.inner {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  min-height: fit-content;
-  overflow-x: hidden;
-  overflow-y: auto; */
-}
-
-.content {
-  /* height: 100%;
-  min-height: fit-content;
-  overflow: visible;
-  min-width: 400px; */
 }
