@@ -24,6 +24,10 @@
   &[data-error] {
     border-color: var(--color-error);
 
+    &::placeholder {
+      color: var(--color-error);
+    }
+
     &:focus {
       border: 1px solid var(--color-primary);
     }
