@@ -1,8 +1,9 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
-import { Flex, Text } from '@mantine/core';
+import { Flex, Skeleton, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useApiConnection } from '@/providers/ApiConnectionProvider';
 import { useModulesContext } from '@/providers/ModulesProvider';
 import { useUserContext } from '@/providers/UserProvider';
 import FavoritesDrawer from './components/Drawers/FavoritesDrawer';
@@ -16,6 +17,7 @@ import { ModalType, SelectedDrawerType } from './types';
 const Profile = () => {
   const { openAuthModal } = useModulesContext();
   const { isLoggedIn } = useUserContext();
+  const { isValidatingAuth } = useApiConnection();
 
   const { t } = useTranslation();
 
@@ -67,6 +69,10 @@ const Profile = () => {
         break;
     }
   };
+
+  if (isValidatingAuth) {
+    return <Skeleton height={20} w={80} />;
+  }
 
   return (
     <Flex w={80} justify={isLoggedIn ? 'center' : 'flex-end'}>

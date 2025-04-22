@@ -20,6 +20,7 @@ type RequestPropsType = {
 
 export const ApiConnectionProvider = ({ children }: { children: React.ReactNode }) => {
   const { updateUser } = useUserContext();
+  const [isValidatingAuth, setIsValidatingAuth] = useState(false);
 
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const { refresh } = useRefresh();
@@ -36,11 +37,15 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
       const refreshToken = secureLocalStorage.getItem(REFRESH_TOKEN_KEY);
 
       if (refreshToken) {
+        setIsValidatingAuth(true);
+
         const newAccessToken = await refresh();
 
         if (newAccessToken) {
           setAccessToken(newAccessToken);
         }
+
+        setIsValidatingAuth(false);
       }
     };
 
@@ -131,7 +136,7 @@ export const ApiConnectionProvider = ({ children }: { children: React.ReactNode 
   };
 
   return (
-    <ApiConnectionContext.Provider value={{ request, accessToken, clearTokens }}>
+    <ApiConnectionContext.Provider value={{ request, accessToken, clearTokens, isValidatingAuth }}>
       {children}
     </ApiConnectionContext.Provider>
   );
@@ -142,6 +147,7 @@ const ApiConnectionContext = createContext({
   request: ({ service, payload }: RequestPropsType) =>
     Promise.resolve({ success: false, data: null, statusCode: 500 }),
   accessToken: null as string | null,
+  isValidatingAuth: false,
   clearTokens: () => {},
 });
 
