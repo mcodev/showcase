@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { Flex } from '@mantine/core';
+import { Divider, Flex } from '@mantine/core';
+import ColorSchemeToggle from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import CustomModal from '@/components/CustomModal/CustomModal';
+import LanguageSelector from '@/components/LanguageSelector/LanguageSelector';
 
 type SettingsModalProps = {
   isVisible: boolean;
@@ -18,10 +20,12 @@ const SettingsModal = ({ isVisible, handleCloseModal }: SettingsModalProps) => {
       size="sm"
       withTopCloseButton
     >
-      <Flex direction="column" gap={32} pt="sm" mt="xl">
-        {/* <ColorSchemeToggle />
-    <Divider mt="sm" mb="sm" />
-    <LanguageSelector /> */}
+      <Flex direction="column" gap={24}>
+        <ColorSchemeToggle />
+
+        <Divider mt="sm" mb="sm" />
+
+        <LanguageSelector />
       </Flex>
     </CustomModal>
   );
