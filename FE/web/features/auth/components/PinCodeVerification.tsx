@@ -16,7 +16,7 @@ import { AUTH_COMPONENTS } from '../consts';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const PinCodeVerification = () => {
-  const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
+  const { changeSelectedComponent, handleAuthModalUrlParam } = useAuthContext();
   const { t } = useTranslation();
   const { request } = useApiConnection();
 
@@ -39,7 +39,7 @@ const PinCodeVerification = () => {
     onSuccess: (res) => {
       if (res?.data.temporaryResetToken) {
         secureLocalStorage.setItem(TEMPORARY_TOKEN_KEY, res.data.temporaryResetToken);
-        handleAuthModalParam({ type: 'set', param: AUTH_COMPONENTS.CHANGE_PASSWORD });
+        handleAuthModalUrlParam({ type: 'set', param: AUTH_COMPONENTS.CHANGE_PASSWORD });
         changeSelectedComponent(AUTH_COMPONENTS.CHANGE_PASSWORD);
       }
     },
@@ -51,7 +51,7 @@ const PinCodeVerification = () => {
 
       if (error.message !== 'INVALID_RESET_CODE') {
         changeSelectedComponent(AUTH_COMPONENTS.FORGOT_PASSWORD);
-        handleAuthModalParam({ type: 'delete' });
+        handleAuthModalUrlParam({ type: 'delete' });
       }
     },
   });

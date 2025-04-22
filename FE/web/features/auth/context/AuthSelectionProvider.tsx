@@ -5,19 +5,25 @@ import { SelectedComponentType } from '../types';
 type DefaultContextDataType = {
   selectedComponent: SelectedComponentType;
   changeSelectedComponent: (component: SelectedComponentType) => void;
-  handleAuthModalParam: (params: { type: 'set' | 'delete'; param?: SelectedComponentType }) => void;
+  handleAuthModalUrlParam: (params: {
+    type: 'set' | 'delete';
+    param?: SelectedComponentType;
+  }) => void;
 };
 type AuthSelectionProviderProps = {
   children: React.ReactNode;
   selectedComponent: SelectedComponentType;
   changeSelectedComponent: (component: SelectedComponentType) => void;
-  handleAuthModalParam: (params: { type: 'set' | 'delete'; param?: SelectedComponentType }) => void;
+  handleAuthModalUrlParam: (params: {
+    type: 'set' | 'delete';
+    param?: SelectedComponentType;
+  }) => void;
 };
 
 const defaultContextData: DefaultContextDataType = {
   selectedComponent: AUTH_COMPONENTS.SIGN_IN,
   changeSelectedComponent: () => {},
-  handleAuthModalParam: () => {},
+  handleAuthModalUrlParam: () => {},
 };
 
 const AuthContextData = createContext(defaultContextData);
@@ -26,10 +32,10 @@ export const AuthSelectionProvider = ({
   children,
   selectedComponent,
   changeSelectedComponent,
-  handleAuthModalParam,
+  handleAuthModalUrlParam,
 }: AuthSelectionProviderProps) => (
   <AuthContextData.Provider
-    value={{ selectedComponent, changeSelectedComponent, handleAuthModalParam }}
+    value={{ selectedComponent, changeSelectedComponent, handleAuthModalUrlParam }}
   >
     {children}
   </AuthContextData.Provider>

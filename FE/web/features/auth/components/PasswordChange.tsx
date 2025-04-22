@@ -19,7 +19,7 @@ import { useAuthContext } from '../context/AuthSelectionProvider';
 const PasswordChange = () => {
   const { t } = useTranslation();
   const { request } = useApiConnection();
-  const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
+  const { changeSelectedComponent, handleAuthModalUrlParam } = useAuthContext();
 
   const userEmail = secureLocalStorage.getItem(USER_EMAIL_KEY) as string;
   const tempResetToken = secureLocalStorage.getItem(TEMPORARY_TOKEN_KEY) as string;
@@ -27,7 +27,7 @@ const PasswordChange = () => {
   const clearStoredHelperVars = () => {
     secureLocalStorage.removeItem(USER_EMAIL_KEY);
     secureLocalStorage.removeItem(TEMPORARY_TOKEN_KEY);
-    handleAuthModalParam({ type: 'delete' });
+    handleAuthModalUrlParam({ type: 'delete' });
   };
 
   const form = useForm({

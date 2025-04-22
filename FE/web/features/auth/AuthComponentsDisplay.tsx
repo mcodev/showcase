@@ -36,7 +36,7 @@ const components = {
   },
 };
 
-const handleAuthModalParam = ({
+const handleAuthModalUrlParam = ({
   type,
   param,
 }: {
@@ -74,7 +74,7 @@ const AuthComponentsDisplay = () => {
     closeAuthModal();
 
     if (authModal) {
-      handleAuthModalParam({ type: 'delete' });
+      handleAuthModalUrlParam({ type: 'delete' });
     }
 
     setTimeout(() => {
@@ -92,7 +92,7 @@ const AuthComponentsDisplay = () => {
       <AuthSelectionProvider
         selectedComponent={selectedComponent}
         changeSelectedComponent={changeSelectedComponent}
-        handleAuthModalParam={handleAuthModalParam}
+        handleAuthModalUrlParam={handleAuthModalUrlParam}
       >
         {components[selectedComponent].component}
       </AuthSelectionProvider>

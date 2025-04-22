@@ -19,7 +19,7 @@ import { AUTH_COMPONENTS } from '../consts';
 import { useAuthContext } from '../context/AuthSelectionProvider';
 
 const ForgotPassword = () => {
-  const { changeSelectedComponent, handleAuthModalParam } = useAuthContext();
+  const { changeSelectedComponent, handleAuthModalUrlParam } = useAuthContext();
   const { t } = useTranslation();
   const { request } = useApiConnection();
   const pathname = usePathname();
@@ -46,7 +46,7 @@ const ForgotPassword = () => {
     onSuccess: () => {
       secureLocalStorage.setItem(USER_EMAIL_KEY, form.values.email);
 
-      handleAuthModalParam({ type: 'set', param: AUTH_COMPONENTS.VERIFY_RESET_CODE });
+      handleAuthModalUrlParam({ type: 'set', param: AUTH_COMPONENTS.VERIFY_RESET_CODE });
 
       changeSelectedComponent(AUTH_COMPONENTS.VERIFY_RESET_CODE);
     },
