@@ -21,15 +21,15 @@ const AlertModalContent = ({
 }: AlertModalContentProps) => {
   const { t } = useTranslation();
   return (
-    <Flex display="flex" direction="column" w="100%" justify="center" mt="xl">
+    <Flex display="flex" direction="column" w="100%" justify="center">
       <Text c="dimmed">{t(descriptionKey)}</Text>
 
       <Flex mt="xl" justify="flex-end" gap={16}>
-        <Button variant="subtle" onClick={onCloseModal}>
+        <Button variant="primaryOutlined" onClick={onCloseModal}>
           {t(closeButtonKey || 'cancel')}
         </Button>
 
-        <Button color={alertType === 'warn' ? 'yellow' : 'red'} onClick={onActionClick}>
+        <Button variant={alertType === 'warn' ? 'default' : 'danger'} onClick={onActionClick}>
           {t(actionButtonKey || 'ok')}
         </Button>
       </Flex>
