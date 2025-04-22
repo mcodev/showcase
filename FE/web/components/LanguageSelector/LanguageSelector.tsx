@@ -2,17 +2,27 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
+import { Select } from '@mantine/core';
 import { SUPPORTED_LANGUAGES } from '@/i18n/consts';
 import i18nConfig from '../../i18n/i18nConfig';
 
+const FORMATTED_LANGUAGES = SUPPORTED_LANGUAGES.map((lang) => {
+  return {
+    value: lang.name,
+    label: lang.label,
+  };
+});
+
 export default function LanguageChanger() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const currentLocale = i18n.language;
   const router = useRouter();
   const currentPathname = usePathname();
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newLocale = e.target.value;
+  const handleChange = (newLocale: string | null) => {
+    if (!newLocale || newLocale === currentLocale) {
+      return;
+    }
 
     // Set persistent cookie for next-i18n-router if when redirect the language does not persist
     // document.cookie = `NEXT_LOCALE=${newLocale}; Max-Age=315360000; Path=/`;
@@ -31,12 +41,11 @@ export default function LanguageChanger() {
   };
 
   return (
-    <select onChange={handleChange} value={currentLocale}>
-      {SUPPORTED_LANGUAGES.map((lang) => (
-        <option key={lang.name} value={lang.name}>
-          {lang.label}
-        </option>
-      ))}
-    </select>
+    <Select
+      value={currentLocale}
+      data={FORMATTED_LANGUAGES}
+      onChange={handleChange}
+      label={t('language')}
+    />
   );
 }

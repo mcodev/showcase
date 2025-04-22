@@ -7,6 +7,8 @@ import {
   Modal,
   PasswordInput,
   PinInput,
+  Select,
+  Textarea,
   TextInput,
 } from '@mantine/core';
 import buttonStyles from './components/Button.module.css';
@@ -14,6 +16,8 @@ import checkboxStyles from './components/Checkbox.module.css';
 import modalStyles from './components/Modal.module.css';
 import passwordInput from './components/PasswordInput.module.css';
 import pinInputStyles from './components/PinInput.module.css';
+import selectStyles from './components/Select.module.css';
+import textAreaStyles from './components/Textarea.module.css';
 import textInputStyles from './components/TextInput.module.css';
 
 export const theme = createTheme({
@@ -44,6 +48,12 @@ export const theme = createTheme({
     }),
     Modal: Modal.extend({
       classNames: modalStyles,
+    }),
+    Select: Select.extend({
+      classNames: selectStyles,
+    }),
+    Textarea: Textarea.extend({
+      classNames: textAreaStyles,
     }),
   },
 });

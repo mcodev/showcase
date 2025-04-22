@@ -1,7 +1,5 @@
 .input {
-  height: var(--interactive-elements-size);
   border: 1px solid var(--color-gray600);
-  padding: 0 var(--spacing-md);
   font-size: 14px;
   font-weight: 400;
   border-radius: var(--border-radius-md);
@@ -38,16 +36,4 @@
   &[data-disabled] {
     background-color: var(--color-bg3);
   }
-}
-
-.root {
-  position: relative;
-  overflow: visible;
-}
-
-.error {
-  position: absolute;
-  bottom: -18px;
-  left: var(--spacing-xs);
-  color: var(--color-error);
 }

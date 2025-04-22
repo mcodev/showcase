@@ -11,26 +11,30 @@ const ColorSchemeToggle = () => {
   const { setColorScheme, colorScheme } = useMantineColorScheme();
 
   return (
-    <Flex gap="xl" align="center" justify="center">
-      <button
-        type="button"
-        className={`${styles.button} ${colorScheme === 'dark' && styles.buttonSelected}`}
-        onClick={() => setColorScheme('dark')}
-      >
-        <IconMoon />
+    <Flex direction="column">
+      <Text mb={4}>{t('theme')}</Text>
 
-        <Text>{t('dark')}</Text>
-      </button>
+      <Flex gap="xl" align="center" justify="center">
+        <button
+          type="button"
+          className={`${styles.button} ${colorScheme === 'dark' && styles.buttonSelected}`}
+          onClick={() => setColorScheme('dark')}
+        >
+          <IconMoon />
 
-      <button
-        type="button"
-        className={`${styles.button} ${colorScheme === 'light' && styles.buttonSelected}`}
-        onClick={() => setColorScheme('light')}
-      >
-        <IconSun />
+          <Text>{t('dark')}</Text>
+        </button>
 
-        <Text>{t('light')}</Text>
-      </button>
+        <button
+          type="button"
+          className={`${styles.button} ${colorScheme === 'light' && styles.buttonSelected}`}
+          onClick={() => setColorScheme('light')}
+        >
+          <IconSun />
+
+          <Text>{t('light')}</Text>
+        </button>
+      </Flex>
     </Flex>
   );
 };

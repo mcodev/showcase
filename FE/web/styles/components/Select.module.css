@@ -1,0 +1,14 @@
+.input {
+  height: var(--interactive-elements-size);
+  border: 1px solid var(--color-gray600);
+  padding: 0 var(--spacing-md);
+  font-size: 14px;
+  font-weight: 400;
+  border-radius: var(--border-radius-md);
+  color: var(--color-text);
+  margin: var(--spacing-xs) 0;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+}
