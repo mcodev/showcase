@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
-import { Text } from '@mantine/core';
+import { Flex, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useModulesContext } from '@/providers/ModulesProvider';
 import { useUserContext } from '@/providers/UserProvider';
@@ -68,36 +68,40 @@ const Profile = () => {
     }
   };
 
-  return isLoggedIn ? (
-    <>
-      <SignedInBar handleOpenDrawer={handleOpenDrawer} handleOpenModal={handleOpenModal} />
+  return (
+    <Flex w={80} justify={isLoggedIn ? 'center' : 'flex-end'}>
+      {isLoggedIn ? (
+        <>
+          <SignedInBar handleOpenDrawer={handleOpenDrawer} handleOpenModal={handleOpenModal} />
 
-      <AccountModal isVisible={isAccountModalVisible} handleCloseModal={closeAccountsModal} />
+          <AccountModal isVisible={isAccountModalVisible} handleCloseModal={closeAccountsModal} />
 
-      <SettingsModal isVisible={isSettingsModalVisible} handleCloseModal={closeSettingsModal} />
+          <SettingsModal isVisible={isSettingsModalVisible} handleCloseModal={closeSettingsModal} />
 
-      <SupportModal isVisible={isSupportModalVisible} handleCloseModal={closeSupportModal} />
+          <SupportModal isVisible={isSupportModalVisible} handleCloseModal={closeSupportModal} />
 
-      <SignOutModal isVisible={isSignOutModalVisible} handleCloseModal={closeSignOutModal} />
+          <SignOutModal isVisible={isSignOutModalVisible} handleCloseModal={closeSignOutModal} />
 
-      <FavoritesDrawer
-        isVisible={isFavoritesDrawerVisible}
-        handleCloseDrawer={closeFavoritesDrawer}
-      />
-    </>
-  ) : (
-    <Text
-      // c="dimmed"
-      ml="md"
-      // size="sm"
-      className="cursor_pointer  hover_color"
-      onClick={openAuthModal}
-      w="100%"
-      miw={80}
-      ta="center"
-    >
-      {t('sign_in')}
-    </Text>
+          <FavoritesDrawer
+            isVisible={isFavoritesDrawerVisible}
+            handleCloseDrawer={closeFavoritesDrawer}
+          />
+        </>
+      ) : (
+        <Text
+          // c="dimmed"
+          ml="md"
+          // size="sm"
+          className="cursor_pointer  hover_color"
+          onClick={openAuthModal}
+          w="100%"
+          miw={80}
+          ta="center"
+        >
+          {t('sign_in')}
+        </Text>
+      )}
+    </Flex>
   );
 };
 
