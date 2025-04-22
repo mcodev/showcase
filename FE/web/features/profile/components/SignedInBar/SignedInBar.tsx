@@ -37,7 +37,7 @@ const SignedInBar = ({ handleOpenDrawer, handleOpenModal }: SignedInBarProps) =>
 
   return (
     <Flex align="center">
-      <Tooltip label={t('view_appointments')} offset={10} openDelay={500}>
+      {/* <Tooltip label={t('view_appointments')} offset={10} openDelay={500}>
         <Indicator disabled withBorder mr={16} className="cursor_pointer flex">
           <IconCalendar
             size={24}
@@ -47,7 +47,7 @@ const SignedInBar = ({ handleOpenDrawer, handleOpenModal }: SignedInBarProps) =>
             // }
           />
         </Indicator>
-      </Tooltip>
+      </Tooltip> */}
 
       {/* <Tooltip label={t('show_my_favorites')} offset={10} openDelay={500}>
         <Indicator disabled withBorder mr={16} className="cursor_pointer flex">
@@ -61,7 +61,7 @@ const SignedInBar = ({ handleOpenDrawer, handleOpenModal }: SignedInBarProps) =>
         </Menu.Target>
 
         <Menu.Dropdown>
-          <Menu.Label>{t('profile')}</Menu.Label>
+          {/* <Menu.Label>{t('profile')}</Menu.Label> */}
 
           {DROPDOWN_MENU_ITEMS.map(
             (item, index) =>
