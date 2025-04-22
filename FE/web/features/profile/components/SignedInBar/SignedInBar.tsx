@@ -23,7 +23,7 @@ const SignedInBar = ({ handleOpenDrawer, handleOpenModal }: SignedInBarProps) =>
   const { t } = useTranslation();
 
   const DROPDOWN_MENU_ITEMS = [
-    { value: 'account', label: 'account', icon: IconUser, isVisible: true },
+    // { value: 'account', label: 'account', icon: IconUser, isVisible: true },
     { value: 'settings', label: 'settings', icon: IconSettings, isVisible: true },
     {
       value: 'upgrade',
